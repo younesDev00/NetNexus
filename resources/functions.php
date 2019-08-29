@@ -169,7 +169,7 @@ function  get_shop_products()
 
 function login_user()
 {
-    if(isset($_POST['submit']))
+    if(isset($_POST['submitlogin']))
     {
         $username = escape_string($_POST['username']);
         $password = escape_string($_POST['password']);
@@ -183,9 +183,63 @@ function login_user()
             redirect("login.php");
         }else
         {
-            set_message("welcome to admin {$username}");
-            redirect("admin");
+            $accounquery = query("SELECT accounttype FROM users WHERE username = '{$username}' AND password = '{$password}'");
+            confirm($accounquery);
+            $accounttype = fetch_array($accounquery);
+
+            if($accounttype[0] == 'seller')
+                redirect("seller.php");
+            else if($accounttype[0] == 'buyer')
+            {
+                redirect("buyer.php");
+            }else if($accounttype[0] == 'admin')
+            {
+                redirect("admin/");
+            }
         }
+    }
+}
+
+function signup_user()
+{
+    if(isset($_POST['submitsignup']))
+    {
+        $username = escape_string($_POST['username']);
+        $email = escape_string($_POST['email']);
+        $password = escape_string($_POST['password']);
+        $passwordrepeat = escape_string($_POST['password-repeat']);
+        $accounttype = escape_string($_POST['accounttype']);
+
+        $checkusers = query("SELECT username FROM users WHERE username = '{$username}' ");
+        confirm($checkusers);
+        if(mysqli_num_rows($checkusers) == 0)
+        {
+
+            if($password == $passwordrepeat)
+            {
+                $query = query("INSERT INTO users(username,useremail,password,accounttype) VALUES('{$username}','{$email}','{$password}','{$accounttype}')");
+                confirm($query);
+                set_message("welcome {$username}");
+                if($accounttype == 'seller')
+                    redirect("seller.php");
+                else if($accounttype == 'buyer')
+                {
+                    redirect("buyer.php");
+                }else
+                {
+                    redirect("index.php");
+                }
+            }else
+            {
+                set_message("Passwords dont match");
+                redirect("signup.php");
+            }
+        }else
+        {
+            set_message("Username already taken");
+            redirect("signup.php");
+        }
+
     }
 }
 

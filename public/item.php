@@ -14,7 +14,7 @@ confirm($query);
 while($row = fetch_array($query)):
 $id = escape_string($_GET['id']);
 ?>
-<div class="col-md-9">
+<div class="bbcolour col-md-9">
 
     <!--Row For Image and Short Description-->
 

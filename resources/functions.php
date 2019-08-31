@@ -63,6 +63,7 @@ function get_products()
     while($row = fetch_array($query))
     {
         $product = <<<DELIMETER
+
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px;">
                     <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
@@ -94,6 +95,7 @@ function get_categories_products()
     while($row = fetch_array($query))
     {
         $product = <<<DELIMETER
+
             <div class="col-md-4 col-sm-6 hero-feature">
                 <div class="thumbnail">
                     <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:200px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
@@ -140,7 +142,8 @@ function  get_shop_products()
     while($row = fetch_array($query))
     {
         $product = <<<DELIMETER
-            <div class="col-md-4 col-sm-6 hero-feature">
+
+            <div class="col-md-4 col-sm-6 col-lg-3">
                 <div class="thumbnail">
                     <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:200px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
                     <div class="caption">
@@ -239,6 +242,7 @@ function signup_user()
 
     }
 }
+
 
 
 

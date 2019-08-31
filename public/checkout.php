@@ -23,7 +23,7 @@
                         <th>Product</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Sub-total</th>
+                        <th >Sub-total</th>
 
                     </tr>
                 </thead>
@@ -31,15 +31,12 @@
                 <?php cart(); ?>
             </table>
             <?php
-            if(isset($_SESSION['total_quantity']))
-            {
-                if($_SESSION['total_quantity'] > 0)
-                {
-                    echo '<input type="image" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="PayPal">';
-                }
-            }
+                if(isset($_SESSION['total_quantity']) && $_SESSION['total_quantity']> 0)
+                echo '<input type="image" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="PayPal">';
             ?>
-            <!--            <input type="submit" value="PayPal">-->
+
+
+<!--<input type="submit" value="PayPal">-->
 
         </form>
 

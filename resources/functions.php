@@ -71,7 +71,7 @@ function get_products()
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;max-height: 64px;">{$row['product_short_description']}</p>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
                         <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
@@ -150,7 +150,7 @@ function  get_shop_products()
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;text-overflow: ellipsis;">{$row['product_short_description']}</p>
+                        <p style="overflow: hidden;text-overflow: ellipsis;height: 64px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
                         <p>

@@ -175,11 +175,11 @@ function redirect_user($username, $password)
 
     if($accounttype['accounttype'] == 'seller')
     {
-        redirect("seller.php?user_id={$accounttype['user_id']}");
+        redirect("user.php?user_id={$accounttype['user_id']}&accounttype={$accounttype['accounttype']}");
     }
     else if($accounttype['accounttype'] == 'buyer')
     {
-        redirect("buyer.php?user_id={$accounttype['user_id']}");
+        redirect("user.php?user_id={$accounttype['user_id']}&accounttype={$accounttype['accounttype']}");
     }else if($accounttype['accounttype'] == 'admin')
     {
         redirect("admin/");

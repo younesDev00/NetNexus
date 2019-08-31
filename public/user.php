@@ -1,14 +1,21 @@
-<!DOCTYPE html>
-<html lang="">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <link rel="stylesheet" href="">
-</head>
+<?php require_once("../resources/config.php");
+      include(TEMPLATE_FRONT . DS . "header.php");
+?>
 
-<body>
-    <script src=""></script>
-</body>
-</html>
+<div class="container">
+    <?php
+        if(isset($_GET['user_id']) && !empty($_GET['user_id'])){
+            $id = $_GET['user_id'];
+            $accounttype = $_GET['accounttype'];
+            echo $id;
+            echo $accounttype;
+
+        }else
+        {
+            redirect('index.php');
+        }
+    ?>
+</div>
+
+    <?php include(TEMPLATE_FRONT . DS . "footer.php");  ?>
 

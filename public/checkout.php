@@ -30,10 +30,13 @@
                 <!--                add cart items-->
                 <?php cart(); ?>
             </table>
-            <input type="image" name="submit"
-    src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
-    alt="PayPal - The safer, easier way to pay online">
-<!--            <input type="submit" value="PayPal">-->
+            <?php
+                if(isset($_SESSION['total_quantity']) && $_SESSION['total_quantity']> 0)
+                echo '<input type="image" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="PayPal">';
+            ?>
+
+
+<!--<input type="submit" value="PayPal">-->
 
         </form>
 

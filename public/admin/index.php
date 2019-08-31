@@ -22,14 +22,15 @@
                     </div>
                 </div>
                 <?php
-                echo $_SERVER['REQUEST_URI'];
-                    if(($_SERVER['REQUEST_URI'] == "/SHOPPINGWEBSITE/public/admin/index.php") || ($_SERVER['REQUEST_URI'] == "/shoppingWebsite/public/admin/"))
-                    {
-                        require_once(TEMPLATE_BACK . "/admin_content.php");
-                    }
-
+                    echo $_SERVER['REQUEST_URI'];
+                        if(($_SERVER['REQUEST_URI'] == "/shoppingWebsite/public/admin/index.php") ||
+                           ($_SERVER['REQUEST_URI'] == "/shoppingWebsite/public/admin/") ||
+                           ($_SERVER['REQUEST_URI'] == "/SHOPPINGWEBSITE/public/admin/index.php") ||
+                           ($_SERVER['REQUEST_URI'] == "/SHOPPINGWEBSITE/public/admin/"))
+                            {
+                                require_once(TEMPLATE_BACK . "/admin_content.php");
+                            }
                 ?>
-
              </div>
         </div>
         <!-- /#page-wrapper -->

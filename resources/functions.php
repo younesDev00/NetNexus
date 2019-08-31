@@ -63,7 +63,6 @@ function get_products()
     while($row = fetch_array($query))
     {
         $product = <<<DELIMETER
-
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px;">
                     <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
@@ -95,7 +94,6 @@ function get_categories_products()
     while($row = fetch_array($query))
     {
         $product = <<<DELIMETER
-
             <div class="col-md-4 col-sm-6 hero-feature">
                 <div class="thumbnail">
                     <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:200px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
@@ -142,7 +140,6 @@ function  get_shop_products()
     while($row = fetch_array($query))
     {
         $product = <<<DELIMETER
-
             <div class="col-md-4 col-sm-6 hero-feature">
                 <div class="thumbnail">
                     <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:200px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
@@ -166,6 +163,26 @@ function  get_shop_products()
     }
 }
 
+function redirect_user($username, $password)
+{
+    $accounquery = query("SELECT accounttype, user_id FROM users WHERE username = '{$username}' AND password = '{$password}'");
+    confirm($accounquery);
+
+    $accounttype = fetch_array($accounquery);
+
+    if($accounttype['accounttype'] == 'seller')
+    {
+        redirect("seller.php?user_id={$accounttype['user_id']}");
+    }
+    else if($accounttype['accounttype'] == 'buyer')
+    {
+        redirect("buyer.php?user_id={$accounttype['user_id']}");
+    }else if($accounttype['accounttype'] == 'admin')
+    {
+        redirect("admin/");
+    }
+}
+
 
 function login_user()
 {
@@ -183,19 +200,7 @@ function login_user()
             redirect("login.php");
         }else
         {
-            $accounquery = query("SELECT accounttype FROM users WHERE username = '{$username}' AND password = '{$password}'");
-            confirm($accounquery);
-            $accounttype = fetch_array($accounquery);
-
-            if($accounttype[0] == 'seller')
-                redirect("seller.php");
-            else if($accounttype[0] == 'buyer')
-            {
-                redirect("buyer.php");
-            }else if($accounttype[0] == 'admin')
-            {
-                redirect("admin/");
-            }
+            redirect_user($username, $password);
         }
     }
 }
@@ -220,15 +225,7 @@ function signup_user()
                 $query = query("INSERT INTO users(username,useremail,password,accounttype) VALUES('{$username}','{$email}','{$password}','{$accounttype}')");
                 confirm($query);
                 set_message("welcome {$username}");
-                if($accounttype == 'seller')
-                    redirect("seller.php");
-                else if($accounttype == 'buyer')
-                {
-                    redirect("buyer.php");
-                }else
-                {
-                    redirect("index.php");
-                }
+                redirect_user($username, $password);
             }else
             {
                 set_message("Passwords dont match");

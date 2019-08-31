@@ -96,7 +96,6 @@ function cart()
                           <input type="hidden" name="item_number_{$item_number}" value="{$row['product_id']}">
                           <input type="hidden" name="amount_{$amount}" value="{$row['product_price']}">
                           <input type="hidden" name="quantity_{$quan}" value="{$value}">
-
                     </tbody>
 
                     DELIMETER;

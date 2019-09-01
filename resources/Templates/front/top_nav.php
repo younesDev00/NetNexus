@@ -28,7 +28,7 @@
                   <a href="contact.php">Contact</a>
               </li>
               <li>
-                  <a href="signup.php">signup</a>
+                  <a href="register.php">signup</a>
               </li>
 
           </ul>

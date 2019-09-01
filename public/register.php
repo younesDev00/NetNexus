@@ -8,12 +8,24 @@
     <header>
         <h1 class="text-center">Register a NetNexus Account</h1>
         <h2 class="text-center bg-warning"><?php display_message(); ?></h2>
-        <div class="col-sm-4 col-sm-offset-5">
+        <div class="col-sm-4 col-sm-offset-4">
             <form class="" action="" method="post" enctype="multipart/form-data">
 
                 <div class="form-group">
+                    <label for="username">First Name:</label>
+                    <input type="text" name="username" class="form-control" placeholder="Your username " id="username" required data-validation-required-message="Please enter your first name.">
+                    <p class="help-block text-danger"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Last Name:</label>
+                    <input type="text" name="username" class="form-control" placeholder="Your username " id="username" required data-validation-required-message="Please enter your last name.">
+                    <p class="help-block text-danger"></p>
+                </div>
+
+                <div class="form-group">
                     <label for="username">User Name:</label>
-                    <input type="text" name="username" class="form-control" placeholder="Your username " id="username" required data-validation-required-message="Please enter your name.">
+                    <input type="text" name="username" class="form-control" placeholder="Your username " id="username" required data-validation-required-message="Please enter a user name.">
                     <p class="help-block text-danger"></p>
                 </div>
 

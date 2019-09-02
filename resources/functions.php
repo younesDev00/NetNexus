@@ -65,13 +65,13 @@ function get_products()
         $product = <<<DELIMETER
 
             <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px;">
+                <div class="thumbnail" style="height:340px">
                     <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
                     <div class="caption">
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;text-overflow: ellipsis;">{$row['product_short_description']}</p>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
                         <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
@@ -103,7 +103,7 @@ function get_categories_products()
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;text-overflow: ellipsis;">{$row['product_short_description']}</p>
+                        <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
                         <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
@@ -143,14 +143,14 @@ function  get_shop_products()
     {
         $product = <<<DELIMETER
 
-            <div class="col-md-4 col-sm-6 hero-feature">
+            <div class="col-md-4 col-sm-6 col-lg-3">
                 <div class="thumbnail">
                     <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:200px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
                     <div class="caption">
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;text-overflow: ellipsis;">{$row['product_short_description']}</p>
+                        <p style="overflow: hidden;text-overflow: ellipsis;height: 64px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
                         <p>
@@ -166,10 +166,30 @@ function  get_shop_products()
     }
 }
 
+function redirect_user($username, $password)
+{
+    $accounquery = query("SELECT accounttype, user_id FROM users WHERE username = '{$username}' AND password = '{$password}'");
+    confirm($accounquery);
+
+    $accounttype = fetch_array($accounquery);
+
+    if($accounttype['accounttype'] == 'seller')
+    {
+        redirect("user.php?user_id={$accounttype['user_id']}&accounttype={$accounttype['accounttype']}");
+    }
+    else if($accounttype['accounttype'] == 'buyer')
+    {
+        redirect("user.php?user_id={$accounttype['user_id']}&accounttype={$accounttype['accounttype']}");
+    }else if($accounttype['accounttype'] == 'admin')
+    {
+        redirect("admin/");
+    }
+}
+
 
 function login_user()
 {
-    if(isset($_POST['submit']))
+    if(isset($_POST['submitlogin']))
     {
         $username = escape_string($_POST['username']);
         $password = escape_string($_POST['password']);
@@ -183,11 +203,46 @@ function login_user()
             redirect("login.php");
         }else
         {
-            set_message("welcome to admin {$username}");
-            redirect("admin");
+            redirect_user($username, $password);
         }
     }
 }
+
+function signup_user()
+{
+    if(isset($_POST['submitsignup']))
+    {
+        $username = escape_string($_POST['username']);
+        $email = escape_string($_POST['email']);
+        $password = escape_string($_POST['password']);
+        $passwordrepeat = escape_string($_POST['password-repeat']);
+        $accounttype = escape_string($_POST['accounttype']);
+
+        $checkusers = query("SELECT username FROM users WHERE username = '{$username}' ");
+        confirm($checkusers);
+        if(mysqli_num_rows($checkusers) == 0)
+        {
+
+            if($password == $passwordrepeat)
+            {
+                $query = query("INSERT INTO users(username,useremail,password,accounttype) VALUES('{$username}','{$email}','{$password}','{$accounttype}')");
+                confirm($query);
+                set_message("welcome {$username}");
+                redirect_user($username, $password);
+            }else
+            {
+                set_message("Passwords dont match");
+                redirect("signup.php");
+            }
+        }else
+        {
+            set_message("Username already taken");
+            redirect("signup.php");
+        }
+
+    }
+}
+
 
 
 

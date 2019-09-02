@@ -7,7 +7,7 @@
 
     <!-- Jumbotron Header -->
     <header>
-        <h1>Shopp</h1>
+        <h1>Shop</h1>
     </header>
 
     <hr>

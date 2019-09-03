@@ -1,15 +1,15 @@
 /* .caption {
-    height: 200px;
-   width: 200px;
-    overflow: auto;
+height: 200px;
+width: 200px;
+overflow: auto;
 }
 */
 
 
 /*
 imgsize {
-    width: auto;
-    height: 150px;
+width: auto;
+height: 150px;
 }
 */
 
@@ -17,4 +17,10 @@ imgsize {
 
 .thumbnail {
     height: 400px;
+}
+
+.searchbar {
+    color: black;
+        float: right;
+    padding: 10px;
 }

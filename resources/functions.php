@@ -57,6 +57,7 @@ function fetch_array($result)
 
 function get_products()
 {
+
     $query = query(" SELECT * FROM products");
     confirm($query);
 
@@ -136,7 +137,11 @@ function get_categories()
 
 function  get_shop_products()
 {
-    $query = query(" SELECT * FROM products");
+   $lowPrice;
+   $highPrice;
+
+    if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice']))) {
+        $query = query(" SELECT * FROM products");
     confirm($query);
 
     while($row = fetch_array($query))
@@ -163,6 +168,11 @@ function  get_shop_products()
 
         echo $product;
     }
+
+    }else {
+        get_price_products();
+    }
+
 }
 
 function redirect_user($username, $password)
@@ -275,10 +285,7 @@ function send_message()
 function get_search_products()
 {
 
-//OR product_category_id IN(Select cat_id from categories where cat_title like '%$search%')"
-
-
-    $query = query("SELECT * FROM products WHERE product_brand LIKE '%". escape_string($_POST['search']) ."%' OR product_category_id IN(Select cat_id from categories where cat_title like'%". escape_string($_POST['search']) ."%')  ");
+    $query = query("SELECT * FROM products WHERE product_brand LIKE '%". escape_string($_GET['search']) ."%' OR product_category_id IN(Select cat_id from categories where cat_title like'%". escape_string($_GET['search']) ."%')  ");
     confirm($query);
 
     while($row = fetch_array($query))
@@ -308,24 +315,12 @@ function get_search_products()
 }
 
 
-function get_prices()
 
-
-{
-        $prices = <<<DELIMETER
-                    <a href="price.php?price=500" class="list-group-item">Less than $500</a>
-                    <a href="price.php?price=1000" class="list-group-item">$500-$1000</a>
-                    <a href="price.php?price=2000" class="list-group-item">$1000-$2000</a>
-                    <a href="price.php?price=3000" class="list-group-item">$2000-$3000</a>
-                    <a href="price.php?price=4000" class="list-group-item">$3000-$4000</a>
-        DELIMETER;
-        echo $prices;
-}
 
 
 function get_price_products()
 {
-    $query = query(" SELECT * FROM products WHERE product_price < " . escape_string($_GET['price']) ."");
+    $query = query(" SELECT * FROM products WHERE product_price BETWEEN " . escape_string($_GET['lowPrice']) ." AND " . escape_string($_GET['highPrice']) ." ");
     confirm($query);
 
     while($row = fetch_array($query))

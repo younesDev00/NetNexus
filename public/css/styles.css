@@ -21,11 +21,20 @@ height: 150px;
 
 
 form.search {
-    padding: 10px;
     float: right;
+    padding: 10px;
+}
 
+form {
+    float: right;
+    padding: 10px;
 }
 
 form.search button {
     cursor: pointer;
+    background-color: #337ab7;
+    border-color: #337ab7;
+    color: white;
+    height: 100%;
+    border-radius: 20%;
 }

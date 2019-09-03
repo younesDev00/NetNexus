@@ -307,13 +307,52 @@ function get_search_products()
     }
 }
 
-function get_search() {
+
+function get_prices()
 
 
-
-
+{
+        $prices = <<<DELIMETER
+                    <a href="price.php?price=500" class="list-group-item">Less than $500</a>
+                    <a href="price.php?price=1000" class="list-group-item">$500-$1000</a>
+                    <a href="price.php?price=2000" class="list-group-item">$1000-$2000</a>
+                    <a href="price.php?price=3000" class="list-group-item">$2000-$3000</a>
+                    <a href="price.php?price=4000" class="list-group-item">$3000-$4000</a>
+        DELIMETER;
+        echo $prices;
 }
 
+
+function get_price_products()
+{
+    $query = query(" SELECT * FROM products WHERE product_price < " . escape_string($_GET['price']) ."");
+    confirm($query);
+
+    while($row = fetch_array($query))
+    {
+ $product = <<<DELIMETER
+
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+
+        DELIMETER;
+
+        echo $product;
+    }
+}
 
 
 //____________________________________ back end functions__________________//

@@ -29,7 +29,7 @@ form.search {
 form.search button {
     cursor: pointer;
     background-color: silver;
-    border-color: #337ab7;
+    border-color: black;
     color: black;
     height: 100%;
 }

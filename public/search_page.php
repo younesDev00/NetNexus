@@ -18,7 +18,7 @@ include(TEMPLATE_FRONT . DS . "header.php");
         get_search_products();
 
     }else {
-        echo "There are no results matching your s====earch!";
+        echo "There are no results matching your search!";
     }
 
 ?>

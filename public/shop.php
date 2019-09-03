@@ -2,15 +2,29 @@
       include(TEMPLATE_FRONT . DS . "header.php");
 ?>
 
-<!-- Page Content -->
-<div class="container">
 
-    <!-- Jumbotron Header -->
     <header>
         <h1>Shop</h1>
     </header>
 
     <hr>
+
+<div class="col-md-2">
+    <div class="list-group">
+
+    	<?php
+
+    		get_categories();
+    	 ?>
+    </div>
+</div>
+
+
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Jumbotron Header -->
+
     <!-- Page Features -->
     <div class="row text-center">
 

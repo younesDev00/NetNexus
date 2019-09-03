@@ -38,10 +38,12 @@
 
         </ul>
 
-        <form class="search">
+        <form class="search" action="search_page.php" method="post">
         <input type="text" placeholder="Search" name="search">
             <button type="submit">Search</button>
         </form>
+
+
 
     </div>
 

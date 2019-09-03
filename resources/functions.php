@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 //helper functions
 
@@ -137,43 +137,25 @@ function get_categories()
 
 function  get_shop_products()
 {
-   $lowPrice;
-   $highPrice;
+    $lowPrice;
+    $highPrice;
+    $search;
 
-    if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice']))) {
-        $query = query(" SELECT * FROM products");
-    confirm($query);
+    if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) && empty(escape_string($_GET['search']))) {
+        get_all_products();
 
-    while($row = fetch_array($query))
-    {
-        $product = <<<DELIMETER
+    } else if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice']))) {
+        get_search();
 
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
-                        </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
-                    </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
-                    </div>
-                </div>
-            </div>
-
-        DELIMETER;
-
-        echo $product;
-    }
-
-    }else {
+    } else if (empty(escape_string($_GET['search']))) {
         get_price_products();
-    }
 
+    } else if (escape_string($_GET['lowPrice']) && escape_string($_GET['highPrice']) && escape_string($_GET['search'])) {
+        get_search_price_products();
+    }
 }
+
+
 
 function redirect_user($username, $password)
 {
@@ -282,15 +264,26 @@ function send_message()
     }
 }
 
-function get_search_products()
+function get_search()
 {
 
-    $query = query("SELECT * FROM products WHERE product_brand LIKE '%". escape_string($_GET['search']) ."%' OR product_category_id IN(Select cat_id from categories where cat_title like'%". escape_string($_GET['search']) ."%')  ");
+    $search = $_GET["search"];
+
+
+    $query= query("SELECT * FROM products WHERE product_brand LIKE '%$search%' OR product_category_id IN(Select cat_id from categories where cat_title like '%$search%')");
     confirm($query);
 
-    while($row = fetch_array($query))
-    {
-        $product = <<<DELIMETER
+
+    $queryResult = mysqli_num_rows($query);
+
+    if ($queryResult > 0) {
+
+        $query = query("SELECT * FROM products WHERE product_brand LIKE '%". escape_string($_GET['search']) ."%' OR product_category_id IN(Select cat_id from categories where cat_title like'%". escape_string($_GET['search']) ."%')  ");
+        confirm($query);
+
+        while($row = fetch_array($query))
+        {
+            $product = <<<DELIMETER
 
            <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px">
@@ -310,9 +303,15 @@ function get_search_products()
 
         DELIMETER;
 
-        echo $product;
+            echo $product;
+
+        }
+    }else {
+        echo "There are no results matching your search!";
     }
+
 }
+
 
 
 
@@ -325,7 +324,7 @@ function get_price_products()
 
     while($row = fetch_array($query))
     {
- $product = <<<DELIMETER
+        $product = <<<DELIMETER
 
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px">
@@ -349,5 +348,67 @@ function get_price_products()
     }
 }
 
+function get_all_products() {
+    $query = query(" SELECT * FROM products");
+    confirm($query);
+
+    while($row = fetch_array($query))
+    {
+        $product = <<<DELIMETER
+
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+
+        DELIMETER;
+
+        echo $product;
+    }
+}
+
+function get_search_price_products() {
+    $query = query(" SELECT * FROM products WHERE product_price BETWEEN " . escape_string($_GET['lowPrice']) ." AND " . escape_string($_GET['highPrice']) ." AND product_brand LIKE '%". escape_string($_GET['search']) ."%' OR product_category_id IN(Select cat_id from categories where cat_title like'%". escape_string($_GET['search']) ."%')");
+    confirm($query);
+    while($row = fetch_array($query))
+    {
+        $product = <<<DELIMETER
+
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+
+        DELIMETER;
+
+        echo $product;
+    }
+}
+
+function check_search() {
+
+}
 
 //____________________________________ back end functions__________________//

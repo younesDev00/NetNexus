@@ -36,5 +36,4 @@ include(TEMPLATE_FRONT . DS . "side_nav.php");
 
 <?php include(TEMPLATE_FRONT . DS . "footer.php");  ?>
 
-<?php include(TEMPLATE_FRONT . DS . "footer.php");  ?>
 

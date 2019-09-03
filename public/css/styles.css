@@ -19,8 +19,13 @@ height: 150px;
     height: 400px;
 }
 
-.searchbar {
-    color: black;
-        float: right;
+
+form.search {
     padding: 10px;
+    float: right;
+
+}
+
+form.search button {
+    cursor: pointer;
 }

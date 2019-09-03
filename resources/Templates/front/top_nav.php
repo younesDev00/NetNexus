@@ -18,7 +18,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li>
-                <a href="shop.php?lowPrice&highPrice">Shop</a>
+                <a href="shop.php?lowPrice&highPrice&search">Shop</a>
             </li>
             <li>
                 <a href="login.php">Login</a>
@@ -38,10 +38,12 @@
 
         </ul>
 
-            <form class="search" action="search_page.php" method="get">
-                <input type="text" placeholder="Product Search" name="search">
-                <button type="submit">Search</button>
-            </form>
+        <form class="search"  action="shop.php?lowPrice&highPrice&search" method="get">
+            <input type="hidden" placeholder="Product Search" name="lowPrice">
+            <input type="hidden" placeholder="Product Search" name="highPrice">
+            <input type="text" placeholder="Product Search" name="search">
+            <button type="submit" >Search</button>
+        </form>
 
 
 

@@ -14,7 +14,6 @@ height: 150px;
 */
 
 
-
 .thumbnail {
     height: 400px;
 }
@@ -23,18 +22,32 @@ height: 150px;
 form.search {
     float: right;
     padding: 10px;
+    border-radius: 10%;
 }
 
-form {
-    float: right;
-    padding: 10px;
-}
 
 form.search button {
     cursor: pointer;
-    background-color: #337ab7;
+    background-color: silver;
     border-color: #337ab7;
-    color: white;
+    color: black;
     height: 100%;
-    border-radius: 20%;
+}
+
+form.search button:hover {
+    background-color: #337ab7;
+    color: white;
+}
+
+.panel-title {
+    font-size: 20px;
+
+}
+
+.list-group {
+    font-size: 15px;
+}
+
+.sidebarheading {
+    font-size: 30px;
 }

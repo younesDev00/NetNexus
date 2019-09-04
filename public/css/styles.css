@@ -46,8 +46,11 @@ form.search button:hover {
 
 .list-group {
     font-size: 15px;
+
 }
 
 .sidebarheading {
     font-size: 30px;
+    align-content: center;
+
 }

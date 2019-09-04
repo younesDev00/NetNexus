@@ -11,7 +11,7 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="index.php">
-            <img src="https://i.imgur.com/kaBX8fL.png" alt="">
+            <img src="https://i.imgur.com/kaBX8fL.png" alt="" >
         </a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->

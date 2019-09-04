@@ -137,22 +137,30 @@ function get_categories()
 
 function  get_shop_products()
 {
+
+
     $lowPrice;
     $highPrice;
-    $search;
 
-    if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) && empty(escape_string($_GET['search']))) {
-        get_all_products();
 
-    } else if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice']))) {
+    //if search is entered but no price filter
+    if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) &&(escape_string($_GET['search']))) {
         get_search();
 
+        // if search is entered, and price filter
+    }else if (escape_string($_GET['lowPrice']) && escape_string($_GET['highPrice']) && escape_string($_GET['search'])) {
+        get_search_price_products();
+
+        // if no filter or search entered
+    } else if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) && empty(escape_string($_GET['search']))) {
+        get_all_products();
+
+
+        // if price filter is entered
     } else if (empty(escape_string($_GET['search']))) {
         get_price_products();
-
-    } else if (escape_string($_GET['lowPrice']) && escape_string($_GET['highPrice']) && escape_string($_GET['search'])) {
-        get_search_price_products();
     }
+
 }
 
 
@@ -264,6 +272,7 @@ function send_message()
     }
 }
 
+// function to get products based on search
 function get_search()
 {
 
@@ -313,9 +322,7 @@ function get_search()
 }
 
 
-
-
-
+// function to get products based on price range
 
 function get_price_products()
 {
@@ -347,6 +354,7 @@ function get_price_products()
         echo $product;
     }
 }
+// function to display all products
 
 function get_all_products() {
     $query = query(" SELECT * FROM products");
@@ -378,7 +386,9 @@ function get_all_products() {
     }
 }
 
+// function to filter product by search and also price
 function get_search_price_products() {
+
     $query = query(" SELECT * FROM products WHERE product_price BETWEEN " . escape_string($_GET['lowPrice']) ." AND " . escape_string($_GET['highPrice']) ." AND product_brand LIKE '%". escape_string($_GET['search']) ."%' OR product_category_id IN(Select cat_id from categories where cat_title like'%". escape_string($_GET['search']) ."%')");
     confirm($query);
     while($row = fetch_array($query))

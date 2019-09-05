@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="accounttype">Account Type</label>
+                    <label for="accounttype">Account Type: </label>
 
                         <select name="accounttype">
                             <option value="buyer">Buyer</option>

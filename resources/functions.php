@@ -183,6 +183,14 @@ function redirect_user($username, $password)
     }
 }
 
+function redirect_email()
+{
+   // $accounquery = query("SELECT accounttype, user_id FROM users WHERE username = '{$username}' AND password = '{$password}'");
+  //  confirm($accounquery);
+
+   // $accounttype = fetch_array($accounquery);
+        redirect("emailconfirmation.php");
+}
 
 function login_user()
 {
@@ -226,17 +234,17 @@ function signup_user()
             {
                 $query = query("INSERT INTO users(firstname, lastname, username, useremail, password, accounttype) VALUES('{$firstname}', '{$lastname}', '{$username}','{$email}','{$password}','{$accounttype}')");
                 confirm($query);
-                set_message("welcome {$firstname}");
-                redirect_user($username, $password);
+                //set_message("Welcome {$firstname}");
+                redirect_email();
             }else
             {
-                set_message("Passwords dont match");
-                redirect("signup.php");
+                set_message("Passwords Do Not Match");
+                redirect("register.php");
             }
         }else
         {
-            set_message("Username already taken");
-            redirect("signup.php");
+            set_message("Username Already Taken");
+            redirect("register.php");
         }
 
     }

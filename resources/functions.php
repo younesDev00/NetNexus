@@ -232,10 +232,20 @@ function signup_user()
 
             if($password == $passwordrepeat)
             {
-                $query = query("INSERT INTO users(firstname, lastname, username, useremail, password, accounttype) VALUES('{$firstname}', '{$lastname}', '{$username}','{$email}','{$password}','{$accounttype}')");
+                $confirmcode = rand();
+                $query = query("INSERT INTO users(firstname, lastname, username, useremail, password, accounttype, confirmed, confirmcode) VALUES('{$firstname}', '{$lastname}', '{$username}','{$email}','{$password}','{$accounttype}', '0', '{$confirmcode}')");
                 confirm($query);
-                //set_message("Welcome {$firstname}");
-                redirect_email();
+                $message =
+                "
+                Confirm Your Email!
+                Click the link below to verify your NetNexus account
+                http://192.168.64.2/shoppingtest/public/emailconfirmation.php?username=$username&code=$confirmcode
+                ";
+
+                mail($email,"NetNexus Email Confirmation",$message,"From: donotreply@netnexus.com");
+
+		      echo "Registration Complete! Please confirm your email address";
+
             }else
             {
                 set_message("Passwords Do Not Match");

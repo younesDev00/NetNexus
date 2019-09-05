@@ -209,6 +209,8 @@ function signup_user()
 {
     if(isset($_POST['submitsignup']))
     {
+        $firstname = escape_string($_POST['firstname']);
+        $lastname = escape_string($_POST['lastname']);
         $username = escape_string($_POST['username']);
         $email = escape_string($_POST['email']);
         $password = escape_string($_POST['password']);
@@ -222,9 +224,9 @@ function signup_user()
 
             if($password == $passwordrepeat)
             {
-                $query = query("INSERT INTO users(username,useremail,password,accounttype) VALUES('{$username}','{$email}','{$password}','{$accounttype}')");
+                $query = query("INSERT INTO users(firstname, lastname, username, useremail, password, accounttype) VALUES('{$firstname}', '{$lastname}', '{$username}','{$email}','{$password}','{$accounttype}')");
                 confirm($query);
-                set_message("welcome {$username}");
+                set_message("welcome {$firstname}");
                 redirect_user($username, $password);
             }else
             {

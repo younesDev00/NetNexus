@@ -1,5 +1,6 @@
-<?php require_once("../resources/config.php");
-      include(TEMPLATE_FRONT . DS . "header.php");
+<?php
+    require_once("../resources/config.php");
+    include(TEMPLATE_FRONT . DS . "header.php");
 ?>
 
 <div class="container">
@@ -9,7 +10,6 @@
             $accounttype = $_GET['accounttype'];
             echo $id;
             echo $accounttype;
-
         }else
         {
             redirect('index.php');
@@ -18,4 +18,3 @@
 </div>
 
     <?php include(TEMPLATE_FRONT . DS . "footer.php");  ?>
-

@@ -13,19 +13,19 @@
 
                 <div class="form-group">
                     <label for="username">First Name:</label>
-                    <input type="text" name="username" class="form-control" placeholder="Your username " id="username" required data-validation-required-message="Please enter your first name.">
+                    <input type="text" name="firstname" class="form-control" placeholder="Your First Name " id="firstname" required data-validation-required-message="Please enter your first name.">
                     <p class="help-block text-danger"></p>
                 </div>
 
                 <div class="form-group">
                     <label for="username">Last Name:</label>
-                    <input type="text" name="username" class="form-control" placeholder="Your username " id="username" required data-validation-required-message="Please enter your last name.">
+                    <input type="text" name="lastname" class="form-control" placeholder="Your Last Name " id="lastname" required data-validation-required-message="Please enter your last name.">
                     <p class="help-block text-danger"></p>
                 </div>
 
                 <div class="form-group">
                     <label for="username">User Name:</label>
-                    <input type="text" name="username" class="form-control" placeholder="Your username " id="username" required data-validation-required-message="Please enter a user name.">
+                    <input type="text" name="username" class="form-control" placeholder="Your Username " id="username" required data-validation-required-message="Please enter a user name.">
                     <p class="help-block text-danger"></p>
                 </div>
 
@@ -43,7 +43,7 @@
 
                 <div class="form-group">
                     <label for="password-repeat">Check password:</label>
-                    <input type="password" name="password-repeat" class="form-control" placeholder="check password" id="password-repeat" required data-validation-required-message="password check required">
+                    <input type="password" name="password-repeat" class="form-control" placeholder="Check Password" id="password-repeat" required data-validation-required-message="password check required">
                     <p class="help-block text-danger"></p>
                 </div>
 

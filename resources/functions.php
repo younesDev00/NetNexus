@@ -194,14 +194,15 @@ function login_user()
         $userinput = escape_string($_POST['username']);
         $password = escape_string($_POST['password']);
 
-        $query = query("SELECT * FROM users WHERE useremail = '{$userinput}' OR username = '{$userinput}' AND password = '{$password}'");
+        $query = query("SELECT * FROM users WHERE useremail = '{$userinput}' OR username = '{$userinput}'");
         confirm($query);
+        $hashed = fetch_array($query);
 
         if(mysqli_num_rows($query) == 0)
         {
             set_message("incorrect password or username");
             redirect("login.php");
-        }else
+        }else if(password_verify($password, $hashed['password']))
         {
             redirect_user($userinput, $password);
         }
@@ -225,7 +226,8 @@ function signup_user()
 
             if($password == $passwordrepeat)
             {
-                $query = query("INSERT INTO users(username,useremail,password,accounttype) VALUES('{$username}','{$email}','{$password}','{$accounttype}')");
+                $hashedpwd = password_hash($password,PASSWORD_DEFAULT);
+                $query = query("INSERT INTO users(username,useremail,password,accounttype) VALUES('{$username}','{$email}','{$hashedpwd}','{$accounttype}')");
                 confirm($query);
                 set_message("welcome {$username}");
                 redirect_user($username, $password);

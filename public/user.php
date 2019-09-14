@@ -5,11 +5,8 @@
 
 <div class="container">
     <?php
-        if(isset($_GET['user_id']) && !empty($_GET['user_id'])){
-            $id = $_GET['user_id'];
-            $accounttype = $_GET['accounttype'];
-            echo $id;
-            echo $accounttype;
+        if(isset($_SESSION['username']) && $_SESSION['username'][1] == 'buyer'){
+            echo $_SESSION['username'][0];
         }else
         {
             redirect('index.php');

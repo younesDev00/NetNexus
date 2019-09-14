@@ -165,21 +165,27 @@ function  get_shop_products()
 
 function redirect_user($username, $password)
 {
-    $accounquery = query("SELECT accounttype, user_id FROM users WHERE username = '{$username}' OR useremail = '{$username}' AND password = '{$password}'");
+    $accounquery = query("SELECT * FROM users WHERE username = '{$username}' OR useremail = '{$username}' AND password = '{$password}'");
     confirm($accounquery);
 
-    $accounttype = fetch_array($accounquery);
+    $accarr = fetch_array($accounquery);
 
-    if($accounttype['accounttype'] == 'seller')
+
+    $arr = array($accarr['firstname'], $accarr['accounttype'],$accarr['username']);
+
+    $_SESSION['username'] = $arr;
+
+
+    if($accarr['accounttype'] == 'buyer')
     {
-        redirect("user.php?user_id={$accounttype['user_id']}&accounttype={$accounttype['accounttype']}");
+        redirect("user.php?user_id={$accarr['user_id']}&accounttype={$accarr['accounttype']}");
     }
-    else if($accounttype['accounttype'] == 'buyer')
+    else if($accarr['accounttype'] == 'seller')
     {
-        redirect("user.php?user_id={$accounttype['user_id']}&accounttype={$accounttype['accounttype']}");
-    }else if($accounttype['accounttype'] == 'admin')
+        redirect("admin/index.php?main");// the ? after php for buyer no longer needed
+    }else if($accarr['accounttype'] == 'admin')
     {
-        redirect("admin/");
+        redirect("admin/index.php?main");// the ? after php for admin no longer needed
     }
 }
 
@@ -210,6 +216,8 @@ function signup_user()
 {
     if(isset($_POST['submitsignup']))
     {
+        $firstname = escape_string($_POST['firstname']);
+        $lastname = escape_string($_POST['lastname']);
         $username = escape_string($_POST['username']);
         $email = escape_string($_POST['email']);
         $password = escape_string($_POST['password']);
@@ -224,7 +232,7 @@ function signup_user()
             if($password == $passwordrepeat)
             {
                 $hashedpwd = password_hash($password,PASSWORD_DEFAULT);
-                $query = query("INSERT INTO users(username,useremail,password,accounttype) VALUES('{$username}','{$email}','{$hashedpwd}','{$accounttype}')");
+                $query = query("INSERT INTO users(firstname,lastname,username,useremail,password,accounttype) VALUES('{$firstname}','{$lastname}','{$username}','{$email}','{$hashedpwd}','{$accounttype}')");
                 confirm($query);
                 set_message("welcome {$username}");
                 redirect_user($username, $password);
@@ -239,6 +247,15 @@ function signup_user()
             redirect("signup.php");
         }
 
+    }
+}
+
+function signout()
+{
+    if(isset($_POST['logout']))
+    {
+        session_destroy();
+        redirect('index.php');
     }
 }
 

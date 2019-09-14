@@ -12,13 +12,13 @@
             <form class="" action="" method="post" enctype="multipart/form-data">
 
                 <div class="form-group">
-                    <label for="username">First Name:</label>
+                    <label for="firstname">First Name:</label>
                     <input type="text" name="firstname" class="form-control" placeholder="Your First Name " id="firstname" required data-validation-required-message="Please enter your first name.">
                     <p class="help-block text-danger"></p>
                 </div>
 
                 <div class="form-group">
-                    <label for="username">Last Name:</label>
+                    <label for="lastname">Last Name:</label>
                     <input type="text" name="lastname" class="form-control" placeholder="Your Last Name " id="lastname" required data-validation-required-message="Please enter your last name.">
                     <p class="help-block text-danger"></p>
                 </div>

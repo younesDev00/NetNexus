@@ -5,7 +5,7 @@
     confirm($query);
 
     while($row = fetch_array($query)) {
-      if($row['product_quantity'] != $_SESSION['product_' . $_GET['add']]) {
+      if($row['product_quantity'] >= $_SESSION['product_' . $_GET['add']]) {
         $_SESSION['product_' . $_GET['add']]+=1;
         redirect("../public/checkout.php");
       } else {

@@ -1,4 +1,5 @@
  <?php
+require("PHPMailer/PHPMailerAutoload.php");
 
 //helper functions
 
@@ -235,16 +236,16 @@ function signup_user()
                 $confirmcode = rand();
                 $query = query("INSERT INTO users(firstname, lastname, username, useremail, password, accounttype, confirmed, confirmcode) VALUES('{$firstname}', '{$lastname}', '{$username}','{$email}','{$password}','{$accounttype}', '0', '{$confirmcode}')");
                 confirm($query);
-                $message =
-                "
-                Confirm Your Email!
-                Click the link below to verify your NetNexus account
-                http://192.168.64.2/shoppingtest/public/emailconfirmation.php?username=$username&code=$confirmcode
-                ";
+                //$message =
+                //"
+               // Confirm Your Email!
+               // Click the link below to verify your NetNexus account
+               // http://192.168.64.2/shoppingtest/public/emailconfirmation.php?username=$username&code=$confirmcode
+                //";
 
-                mail($email,"NetNexus Email Confirmation",$message,"From: donotreply@netnexus.com");
+                send_mail($email, $username, $confirmcode);
 
-		      echo "Registration Complete! Please confirm your email address";
+		      //echo "Registration Complete! Please confirm your email address";
 
             }else
             {
@@ -288,6 +289,48 @@ function send_message()
 
         }
     }
+}
+
+function send_mail($email, $username, $confirmcode)
+{
+ $mail = new PHPMailer;
+
+//$mail->SMTPDebug = 3;                               // Enable verbose debug output
+
+$mail->isSMTP();                                      // Set mailer to use SMTP
+$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+$mail->SMTPAuth = true;                               // Enable SMTP authentication
+$mail->Username = 'netnexusshop@gmail.com';                 // SMTP username
+$mail->Password = 'netnexus123';                           // SMTP password
+$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+$mail->Port = 587;                                    // TCP port to connect to
+
+$mail->setFrom('donotreply@netnexus.com', 'NetNexus');
+$mail->addAddress($email);     // Add a recipient
+//$mail->addAddress('ellen@example.com');               // Name is optional
+//$mail->addReplyTo('info@example.com', 'Information');
+//$mail->addCC('cc@example.com');
+//$mail->addBCC('bcc@example.com');
+
+//$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+//$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+//$mail->isHTML(true);                                  // Set email format to HTML
+
+$mail->Subject = 'NetNexus Email Confirmation';
+$mail->Body    = "
+                Confirm Your Email!
+                Click the link below to verify your NetNexus account
+                http://192.168.64.2/shoppingtest/public/emailconfirmation.php?username=$username&code=$confirmcode
+                ";
+//$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+    if(!$mail->send()) {
+    echo 'Message could not be sent.';
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
+} else {
+    echo 'Registration Complete! Check your emails for a confirmation!';
+}
+
 }
 
 // function to get products based on search

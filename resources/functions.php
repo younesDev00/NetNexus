@@ -7,6 +7,36 @@ function destroy_sess()
     session_destroy();
 }
 
+function last_id()
+{
+    global $conn;
+    return mysqli_insert_id($conn);
+}
+
+function deleteSession_ExceptUser()
+{
+    foreach($_SESSION as $key => $val)
+{
+    if ($key !== 'useraccount')
+    {
+      unset($_SESSION[$key]);
+    }
+}
+}
+
+function count_Sessions()
+{
+    $activesessnum = 0;
+    foreach($_SESSION as $key => $val)
+    {
+        if ($key !== 'useraccount')
+        {
+            $activesessnum++;
+        }
+    }
+    return $activesessnum;
+}
+
 function set_message($msg)
 {
     if(!empty($msg))
@@ -62,6 +92,8 @@ function get_products()
 
     while($row = fetch_array($query))
     {
+        if($row['product_quantity'] > 0)
+        {
         $product = <<<DELIMETER
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px">
@@ -73,7 +105,7 @@ function get_products()
                         <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
-                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
                         <h4 class="pull-right">&#36;{$row['product_price']}</h4>
                     </div>
                 </div>
@@ -82,6 +114,7 @@ function get_products()
         DELIMETER;
 
         echo $product;
+        }
     }
 }
 
@@ -93,6 +126,8 @@ function get_categories_products()
 
     while($row = fetch_array($query))
     {
+        if($row['product_quantity'] > 0)
+        {
         $product = <<<DELIMETER
             <div class="col-md-4 col-sm-6 hero-feature">
                 <div class="thumbnail">
@@ -104,7 +139,7 @@ function get_categories_products()
                         <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
-                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
                     </div>
                 </div>
             </div>
@@ -112,6 +147,7 @@ function get_categories_products()
         DELIMETER;
 
         echo $product;
+        }
     }
 }
 
@@ -139,6 +175,8 @@ function  get_shop_products()
 
     while($row = fetch_array($query))
     {
+        if($row['product_quantity'] > 0)
+        {
         $product = <<<DELIMETER
             <div class="col-md-4 col-sm-6 col-lg-3">
                 <div class="thumbnail">
@@ -151,7 +189,7 @@ function  get_shop_products()
                     </div>
                     <div class="ratings">
                         <p>
-                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
                         </p>
                     </div>
                 </div>
@@ -160,6 +198,7 @@ function  get_shop_products()
         DELIMETER;
 
         echo $product;
+        }
     }
 }
 
@@ -171,9 +210,9 @@ function redirect_user($username, $password)
     $accarr = fetch_array($accounquery);
 
 
-    $arr = array($accarr['firstname'], $accarr['accounttype'],$accarr['username']);
+    $arr = array($accarr['firstname'], $accarr['accounttype'],$accarr['username'],$accarr['user_id']);
 
-    $_SESSION['username'] = $arr;
+    $_SESSION['useraccount'] = $arr;
 
 
     if($accarr['accounttype'] == 'buyer')
@@ -201,13 +240,15 @@ function login_user()
         confirm($query);
         $hashed = fetch_array($query);
 
-        if(mysqli_num_rows($query) == 0)
+
+        if(mysqli_num_rows($query) == 0 || password_verify($password, $hashed['password']) == 0 )
         {
             set_message("incorrect password or username");
             redirect("login.php");
         }else if(password_verify($password, $hashed['password']))
         {
-            redirect_user($userinput, $password);
+
+            redirect_user($userinput, $hashed['password']);
         }
     }
 }

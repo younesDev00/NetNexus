@@ -5,8 +5,8 @@
 
 <div class="container">
     <?php
-        if(isset($_SESSION['username']) && $_SESSION['username'][1] == 'buyer'){
-            echo $_SESSION['username'][0];
+        if(isset($_SESSION['useraccount']) && $_SESSION['useraccount'][1] == 'buyer'){
+            echo $_SESSION['useraccount'][0];
         }else
         {
             redirect('index.php');

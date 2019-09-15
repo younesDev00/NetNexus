@@ -56,11 +56,11 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <?php
 
-                    if($_SESSION["username"][1] == 'seller')
+                    if($_SESSION["useraccount"][1] == 'seller')
                     {
                         include(TEMPLATE_BACK . DS . "side_buyer_nav.php");
 
-                    }else if($_SESSION["username"][1] == 'admin')
+                    }else if($_SESSION["useraccount"][1] == 'admin')
                     {
                         include(TEMPLATE_BACK . DS . "side_admin_nav.php");
                     }

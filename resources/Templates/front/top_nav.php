@@ -21,25 +21,28 @@
             <a href="shop.php">Shop</a>
         </li>
 
-        <li>
-            <a href="checkout.php">Checkout</a>
-        </li>
+        <?php
+        if(isset($_SESSION['useraccount']))
+        {
+            echo '<li><a href="checkout.php">Checkout</a></li>';
+        }
+        ?>
         <li>
             <a href="contact.php">Contact</a>
         </li>
         <?PHP
 
-        if(isset($_SESSION['username']))
+        if(isset($_SESSION['useraccount']))
         {
-            if($_SESSION['username'][1] == 'buyer')
+            if($_SESSION['useraccount'][1] == 'buyer')
             {
-                echo '<li><a href="user.php">Welcome ' .$_SESSION['username'][0] .' </a></li>';
-                echo '<form style="padding:10px;float:left;" method="post"><li><a><input type="submit"  class="btn btn-primary" name="logout" value="logout"></a></li></form>' .signout() .' ';
-                echo $_SESSION['username'][1];
+                echo '<li><a href="user.php">Welcome ' .$_SESSION['useraccount'][0] .' </a></li>';
+                echo '<form style="padding:10px;float:left;" method="post"><li><a><input type="submit"  class="btn btn-danger" name="logout" value="logout"></a></li></form>' .signout() .' ';
+//                echo $_SESSION['useraccount'][1];
 
             }else
             {
-                echo '<li><a href="/shoppingtest/public/admin/index.php?main">Welcome ' .$_SESSION['username'][0] .' </a></li>';
+                echo '<li><a href="/shoppingtest/public/admin/index.php?main">Welcome ' .$_SESSION['useraccount'][0] .' </a></li>';
 
             }
         } else

@@ -3,15 +3,15 @@
     include(TEMPLATE_BACK . "/header.php");
 
 
-    if(!isset($_SESSION['username']) && ($_SESSION['username'][1] != 'buyer' || $_SESSION['username'][1] != 'admin'))
+    if(!isset($_SESSION['useraccount']) || $_SESSION['useraccount'][1] == 'buyer' )
     {
         redirect("../../public");
-    }else if(isset($_SESSION['username']))
+    }else if(isset($_SESSION['useraccount']))
     {
-        $arr = $_SESSION["username"];
+        $arr = $_SESSION["useraccount"];
         //$_SESSION["username"][0]; username
         //echo $arr[0]; Username
-        //echo $arr[1]; account type
+//       echo $arr[1]; //account type
     }
 ?>
 <div id="page-wrapper">

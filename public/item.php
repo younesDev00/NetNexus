@@ -52,7 +52,7 @@ $id = escape_string($_GET['id']);
 
                     <form action="">
                         <div class="form-group">
-                            <a href="cart.php?add=<?php echo $row['product_id']; ?>" class="btn btn-primary">Add To Cart</a>
+                            <a href="../resources/cart.php?add=<?php echo $row['product_id']; ?>" class="btn btn-primary">Add To Cart</a>
                         </div>
 
                     </form>

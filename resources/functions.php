@@ -335,3 +335,70 @@ function send_message()
 
 
 //____________________________________ back end functions__________________//
+
+
+
+
+
+function display_orders()
+{
+    if($_SESSION['useraccount'][1] == 'seller')
+    {
+        $query = query("SELECT users.user_id, products.seller_id, products.seller_id, product_image, product_title, purchased_product_price, purchased_quantity, order_amt,                            order_curency, order_status, order_transaction
+                        FROM reports INNER JOIN orders ON reports.order_id = orders.order_id
+                                     INNER JOIN products ON reports.product_id = products.product_id
+                                     INNER JOIN users ON reports.purchaser_id = users.user_id
+                        WHERE products.seller_id = " . $_SESSION['useraccount'][3] ." ");
+        confirm($query);
+    }else if( $_SESSION['useraccount'][1] == 'admin')
+    {
+        $query = query("SELECT users.user_id, products.seller_id, products.seller_id, product_image, product_title, purchased_product_price, purchased_quantity, order_amt,                     order_curency, order_status, order_transaction
+                        FROM reports INNER JOIN orders ON reports.order_id = orders.order_id
+                                     INNER JOIN products ON reports.product_id = products.product_id
+                                     INNER JOIN users ON reports.purchaser_id = users.user_id");
+                confirm($query);
+    }
+
+    while($row = fetch_array($query))
+    {
+        $orders = <<<DELIMETER
+        <tr>
+            <td>{$row['user_id']}</td>
+            <td>{$row['seller_id']}</td>
+            <td>{$row['product_title']}</td>
+            <td><img style="width:64px; height:64px;" src="{$row['product_image']}" alt=""></td>
+            <td>{$row['purchased_product_price']}</td>
+            <td>{$row['purchased_quantity']}</td>
+            <td>{$row['order_amt']}</td>
+            <td>{$row['order_curency']}</td>
+            <td>{$row['order_status']}</td>
+            <td>{$row['order_transaction']}</td>
+        </tr>
+
+        DELIMETER;
+        echo $orders;
+    }
+}
+
+//sql query to select all will be needed
+//SELECT username, product_title, purchased_product_price, purchased_quantity, order_amt, order_curency, order_status, order_transaction
+//FROM reports r, products p, users u, orders o
+//WHERE r.order_id = o.order_id && (r.product_id = p.product_id) &&(r.purchaser_id = u.user_id)
+
+//purchaser name, product name, purchased price, purchased quantity, order amount, order currency, order status, order transaction
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

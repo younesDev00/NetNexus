@@ -188,7 +188,7 @@ function reports()
                             $sub = $row['product_price'] * $value; //value is num of active sessions calculating subtotal
                             $item_quantity += $value;
 
-                            $insert_report = query("INSERT INTO reports (product_id, order_id,purchaser_id, product_price, product_quantity) values('$id','$order_id','{$_SESSION["useraccount"][3]}','$product_price','$value')");
+                            $insert_report = query("INSERT INTO reports (product_id, order_id,purchaser_id, purchased_product_price, purchased_quantity) values('$id','$order_id','{$_SESSION["useraccount"][3]}','$product_price','$value')");
                             confirm($insert_report);
 
                             $update_quantity = query("UPDATE products  SET product_quantity = product_quantity - {$value} WHERE product_id= {$id}");

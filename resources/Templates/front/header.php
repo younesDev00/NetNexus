@@ -13,7 +13,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"  >-->
     <!-- Custom CSS -->
     <link href="css/shop-homepage.css" rel="stylesheet">
 
@@ -31,6 +31,4 @@
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <?php include(TEMPLATE_FRONT . DS . "top_nav.php") ?>
-    </nav>

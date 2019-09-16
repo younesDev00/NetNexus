@@ -9,29 +9,27 @@
     <div class="row">
         <table class="table table-hover">
             <thead>
+<!--//purchaser name, product name, purchased price, purchased quantity, order amount, order currency, order status, order transaction-->
 
                 <tr>
-                    <th>S.N</th>
-                    <th>Title</th>
-                    <th>Photo</th>
-                    <th>Quantity</th>
-                    <th>Invoice Number</th>
-                    <th>Order Date</th>
-                    <th>Status</th>
+                    <th>Purchased By</th>
+                    <th>Sold By</th>
+                    <th>Product Name</th>
+                    <th>Product Image</th>
+                    <th>Purchased Price</th>
+                    <th>Purchased Quantity</th>
+                    <th>Order Amount</th>
+                    <th>Order Currency</th>
+                    <th>Order Status</th>
+                    <th>Order Transaction Number</th>
+
+<!--                    comming soon-->
+<!--                    <th>Order Date</th> -->
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>21</td>
-                    <td>Nikon 234</td>
 
-                    <td><img src="http://placehold.it/62x62" alt=""></td>
-                    <td>Cameras</td>
-                    <td>456464</td>
-                    <td>Jun 2039</td>
-                    <td>Completed</td>
-                </tr>
-
+            <?php display_orders();  ?>
 
             </tbody>
         </table>

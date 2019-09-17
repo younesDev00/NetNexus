@@ -25,16 +25,11 @@
                 </div>
 
                 <div class="row">
-
                     <?php get_products(); ?>
-
-
                 </div><!-- ROw ends here-->
 
             </div>
-
         </div>
-
     </div>
     <!-- /.container -->
 <?php include(TEMPLATE_FRONT . DS . "footer.php") ?>

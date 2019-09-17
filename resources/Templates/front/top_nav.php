@@ -32,7 +32,7 @@
                 {
                     if($_SESSION['useraccount'][1] == 'buyer')
                     {
-                        echo '<li><a href="user.php">Welcome ' .$_SESSION['useraccount'][0] .' </a></li>';
+                        echo '<li><a href="user.php">Welcome <strong class="text-primary">' .$_SESSION['useraccount'][0] .'</strong> </a></li>';
                         echo '<form style="padding:10px;float:left;" method="post"><li><a><input type="submit"  class="btn btn-danger" name="logout" value="logout"></a></li></form>' .signout() .' ';
         //                echo $_SESSION['useraccount'][1];
 

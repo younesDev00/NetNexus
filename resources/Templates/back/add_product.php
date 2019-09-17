@@ -61,7 +61,8 @@
             <div class="form-group">
                 <label for="product-title">Product Category</label>
                 <select name="product_category_id" id="" class="form-control">
-                    <option value="">Select Category</option>
+<!--                    function-->
+               <?php backend_addproductpage_categories();?>
                 </select>
 
 

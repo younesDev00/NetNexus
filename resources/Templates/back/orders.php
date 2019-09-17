@@ -16,6 +16,7 @@
                     <th>Purchased By</th>
                     <th>Sold By</th>
                     <th>Product Name</th>
+                    <th>Product Name</th>
                     <th>Product Image</th>
                     <th>Purchased Price</th>
                     <th>Purchased Quantity</th>

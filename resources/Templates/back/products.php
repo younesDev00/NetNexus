@@ -23,7 +23,6 @@
             </tr>
         </thead>
         <tbody>
-
             <?php get_products_backend();?>
 
         </tbody>

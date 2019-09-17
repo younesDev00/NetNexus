@@ -18,7 +18,7 @@
 
                 <div class="col-md-12">
 
-                    <?php include(TEMPLATE_FRONT . DS . "slider.php") ?>
+                    <?php //include(TEMPLATE_FRONT . DS . "slider.php") ?>
 
                 </div>
 

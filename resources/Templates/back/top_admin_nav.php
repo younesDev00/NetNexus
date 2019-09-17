@@ -5,7 +5,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="index.php?main">Welcome <?php echo $_SESSION['useraccount'][0]; ?> To <?php echo $_SESSION['useraccount'][1]; ?> Portal</a>
+    <a class="navbar-brand" href="index.php?main">Welcome <strong class="text-primary"><?php echo $_SESSION['useraccount'][0]; ?></strong> To <?php echo $_SESSION['useraccount'][1]; ?> Portal</a>
+    <a class="navbar-brand" href="../index.php">Home</a>
 </div>
 
 <ul class="nav navbar-left top-nav">

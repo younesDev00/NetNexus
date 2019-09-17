@@ -10,6 +10,8 @@ defined("TEMPLATE_FRONT") ? null : define("TEMPLATE_FRONT", __DIR__ . DS . "Temp
 //template back
 defined("TEMPLATE_BACK") ? null : define("TEMPLATE_BACK", __DIR__ . DS . "Templates/back");
 
+defined("UPLOADS_DIRECTORY") ? null : define("UPLOADS_DIRECTORY", __DIR__ . DS . "uploads");
+
 //host address
 defined("DB_HOST") ? null : define("DB_HOST", "localhost");
 

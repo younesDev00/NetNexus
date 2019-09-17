@@ -342,24 +342,41 @@ function send_message()
 
 function display_orders()
 {
+    $up = "../../resources/uploads";
+    $del = "../../resources/templates/back/delete_order.php?";
     if($_SESSION['useraccount'][1] == 'seller'  )
     {
 
         $query = query("SELECT *
-                        FROM reports INNER JOIN orders ON reports.order_id = orders.order_id
+                        FROM categories, reports INNER JOIN orders ON reports.order_id = orders.order_id
                                      INNER JOIN products ON reports.product_id = products.product_id
                                      INNER JOIN users ON reports.purchaser_id = users.user_id
-                        WHERE products.seller_id = " . $_SESSION['useraccount'][3] ." ");
+                        WHERE        (categories.cat_id = products.product_category_id) &&
+                                     (products.seller_id = " . $_SESSION['useraccount'][3] ." )ORDER BY reports.order_id");
         confirm($query);
         echo "ff";
     }else if( $_SESSION['useraccount'][1] == 'admin')
     {
 
         $query = query("SELECT *
-                        FROM reports INNER JOIN orders ON reports.order_id = orders.order_id
+                        FROM categories, reports INNER JOIN orders ON reports.order_id = orders.order_id
                                      INNER JOIN products ON reports.product_id = products.product_id
-                                     INNER JOIN users ON reports.purchaser_id = users.user_id");
+                                     INNER JOIN users ON reports.purchaser_id = users.user_id
+                        WHERE categories.cat_id = products.product_category_id
+                        ORDER BY  reports.order_id");
                 confirm($query);
+    }else if($_SESSION['useraccount'][1] == 'buyer')
+    {
+       $query = query("SELECT *
+                        FROM categories, reports INNER JOIN orders ON reports.order_id = orders.order_id
+                                     INNER JOIN products ON reports.product_id = products.product_id
+                                     INNER JOIN users ON reports.purchaser_id = users.user_id
+                        WHERE        (categories.cat_id = products.product_category_id) &&
+                                     (reports.purchaser_id =  " .$_SESSION['useraccount'][3].") ");
+       confirm($query);
+       $up = "../resources/uploads";
+       $del = "../resources/templates/back/delete_order.php?";
+
     }
 
     while($row = fetch_array($query))
@@ -368,8 +385,9 @@ function display_orders()
         <tr>
             <td>{$row['user_id']}</td>
             <td>{$row['seller_id']}</td>
+            <td>{$row['cat_title']}</td>
             <td>{$row['product_title']}</td>
-            <td><img style="width:64px; height:64px;" src="../../resources/uploads/{$row['product_image']}" alt=""></td>
+            <td><img style="width:64px; height:64px;" src="{$up}/{$row['product_image']}" alt=""></td>
             <td>{$row['purchased_product_price']}</td>
             <td>{$row['purchased_quantity']}</td>
             <td>{$row['order_id']}</td>
@@ -377,7 +395,7 @@ function display_orders()
             <td>{$row['order_curency']}</td>
             <td>{$row['order_status']}</td>
             <td>{$row['order_transaction']}</td>
-            <td><a class="btn btn-danger" href="../../resources/templates/back/delete_order.php?id={$row['order_id']}&pr_id={$row['product_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td><a class="btn btn-danger" href="{$del}id={$row['order_id']}&pr_id={$row['product_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
         </tr>
 
         DELIMETER;
@@ -386,11 +404,11 @@ function display_orders()
 }
 
 //sql query to select all will be needed
+
 //SELECT users.user_id, products.seller_id, products.seller_id, product_image, product_title, purchased_product_price, purchased_quantity, order_amt, order_curency, order_status, order_transaction
 //FROM reports r, products p, users u, orders o
 //WHERE r.order_id = o.order_id && (r.product_id = p.product_id) &&(r.purchaser_id = u.user_id)
 
-//purchaser name, product name, purchased price, purchased quantity, order amount, order currency, order status, order transaction
 
 
 
@@ -398,14 +416,19 @@ function display_orders()
 function get_products_backend()
 {
 
-    if($_SESSION['useraccount'][1] == 'seller'  )
+    if($_SESSION['useraccount'][1] == 'seller' )
     {
-       $query = query(" SELECT * FROM products WHERE seller_id = " .$_SESSION['useraccount'][3]);
+       $query = query(" SELECT * FROM users,products, categories  WHERE (users.user_id = products.seller_id) && (categories.cat_id = products.product_category_id ) && products.seller_id = " .$_SESSION['useraccount'][3]." ");
        confirm($query);
+        $up = "../../resources" . DS . "uploads" . DS;
+        $del = "../../resources/templates/back/delete_product.php?";
     }else if( $_SESSION['useraccount'][1] == 'admin')
     {
-       $query = query(" SELECT * FROM products");
+       $query = query(" SELECT * FROM products, categories  WHERE categories.cat_id = products.product_category_id");
        confirm($query);
+       $up = "../../resources" . DS . "uploads" . DS;
+       $del = "../../resources/templates/back/delete_product.php?";
+
     }
 
 
@@ -416,12 +439,12 @@ function get_products_backend()
             <td>{$row['product_id']}</td>
             <td>{$row['seller_id']}</td>
             <td>{$row['product_title']}<br>
-            <a href="index.php?edit_product&id={$row['product_id']}"><img style="width:64px; height:64px;" src="../../resources/uploads/{$row['product_image']}" alt=""></a>
+            <a href="index.php?edit_product&id={$row['product_id']}"><img style="width:64px; height:64px;" src="{$up}{$row['product_image']}" alt=""></a>
             </td>
-            <td>{$row['product_category_id']}</td>
+            <td>{$row['cat_title']}</td>
             <td>{$row['product_price']}</td>
             <td>{$row['product_quantity']}</td>
-            <td><a class="btn btn-danger" href="../../resources/templates/back/delete_product.php?id={$row['product_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td><a class="btn btn-danger" href="{$del}id={$row['product_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
         </tr>
 
         DELIMETER;
@@ -443,7 +466,7 @@ if(isset($_POST['publish']))
 {
 
 $product_title          = escape_string($_POST['product_title']);
-$product_category_id    = 2; //escape_string($_POST['product_category_id']);
+$product_category_id    = escape_string($_POST['product_category_id']);
 $product_price          = escape_string($_POST['product_price']);
 $product_description    = escape_string($_POST['product_description']);
 $short_desc             = escape_string($_POST['short_desc']);
@@ -486,3 +509,90 @@ if(copy($image_temp_location, UPLOADS_DIRECTORY . DS . $product_image))
 }
 
 }
+
+
+
+function backend_addproductpage_categories()
+{
+    $query = query("SELECT * FROM categories");
+    confirm($query);
+
+    while($row = mysqli_fetch_array($query))
+    {
+       $categoriesoptions = <<<DELIMETER
+            <option value="{$row['cat_id']}">{$row['cat_title']}</option>
+        DELIMETER;
+
+        echo $categoriesoptions;
+    }
+}
+
+function backend_categories_title($id)
+{
+    $query = query("SELECT * FROM categories WHERE cat_id=" .$id);
+    confirm($query);
+
+    while($row = mysqli_fetch_array($query))
+    {
+       return $row['cat_title'];
+    }
+}
+
+
+
+function update_product()
+{
+if(isset($_POST['update']))
+{
+
+$product_title          = escape_string($_POST['product_title']);
+$product_category_id    = escape_string($_POST['product_category_id']);
+$product_price          = escape_string($_POST['product_price']);
+$product_description    = escape_string($_POST['product_description']);
+$short_desc             = escape_string($_POST['short_desc']);
+$product_quantity       = escape_string($_POST['product_quantity']);
+$product_image          = escape_string($_FILES['file']['name']);
+$image_temp_location    = escape_string($_FILES['file']['tmp_name']);
+
+
+
+if(empty($product_image)) {
+
+$get_pic = query("SELECT product_image FROM products WHERE product_id =" .escape_string($_GET['id']). " ");
+confirm($get_pic);
+
+while($pic = fetch_array($get_pic)) {
+
+$product_image = $pic['product_image'];
+
+    }
+
+}
+
+    copy($image_temp_location, UPLOADS_DIRECTORY . DS . $product_image);
+
+$query = "UPDATE products SET ";
+$query .= "product_title              = '{$product_title}'        , ";
+$query .= "product_category_id        = '{$product_category_id}'  , ";
+$query .= "product_price              = '{$product_price}'        , ";
+$query .= "product_quantity           = '{$product_quantity}'     , ";
+$query .= "product_description        = '{$product_description}'  , ";
+$query .= "product_short_description  = '{$short_desc}'           , ";
+$query .= "product_image              = '{$product_image}'          ";
+$query .= "WHERE product_id           = " . escape_string($_GET['id']);
+
+$query_update = query($query);
+confirm($query_update);
+set_message("Product updated");
+
+
+//might need move_uploaded_file on live server
+
+
+    redirect("index.php?products");
+
+}
+
+}
+
+

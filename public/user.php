@@ -6,7 +6,11 @@
 <div class="container">
     <?php
         if(isset($_SESSION['useraccount']) && $_SESSION['useraccount'][1] == 'buyer'){
-            echo $_SESSION['useraccount'][0];
+            //echo $_SESSION['useraccount'][0];
+
+            include(TEMPLATE_BACK . "/orders.php");
+
+
         }else
         {
             redirect('index.php');
@@ -15,3 +19,4 @@
 </div>
 
     <?php include(TEMPLATE_FRONT . DS . "footer.php");  ?>
+

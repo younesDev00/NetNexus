@@ -85,7 +85,7 @@ function cart()
                     $product = <<<DELIMETER
                     <tbody>
                         <tr>
-                            <td><a href="item.php?id={$row['product_id']}"><img style="width:65px;;height:65px;" class="imgsize" src="{$row['product_image']}" alt=""></a></td>
+                            <td><a href="item.php?id={$row['product_id']}"><img style="width:65px;;height:65px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a></td>
                             <td>{$row['product_title']}</td>
                             <td>&#36;{$row['product_price']}</td>
                             <td>{$value}</td><!-- current value of session (quantity) -->
@@ -137,7 +137,7 @@ function cart()
 }
 
 
-function reports()
+function processTrans()
 {
 
     if(isset($_GET['tx']) && !empty($_GET['tx']))

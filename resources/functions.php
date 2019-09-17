@@ -97,7 +97,7 @@ function get_products()
         $product = <<<DELIMETER
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="caption">
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
@@ -131,7 +131,7 @@ function get_categories_products()
         $product = <<<DELIMETER
             <div class="col-md-4 col-sm-6 hero-feature">
                 <div class="thumbnail">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:200px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:200px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="caption">
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
@@ -180,7 +180,7 @@ function  get_shop_products()
         $product = <<<DELIMETER
             <div class="col-md-4 col-sm-6 col-lg-3">
                 <div class="thumbnail">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:200px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:200px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="caption">
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
@@ -342,17 +342,20 @@ function send_message()
 
 function display_orders()
 {
-    if($_SESSION['useraccount'][1] == 'seller')
+    if($_SESSION['useraccount'][1] == 'seller'  )
     {
-        $query = query("SELECT users.user_id, products.seller_id, products.seller_id, product_image, product_title, purchased_product_price, purchased_quantity, order_amt,                            order_curency, order_status, order_transaction
+
+        $query = query("SELECT *
                         FROM reports INNER JOIN orders ON reports.order_id = orders.order_id
                                      INNER JOIN products ON reports.product_id = products.product_id
                                      INNER JOIN users ON reports.purchaser_id = users.user_id
                         WHERE products.seller_id = " . $_SESSION['useraccount'][3] ." ");
         confirm($query);
+        echo "ff";
     }else if( $_SESSION['useraccount'][1] == 'admin')
     {
-        $query = query("SELECT users.user_id, products.seller_id, products.seller_id, product_image, product_title, purchased_product_price, purchased_quantity, order_amt,                     order_curency, order_status, order_transaction
+
+        $query = query("SELECT *
                         FROM reports INNER JOIN orders ON reports.order_id = orders.order_id
                                      INNER JOIN products ON reports.product_id = products.product_id
                                      INNER JOIN users ON reports.purchaser_id = users.user_id");
@@ -366,13 +369,15 @@ function display_orders()
             <td>{$row['user_id']}</td>
             <td>{$row['seller_id']}</td>
             <td>{$row['product_title']}</td>
-            <td><img style="width:64px; height:64px;" src="{$row['product_image']}" alt=""></td>
+            <td><img style="width:64px; height:64px;" src="../../resources/uploads/{$row['product_image']}" alt=""></td>
             <td>{$row['purchased_product_price']}</td>
             <td>{$row['purchased_quantity']}</td>
+            <td>{$row['order_id']}</td>
             <td>{$row['order_amt']}</td>
             <td>{$row['order_curency']}</td>
             <td>{$row['order_status']}</td>
             <td>{$row['order_transaction']}</td>
+            <td><a class="btn btn-danger" href="../../resources/templates/back/delete_order.php?id={$row['order_id']}&pr_id={$row['product_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
         </tr>
 
         DELIMETER;
@@ -381,7 +386,7 @@ function display_orders()
 }
 
 //sql query to select all will be needed
-//SELECT username, product_title, purchased_product_price, purchased_quantity, order_amt, order_curency, order_status, order_transaction
+//SELECT users.user_id, products.seller_id, products.seller_id, product_image, product_title, purchased_product_price, purchased_quantity, order_amt, order_curency, order_status, order_transaction
 //FROM reports r, products p, users u, orders o
 //WHERE r.order_id = o.order_id && (r.product_id = p.product_id) &&(r.purchaser_id = u.user_id)
 
@@ -390,15 +395,94 @@ function display_orders()
 
 
 
+function get_products_backend()
+{
+
+    if($_SESSION['useraccount'][1] == 'seller'  )
+    {
+       $query = query(" SELECT * FROM products WHERE seller_id = " .$_SESSION['useraccount'][3]);
+       confirm($query);
+    }else if( $_SESSION['useraccount'][1] == 'admin')
+    {
+       $query = query(" SELECT * FROM products");
+       confirm($query);
+    }
+
+
+    while($row = fetch_array($query))
+    {
+        $product = <<<DELIMETER
+        <tr>
+            <td>{$row['product_id']}</td>
+            <td>{$row['seller_id']}</td>
+            <td>{$row['product_title']}<br>
+            <a href="index.php?edit_product&id={$row['product_id']}"><img style="width:64px; height:64px;" src="../../resources/uploads/{$row['product_image']}" alt=""></a>
+            </td>
+            <td>{$row['product_category_id']}</td>
+            <td>{$row['product_price']}</td>
+            <td>{$row['product_quantity']}</td>
+            <td><a class="btn btn-danger" href="../../resources/templates/back/delete_product.php?id={$row['product_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
+        </tr>
+
+        DELIMETER;
+
+        echo $product;
+    }
+}
+
+
+
+//add products
 
 
 
 
+function add_product()
+{
+if(isset($_POST['publish']))
+{
+
+$product_title          = escape_string($_POST['product_title']);
+$product_category_id    = 2; //escape_string($_POST['product_category_id']);
+$product_price          = escape_string($_POST['product_price']);
+$product_description    = escape_string($_POST['product_description']);
+$short_desc             = escape_string($_POST['short_desc']);
+$product_quantity       = escape_string($_POST['product_quantity']);
+$product_image          = escape_string($_FILES['file']['name']);
+$image_temp_location    = escape_string($_FILES['file']['tmp_name']);
+
+//if(move_uploaded_file($image_temp_location, UPLOADS_DIRECTORY . DS . $product_image))
+//{
+//    redirect("index.php");
+//}else
+//{
+//        redirect("index.php?fucku");
+//
+//}
+
+$query = query("INSERT INTO products(product_title,seller_id, product_category_id, product_price,product_quantity, product_description, product_short_description, product_image) VALUES('{$product_title}','{$_SESSION['useraccount'][3]}', '{$product_category_id}', '{$product_price}','{$product_quantity}', '{$product_description}', '{$short_desc}',  '{$product_image}')");
+
+$last_id = last_id();
+confirm($query);
+set_message("New Product with id {$last_id} was Added");
 
 
+//might need move_uploaded_file on live server
 
+if(copy($image_temp_location, UPLOADS_DIRECTORY . DS . $product_image))
+{
+    redirect("index.php?products");
+}else
+{
+        //redirect("index.php?fucku");
+    echo $_FILES["file"]['name']."<br>";
+    echo $_FILES["file"]['tmp_name']."<br>";
+    echo $_FILES["file"]['size']."<br>";
+    echo $_FILES['file']['error']."<br>";
+    echo UPLOADS_DIRECTORY . DS . $product_image;
 
+}
 
+}
 
-
-
+}

@@ -4,6 +4,7 @@
             All Orders
 
         </h1>
+        <h4 class="bg-success"><?php display_message(); ?></h4>
     </div>
 
     <div class="row">
@@ -18,10 +19,12 @@
                     <th>Product Image</th>
                     <th>Purchased Price</th>
                     <th>Purchased Quantity</th>
+                    <th>Order ID</th>
                     <th>Order Amount</th>
                     <th>Order Currency</th>
                     <th>Order Status</th>
                     <th>Order Transaction Number</th>
+                    <th>Delete Order</th>
 
 <!--                    comming soon-->
 <!--                    <th>Order Date</th> -->

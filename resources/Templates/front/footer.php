@@ -16,11 +16,9 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-<!--    <script src="js/jquery.js"></script>-->
+    <script src="js/jquery.js"></script>
 
-   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-
-<!--     Bootstrap Core JavaScript -->
+    <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
 

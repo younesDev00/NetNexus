@@ -19,18 +19,7 @@
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">
-                    Dashboard <small>Statistics Overview</small>
-                </h1>
-                <ol class="breadcrumb">
-                    <li class="active">
-                        <i class="fa fa-dashboard"></i> Dashboard
-                    </li>
-                </ol>
-            </div>
-        </div>
+
         <?php
 
 //        old implementation uses ?
@@ -70,15 +59,18 @@
         }
 
 
-        if(isset($_GET['edit_products']))
-        {
-            include(TEMPLATE_BACK . "/edit_products.php");
-        }
-
-
         if(isset($_GET['products']))
         {
             include(TEMPLATE_BACK . "/products.php");
+        }
+
+
+        if(isset($_GET['edit_product']) && $_SESSION['useraccount'][1] ==  'seller')
+        {
+            include(TEMPLATE_BACK . "/edit_product.php");
+        }else if(isset($_GET['edit_product']) && $_SESSION['useraccount'][1] !=  'seller')
+        {
+            redirect("../item.php?id={$_GET['id']}");
         }
 
 //        if(isset($_GET['users']))

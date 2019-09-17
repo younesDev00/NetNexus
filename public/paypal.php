@@ -3,7 +3,7 @@
     include(TEMPLATE_FRONT . DS . "header.php");
 
 
-    reports();
+    processTrans();
 
 
 

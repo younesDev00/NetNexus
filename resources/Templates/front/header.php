@@ -11,9 +11,8 @@
 
     <title>Shop Homepage - Start Bootstrap Template</title>
 
-    <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"  >-->
+
     <!-- Custom CSS -->
     <link href="css/shop-homepage.css" rel="stylesheet">
 

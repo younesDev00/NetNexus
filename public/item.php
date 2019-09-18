@@ -21,7 +21,7 @@ $id = escape_string($_GET['id']);
     <div class="row">
 
         <div class="col-md-7">
-            <img class="img-responsive" src="<?php echo $row['product_image']?>" alt="">
+            <img class="img-responsive" style="width:100%;" src="<?php echo "../resources/uploads/" . $row['product_image']?>" alt="">
 
         </div>
 
@@ -45,7 +45,7 @@ $id = escape_string($_GET['id']);
 
                     <form action="">
                         <div class="form-group">
-                            <a href="cart.php?add=<?php echo $row['product_id']; ?>" class="btn btn-primary">Add To Cart</a>
+                            <a href="../resources/cart.php?add=<?php echo $row['product_id']; ?>" class="btn btn-primary">Add To Cart</a>
                         </div>
 
                     </form>

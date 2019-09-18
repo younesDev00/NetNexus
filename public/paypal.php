@@ -1,10 +1,13 @@
 <?php
     require_once("../resources/config.php");
-    include(TEMPLATE_FRONT . DS . "header.php")
+    include(TEMPLATE_FRONT . DS . "header.php");
+
+
+    processTrans();
+
+
+
 ?>
-
-
-
 
 <!-- Page Content -->
     <div class="container">
@@ -18,7 +21,7 @@
 
                 <div class="row">
 
-                    cancel
+                    success
 
 
                 </div><!-- ROw ends here-->

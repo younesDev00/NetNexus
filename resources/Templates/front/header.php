@@ -11,7 +11,6 @@
 
     <title>Shop Homepage - Start Bootstrap Template</title>
 
-    <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
@@ -31,6 +30,4 @@
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <?php include(TEMPLATE_FRONT . DS . "top_nav.php") ?>
-    </nav>

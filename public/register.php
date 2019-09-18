@@ -90,3 +90,4 @@ console.log(passwordtwo);
 -->
 
 <?php include(TEMPLATE_FRONT . DS . "footer.php");  ?>
+

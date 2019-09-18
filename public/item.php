@@ -37,14 +37,7 @@ $id = escape_string($_GET['id']);
 
                     <div class="ratings">
 
-                        <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            4.0 stars
-                        </p>
+
                     </div>
 
                     <p><?php echo $row['product_short_description']?></p>

@@ -275,20 +275,17 @@ function send_message()
 function get_search()
 {
 
-    $search = $_GET["search"];
+
+    $search =escape_string($_GET['search']);
 
 
-    $query= query("SELECT * FROM products WHERE product_brand LIKE '%$search%' OR product_category_id IN(Select cat_id from categories where cat_title like '%$search%')");
+    $query= query("SELECT * FROM products WHERE product_title LIKE '%$search%' OR product_category_id in(SELECT cat_id from categories where cat_title like '%$search%')");
     confirm($query);
 
 
     $queryResult = mysqli_num_rows($query);
 
     if ($queryResult > 0) {
-
-        $query = query("SELECT * FROM products WHERE product_brand LIKE '%". escape_string($_GET['search']) ."%' OR product_category_id IN(Select cat_id from categories where cat_title like'%". escape_string($_GET['search']) ."%')  ");
-        confirm($query);
-
         while($row = fetch_array($query))
         {
             $product = <<<DELIMETER

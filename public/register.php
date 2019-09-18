@@ -13,31 +13,24 @@
 
                 <div class="form-group">
                     <label for="firstname">First Name:</label>
-<<<<<<< HEAD
+
                     <input type="text" name="firstname" class="form-control" placeholder="" id="firstname" required data-validation-required-message="Please enter your first name.">
-=======
                     <input type="text" name="firstname" class="form-control" placeholder="Your First Name " id="firstname" required data-validation-required-message="Please enter your first name.">
->>>>>>> master
+
                     <p class="help-block text-danger"></p>
                 </div>
 
                 <div class="form-group">
                     <label for="lastname">Last Name:</label>
-<<<<<<< HEAD
                     <input type="text" name="lastname" class="form-control" placeholder=""id="lastname" required data-validation-required-message="Please enter your last name.">
-=======
                     <input type="text" name="lastname" class="form-control" placeholder="Your Last Name " id="lastname" required data-validation-required-message="Please enter your last name.">
->>>>>>> master
                     <p class="help-block text-danger"></p>
                 </div>
 
                 <div class="form-group">
                     <label for="username">User Name:</label>
-<<<<<<< HEAD
                     <input type="text" name="username" class="form-control" placeholder="Choose a Unique name" id="username" required data-validation-required-message="Please enter a user name.">
-=======
                     <input type="text" name="username" class="form-control" placeholder="Your Username " id="username" required data-validation-required-message="Please enter a user name.">
->>>>>>> master
                     <p class="help-block text-danger"></p>
                 </div>
 
@@ -54,13 +47,13 @@
                 </div>
 
                 <div class="form-group">
-<<<<<<< HEAD
+
                     <label for="password-repeat">Check Password:</label>
                     <input type="password" name="password-repeat" class="form-control" placeholder="Re-Enter Password" id="password-repeat" required data-validation-required-message="password check required">
-=======
+
                     <label for="password-repeat">Check password:</label>
                     <input type="password" name="password-repeat" class="form-control" placeholder="Check Password" id="password-repeat" required data-validation-required-message="password check required">
->>>>>>> master
+
                     <p class="help-block text-danger"></p>
                 </div>
 

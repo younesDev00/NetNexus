@@ -10,11 +10,9 @@
         <div class="col-sm-4 col-sm-offset-5">
             <form method="post" enctype="multipart/form-data">
                 <div class="form-group"><label for="">
-<<<<<<< HEAD
-                        Username<input type="text" name="username" class="form-control"></label>
-=======
+
                       Username:<input type="text" name="username" class="form-control" placeholder="Username/Email"></label>
->>>>>>> master
+
                 </div>
                 <div class="form-group"><label for="password">
                         Password:<input type="password" name="password" class="form-control"></label>

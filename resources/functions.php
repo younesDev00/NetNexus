@@ -629,3 +629,5 @@ set_message("Product updated");
     redirect("index.php?products");
 }
 }
+
+

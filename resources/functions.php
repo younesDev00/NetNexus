@@ -1,4 +1,5 @@
-<?php
+ <?php
+require("PHPMailer/PHPMailerAutoload.php");
 
 //helper functions
 
@@ -87,8 +88,9 @@ function fetch_array($result)
 
 function get_products()
 {
-   $query = query(" SELECT * FROM products");
-   confirm($query);
+
+    $query = query(" SELECT * FROM products");
+    confirm($query);
 
     while($row = fetch_array($query))
     {
@@ -121,8 +123,8 @@ function get_products()
 
 function get_categories_products()
 {
-   $query = query(" SELECT * FROM products WHERE product_category_id =" . escape_string($_GET['id']) ."");
-   confirm($query);
+    $query = query(" SELECT * FROM products WHERE product_category_id =" . escape_string($_GET['id']) ."");
+    confirm($query);
 
     while($row = fetch_array($query))
     {
@@ -159,7 +161,7 @@ function get_categories()
 
     while($row = mysqli_fetch_array($query))
     {
-       $categories = <<<DELIMETER
+        $categories = <<<DELIMETER
             <a href="category.php?id={$row['cat_id']}" class='list-group-item'>{$row['cat_title']}</a>
         DELIMETER;
 
@@ -170,9 +172,12 @@ function get_categories()
 
 function  get_shop_products()
 {
-   $query = query(" SELECT * FROM products");
-   confirm($query);
 
+<<<<<<< HEAD
+
+    $lowPrice;
+    $highPrice;
+=======
     while($row = fetch_array($query))
     {
         if($row['product_quantity'] > 0)
@@ -194,13 +199,36 @@ function  get_shop_products()
                     </div>
                 </div>
             </div>
+>>>>>>> master
+
+
+<<<<<<< HEAD
+    //if search is entered but no price filter
+    if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) &&(escape_string($_GET['search']))) {
+        get_search();
+
+        // if search is entered, and price filter
+    }else if (escape_string($_GET['lowPrice']) && escape_string($_GET['highPrice']) && escape_string($_GET['search'])) {
+        get_search_price_products();
+
+        // if no filter or search entered
+    } else if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) && empty(escape_string($_GET['search']))) {
+        get_all_products();
 
         DELIMETER;
 
+        // if price filter is entered
+    } else if (empty(escape_string($_GET['search']))) {
+        get_price_products();
+=======
         echo $product;
         }
+>>>>>>> master
     }
+
 }
+
+
 
 function redirect_user($username, $password)
 {
@@ -228,6 +256,14 @@ function redirect_user($username, $password)
     }
 }
 
+function redirect_email()
+{
+   // $accounquery = query("SELECT accounttype, user_id FROM users WHERE username = '{$username}' AND password = '{$password}'");
+  //  confirm($accounquery);
+
+   // $accounttype = fetch_array($accounquery);
+        redirect("emailconfirmation.php");
+}
 
 function login_user()
 {
@@ -272,20 +308,34 @@ function signup_user()
 
             if($password == $passwordrepeat)
             {
+<<<<<<< HEAD
+                $confirmcode = rand();
+                $query = query("INSERT INTO users(firstname, lastname, username, useremail, password, accounttype, confirmed, confirmcode) VALUES('{$firstname}', '{$lastname}', '{$username}','{$email}','{$password}','{$accounttype}', '0', '{$confirmcode}')");
+=======
                 $hashedpwd = password_hash($password,PASSWORD_DEFAULT);
                 $query = query("INSERT INTO users(firstname,lastname,username,useremail,password,accounttype) VALUES('{$firstname}','{$lastname}','{$username}','{$email}','{$hashedpwd}','{$accounttype}')");
+>>>>>>> master
                 confirm($query);
-                set_message("welcome {$username}");
-                redirect_user($username, $password);
+                //$message =
+                //"
+               // Confirm Your Email!
+               // Click the link below to verify your NetNexus account
+               // http://192.168.64.2/shoppingtest/public/emailconfirmation.php?username=$username&code=$confirmcode
+                //";
+
+                send_mail($email, $username, $confirmcode);
+
+		      //echo "Registration Complete! Please confirm your email address";
+
             }else
             {
-                set_message("Passwords dont match");
-                redirect("signup.php");
+                set_message("Passwords Do Not Match");
+                redirect("register.php");
             }
         }else
         {
-            set_message("Username already taken");
-            redirect("signup.php");
+            set_message("Username Already Taken");
+            redirect("register.php");
         }
 
     }
@@ -330,9 +380,192 @@ function send_message()
     }
 }
 
+function send_mail($email, $username, $confirmcode)
+{
+ $mail = new PHPMailer;
+
+//$mail->SMTPDebug = 3;                               // Enable verbose debug output
+
+$mail->isSMTP();                                      // Set mailer to use SMTP
+$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+$mail->SMTPAuth = true;                               // Enable SMTP authentication
+$mail->Username = 'netnexusshop@gmail.com';                 // SMTP username
+$mail->Password = 'netnexus123';                           // SMTP password
+$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+$mail->Port = 587;                                    // TCP port to connect to
+
+$mail->setFrom('donotreply@netnexus.com', 'NetNexus');
+$mail->addAddress($email);     // Add a recipient
+//$mail->addAddress('ellen@example.com');               // Name is optional
+//$mail->addReplyTo('info@example.com', 'Information');
+//$mail->addCC('cc@example.com');
+//$mail->addBCC('bcc@example.com');
+
+//$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+//$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+//$mail->isHTML(true);                                  // Set email format to HTML
+
+$mail->Subject = 'NetNexus Email Confirmation';
+$mail->Body    = "
+                Confirm Your Email!
+                Click the link below to verify your NetNexus account
+                http://192.168.64.2/shoppingtest/public/emailconfirmation.php?username=$username&code=$confirmcode
+                ";
+//$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+    if(!$mail->send()) {
+    echo 'Message could not be sent.';
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
+} else {
+    echo 'Registration Complete! Check your emails for a confirmation!';
+}
+
+}
+
+// function to get products based on search
+function get_search()
+{
+
+    $search = $_GET["search"];
 
 
+    $query= query("SELECT * FROM products WHERE product_brand LIKE '%$search%' OR product_category_id IN(Select cat_id from categories where cat_title like '%$search%')");
+    confirm($query);
 
+
+    $queryResult = mysqli_num_rows($query);
+
+    if ($queryResult > 0) {
+
+        $query = query("SELECT * FROM products WHERE product_brand LIKE '%". escape_string($_GET['search']) ."%' OR product_category_id IN(Select cat_id from categories where cat_title like'%". escape_string($_GET['search']) ."%')  ");
+        confirm($query);
+
+        while($row = fetch_array($query))
+        {
+            $product = <<<DELIMETER
+           <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+
+        DELIMETER;
+
+            echo $product;
+
+        }
+    }else {
+        echo "There are no results matching your search!";
+    }
+
+}
+
+
+// function to get products based on price range
+
+function get_price_products()
+{
+    $query = query(" SELECT * FROM products WHERE product_price BETWEEN " . escape_string($_GET['lowPrice']) ." AND " . escape_string($_GET['highPrice']) ." ");
+    confirm($query);
+
+    while($row = fetch_array($query))
+    {
+        $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+
+        DELIMETER;
+
+        echo $product;
+    }
+}
+// function to display all products
+
+function get_all_products() {
+    $query = query(" SELECT * FROM products");
+    confirm($query);
+
+    while($row = fetch_array($query))
+    {
+        $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+
+        DELIMETER;
+
+        echo $product;
+    }
+}
+
+// function to filter product by search and also price
+function get_search_price_products() {
+
+    $query = query(" SELECT * FROM products WHERE product_price BETWEEN " . escape_string($_GET['lowPrice']) ." AND " . escape_string($_GET['highPrice']) ." AND product_brand LIKE '%". escape_string($_GET['search']) ."%' OR product_category_id IN(Select cat_id from categories where cat_title like'%". escape_string($_GET['search']) ."%')");
+    confirm($query);
+    while($row = fetch_array($query))
+    {
+        $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+
+        DELIMETER;
+
+        echo $product;
+    }
+}
+
+function check_search() {
+
+}
 
 //____________________________________ back end functions__________________//
 

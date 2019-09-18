@@ -14,9 +14,46 @@ height: 150px;
 */
 
 
-
 .thumbnail {
     height: 400px;
 }
 
 
+<<<<<<< HEAD
+form.search {
+    float: right;
+    padding: 10px;
+    border-radius: 10%;
+}
+
+
+form.search button {
+    cursor: pointer;
+    background-color: silver;
+    border-color: black;
+    color: black;
+    height: 100%;
+}
+
+form.search button:hover {
+    background-color: #337ab7;
+    color: white;
+}
+
+.panel-title {
+    font-size: 20px;
+
+}
+
+.list-group {
+    font-size: 15px;
+
+}
+
+.sidebarheading {
+    font-size: 30px;
+    align-content: center;
+
+}
+=======
+>>>>>>> master

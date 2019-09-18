@@ -72,7 +72,7 @@
                                 <span class="amount">$
                                     <?php
                                     //checking to see if session exists Str ? true : false
-                                    echo isset($_SESSION['total_cost']) ? $_SESSION['total_cost'] : $_SESSION['total_cost'] = "00.0";
+                                    echo isset($_SESSION['total_cost']) ? $_SESSION['total_cost'] : $_SESSION['total_cost'] = "0.00";
                                 ?>
                                 </span>
                             </strong>

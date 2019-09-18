@@ -1,16 +1,25 @@
 <?php require_once("../resources/config.php");
-      include(TEMPLATE_FRONT . DS . "header.php");
+include(TEMPLATE_FRONT . DS . "header.php");
+include(TEMPLATE_FRONT . DS . "side_nav.php");
 ?>
 
-<!-- Page Content -->
+
+
+
+
+
 <div class="container">
 
-    <!-- Jumbotron Header -->
-    <header>
-        <h1>Shop</h1>
-    </header>
 
     <hr>
+
+    <!-- Title -->
+
+    <h1>Products</h1>
+    <hr>
+
+    <!-- /.row -->
+
     <!-- Page Features -->
     <div class="row text-center">
 
@@ -24,5 +33,7 @@
 
 </div>
 
-    <?php include(TEMPLATE_FRONT . DS . "footer.php");  ?>
+
+<?php include(TEMPLATE_FRONT . DS . "footer.php");  ?>
+
 

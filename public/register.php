@@ -13,23 +13,18 @@
 
                 <div class="form-group">
                     <label for="firstname">First Name:</label>
-
-                    <input type="text" name="firstname" class="form-control" placeholder="" id="firstname" required data-validation-required-message="Please enter your first name.">
                     <input type="text" name="firstname" class="form-control" placeholder="Your First Name " id="firstname" required data-validation-required-message="Please enter your first name.">
-
                     <p class="help-block text-danger"></p>
                 </div>
 
                 <div class="form-group">
                     <label for="lastname">Last Name:</label>
-                    <input type="text" name="lastname" class="form-control" placeholder=""id="lastname" required data-validation-required-message="Please enter your last name.">
                     <input type="text" name="lastname" class="form-control" placeholder="Your Last Name " id="lastname" required data-validation-required-message="Please enter your last name.">
                     <p class="help-block text-danger"></p>
                 </div>
 
                 <div class="form-group">
                     <label for="username">User Name:</label>
-                    <input type="text" name="username" class="form-control" placeholder="Choose a Unique name" id="username" required data-validation-required-message="Please enter a user name.">
                     <input type="text" name="username" class="form-control" placeholder="Your Username " id="username" required data-validation-required-message="Please enter a user name.">
                     <p class="help-block text-danger"></p>
                 </div>
@@ -42,23 +37,18 @@
 
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" name="password" class="form-control" placeholder="Your Password" id="password" required data-validation-required-message="Please enter a password.">
+                    <input type="password" name="password" class="form-control" placeholder="Your password" id="password" required data-validation-required-message="Please enter a password.">
                     <p class="help-block text-danger"></p>
                 </div>
 
                 <div class="form-group">
-
-                    <label for="password-repeat">Check Password:</label>
-                    <input type="password" name="password-repeat" class="form-control" placeholder="Re-Enter Password" id="password-repeat" required data-validation-required-message="password check required">
-
                     <label for="password-repeat">Check password:</label>
                     <input type="password" name="password-repeat" class="form-control" placeholder="Check Password" id="password-repeat" required data-validation-required-message="password check required">
-
                     <p class="help-block text-danger"></p>
                 </div>
 
                 <div class="form-group">
-                    <label for="accounttype">Account Type: </label>
+                    <label for="accounttype">Account Type</label>
 
                         <select name="accounttype">
                             <option value="buyer">Buyer</option>
@@ -100,3 +90,4 @@ console.log(passwordtwo);
 -->
 
 <?php include(TEMPLATE_FRONT . DS . "footer.php");  ?>
+

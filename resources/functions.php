@@ -173,11 +173,9 @@ function get_categories()
 function  get_shop_products()
 {
 
-<<<<<<< HEAD
+$query = query(" SELECT * FROM products");
+   confirm($query);
 
-    $lowPrice;
-    $highPrice;
-=======
     while($row = fetch_array($query))
     {
         if($row['product_quantity'] > 0)
@@ -199,33 +197,12 @@ function  get_shop_products()
                     </div>
                 </div>
             </div>
->>>>>>> master
-
-
-<<<<<<< HEAD
-    //if search is entered but no price filter
-    if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) &&(escape_string($_GET['search']))) {
-        get_search();
-
-        // if search is entered, and price filter
-    }else if (escape_string($_GET['lowPrice']) && escape_string($_GET['highPrice']) && escape_string($_GET['search'])) {
-        get_search_price_products();
-
-        // if no filter or search entered
-    } else if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) && empty(escape_string($_GET['search']))) {
-        get_all_products();
 
         DELIMETER;
 
-        // if price filter is entered
-    } else if (empty(escape_string($_GET['search']))) {
-        get_price_products();
-=======
         echo $product;
         }
->>>>>>> master
     }
-
 }
 
 

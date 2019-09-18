@@ -53,5 +53,4 @@
 </div>
 
 <!-- /.navbar-collapse -->
-</div>
 <!-- /.container -->

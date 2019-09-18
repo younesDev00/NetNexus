@@ -132,38 +132,8 @@ function get_categories()
     }
 }
 
-function get_shop_products() {
-
-    $search = escape_string($_GET['search']);
-    $lowPrice = escape_string($_GET['lowPrice']);
-    $highPrice = escape_string($_GET['highPrice']);
 
 
-
-    //if search entered
-    if (!empty($search) && empty($lowPrice) && empty($highPrice)) {
-        // get searched products
-        get_search();
-        // while search entered
-        while (!empty($search)) {
-            // if price filter chosen
-            if (!empty($lowPrice) && !empty($highPrice)) {
-                // get search products based on price
-                get_search_price_products();
-            } else {
-                get_search();
-            }
-        }
-
-    }else if (empty($search)) { // else if price filter chosen
-        get_price_products();// get products based on price
-
-    }else {
-        get_all_products();
-    }
-}
-
-/**
 function  get_shop_products()
 {
 
@@ -192,7 +162,6 @@ function  get_shop_products()
 
 }
 
-**/
 
 
 function redirect_user($username, $password)

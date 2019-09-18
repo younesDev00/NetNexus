@@ -108,17 +108,18 @@ function get_categories_products()
         if($row['product_quantity'] > 0)
         {
         $product = <<<DELIMETER
-            <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:200px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="caption">
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
                         <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
                     </div>
                 </div>
             </div>
@@ -139,36 +140,35 @@ function get_categories()
         echo $categories;
     }
 }
+
 function  get_shop_products()
 {
-   $query = query(" SELECT * FROM products");
-   confirm($query);
-    while($row = fetch_array($query))
-    {
-        if($row['product_quantity'] > 0)
-        {
-        $product = <<<DELIMETER
-            <div class="col-md-4 col-sm-6 col-lg-3">
-                <div class="thumbnail">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:200px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
-                        </h4>
-                        <p style="overflow: hidden;text-overflow: ellipsis;height: 64px;">{$row['product_short_description']}</p>
-                    </div>
-                    <div class="ratings">
-                        <p>
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        DELIMETER;
-        echo $product;
-        }
+
+
+    $lowPrice;
+    $highPrice;
+
+
+    //if search is entered but no price filter
+    if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) &&(escape_string($_GET['search']))) {
+     get_search();
+
+        // if search is entered, and price filter
+    }else if (escape_string($_GET['lowPrice']) && escape_string($_GET['highPrice']) && escape_string($_GET['search'])) {
+        get_search_price_products();
+
+        // if no filter or search entered
+    } else if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) && empty(escape_string($_GET['search']))) {
+        get_all_products();
+
+
+        // if price filter is entered
+    } else if (empty(escape_string($_GET['search']))) {
+        get_price_products();
     }
+
 }
+
 function redirect_user($username, $password)
 {
     $accounquery = query("SELECT * FROM users WHERE username = '{$username}' OR useremail = '{$username}' AND password = '{$password}'");
@@ -333,10 +333,10 @@ function get_search()
         confirm($query);
         while($row = fetch_array($query))
         {
-            $product = <<<DELIMETER
-           <div class="col-sm-4 col-lg-4 col-md-4">
+         $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="caption">
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
@@ -344,7 +344,7 @@ function get_search()
                         <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
-                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
                         <h4 class="pull-right">&#36;{$row['product_price']}</h4>
                     </div>
                 </div>
@@ -366,7 +366,7 @@ function get_price_products()
         $product = <<<DELIMETER
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="caption">
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
@@ -374,7 +374,7 @@ function get_price_products()
                         <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
-                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
                         <h4 class="pull-right">&#36;{$row['product_price']}</h4>
                     </div>
                 </div>
@@ -392,7 +392,7 @@ function get_all_products() {
         $product = <<<DELIMETER
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="caption">
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
@@ -400,7 +400,7 @@ function get_all_products() {
                         <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
-                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
                         <h4 class="pull-right">&#36;{$row['product_price']}</h4>
                     </div>
                 </div>

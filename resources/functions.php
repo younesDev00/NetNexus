@@ -284,14 +284,12 @@ function signup_user()
         {
 
             if($password == $passwordrepeat)
-            {
-<<<<<<< HEAD
+
                 $confirmcode = rand();
                 $query = query("INSERT INTO users(firstname, lastname, username, useremail, password, accounttype, confirmed, confirmcode) VALUES('{$firstname}', '{$lastname}', '{$username}','{$email}','{$password}','{$accounttype}', '0', '{$confirmcode}')");
-=======
                 $hashedpwd = password_hash($password,PASSWORD_DEFAULT);
                 $query = query("INSERT INTO users(firstname,lastname,username,useremail,password,accounttype) VALUES('{$firstname}','{$lastname}','{$username}','{$email}','{$hashedpwd}','{$accounttype}')");
->>>>>>> master
+
                 confirm($query);
                 //$message =
                 //"
@@ -316,7 +314,7 @@ function signup_user()
         }
 
     }
-}
+
 
 function signout()
 {

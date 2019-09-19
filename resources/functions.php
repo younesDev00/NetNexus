@@ -1,5 +1,7 @@
 <?php
 require("PHPMailer/PHPMailerAutoload.php");
+
+
 //helper functions
 function destroy_sess()
 {
@@ -13,12 +15,12 @@ function last_id()
 function deleteSession_ExceptUser()
 {
     foreach($_SESSION as $key => $val)
-{
-    if ($key !== 'useraccount')
     {
-      unset($_SESSION[$key]);
+        if ($key !== 'useraccount')
+        {
+            unset($_SESSION[$key]);
+        }
     }
-}
 }
 function count_Sessions()
 {
@@ -78,7 +80,7 @@ function get_products()
     {
         if($row['product_quantity'] > 0)
         {
-        $product = <<<DELIMETER
+            $product = <<<DELIMETER
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px">
                     <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
@@ -95,7 +97,7 @@ function get_products()
                 </div>
             </div>
         DELIMETER;
-        echo $product;
+            echo $product;
         }
     }
 }
@@ -107,7 +109,7 @@ function get_categories_products()
     {
         if($row['product_quantity'] > 0)
         {
-        $product = <<<DELIMETER
+            $product = <<<DELIMETER
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px">
                     <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
@@ -124,7 +126,7 @@ function get_categories_products()
                 </div>
             </div>
         DELIMETER;
-        echo $product;
+            echo $product;
         }
     }
 }
@@ -141,33 +143,53 @@ function get_categories()
     }
 }
 
+
 function  get_shop_products()
 {
-
-
-    $lowPrice;
-    $highPrice;
-
-
-    //if search is entered but no price filter
-    if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) &&(escape_string($_GET['search']))) {
-     get_search();
-
-        // if search is entered, and price filter
-    }else if (escape_string($_GET['lowPrice']) && escape_string($_GET['highPrice']) && escape_string($_GET['search'])) {
+    if (isset($_GET['search'])) {
+        if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) &&(escape_string($_GET['search']))) {
+                    $search = escape_string($_GET['search']);
+                    get_search();
+        } else if (escape_string($_GET['lowPrice']) && escape_string($_GET['highPrice']) && escape_string($_GET['search'])) {         // if search is entered, and price filter
         get_search_price_products();
-
         // if no filter or search entered
     } else if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) && empty(escape_string($_GET['search']))) {
-        get_all_products();
-
-
+        get_products();
         // if price filter is entered
     } else if (empty(escape_string($_GET['search']))) {
         get_price_products();
     }
+    }
+}
+
+    /**
+    $lowPrice;
+    $highPrice;
+    $search;
+    //if search is entered
+    if (isset($_GET['search'])) {
+        $search = escape_string($_GET['search']);
+            get_search();
+
+    } else if ($_GET['lowPrice'] && $_GET['highPrice']) {
+            get_price_products();
+    }else {
+        get_products();
+    }
+    **/
+
+            // if price filter is entered
+
+
+        /**   }else {
+        get_all_products();
+        echo "not work";
+empty(escape_string($_GET['search']))) {
+            get_price_products();
 
 }
+**/
+
 
 function redirect_user($username, $password)
 {
@@ -190,10 +212,10 @@ function redirect_user($username, $password)
 }
 function redirect_email()
 {
-   // $accounquery = query("SELECT accounttype, user_id FROM users WHERE username = '{$username}' AND password = '{$password}'");
-  //  confirm($accounquery);
-   // $accounttype = fetch_array($accounquery);
-        redirect("emailconfirmation.php");
+    // $accounquery = query("SELECT accounttype, user_id FROM users WHERE username = '{$username}' AND password = '{$password}'");
+    //  confirm($accounquery);
+    // $accounttype = fetch_array($accounquery);
+    redirect("emailconfirmation.php");
 }
 function login_user()
 {
@@ -238,12 +260,12 @@ function signup_user()
                 confirm($query);
                 //$message =
                 //"
-               // Confirm Your Email!
-               // Click the link below to verify your NetNexus account
-               // http://192.168.64.2/shoppingtest/public/emailconfirmation.php?username=$username&code=$confirmcode
+                // Confirm Your Email!
+                // Click the link below to verify your NetNexus account
+                // http://192.168.64.2/shoppingtest/public/emailconfirmation.php?username=$username&code=$confirmcode
                 //";
                 send_mail($email, $username, $confirmcode);
-		      //echo "Registration Complete! Please confirm your email address";
+                //echo "Registration Complete! Please confirm your email address";
             }else
             {
                 set_message("Passwords Do Not Match");
@@ -289,42 +311,41 @@ function send_message()
 }
 function send_mail($email, $username, $confirmcode)
 {
- $mail = new PHPMailer;
-//$mail->SMTPDebug = 3;                               // Enable verbose debug output
-$mail->isSMTP();                                      // Set mailer to use SMTP
-$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-$mail->SMTPAuth = true;                               // Enable SMTP authentication
-$mail->Username = 'netnexusshop@gmail.com';                 // SMTP username
-$mail->Password = 'netnexus123';                           // SMTP password
-$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-$mail->Port = 587;                                    // TCP port to connect to
-$mail->setFrom('donotreply@netnexus.com', 'NetNexus');
-$mail->addAddress($email);     // Add a recipient
-//$mail->addAddress('ellen@example.com');               // Name is optional
-//$mail->addReplyTo('info@example.com', 'Information');
-//$mail->addCC('cc@example.com');
-//$mail->addBCC('bcc@example.com');
-//$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-//$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-//$mail->isHTML(true);                                  // Set email format to HTML
-$mail->Subject = 'NetNexus Email Confirmation';
-$mail->Body    = "
+    $mail = new PHPMailer;
+    //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+    $mail->isSMTP();                                      // Set mailer to use SMTP
+    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+    $mail->Username = 'netnexusshop@gmail.com';                 // SMTP username
+    $mail->Password = 'netnexus123';                           // SMTP password
+    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+    $mail->Port = 587;                                    // TCP port to connect to
+    $mail->setFrom('donotreply@netnexus.com', 'NetNexus');
+    $mail->addAddress($email);     // Add a recipient
+    //$mail->addAddress('ellen@example.com');               // Name is optional
+    //$mail->addReplyTo('info@example.com', 'Information');
+    //$mail->addCC('cc@example.com');
+    //$mail->addBCC('bcc@example.com');
+    //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+    //$mail->isHTML(true);                                  // Set email format to HTML
+    $mail->Subject = 'NetNexus Email Confirmation';
+    $mail->Body    = "
                 Confirm Your Email!
                 Click the link below to verify your NetNexus account
                 http://192.168.64.2/shoppingtest/public/emailconfirmation.php?username=$username&code=$confirmcode
                 ";
-//$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
     if(!$mail->send()) {
-    echo 'Message could not be sent.';
-    echo 'Mailer Error: ' . $mail->ErrorInfo;
-} else {
-    echo 'Registration Complete! Check your emails for a confirmation!';
-}
+        echo 'Message could not be sent.';
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
+    } else {
+        echo 'Registration Complete! Check your emails for a confirmation!';
+    }
 }
 // function to get products based on search
 function get_search()
 {
-
 
     $search =escape_string($_GET['search']);
 
@@ -339,9 +360,9 @@ function get_search()
         while($row = fetch_array($query))
         {
             $product = <<<DELIMETER
-           <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="caption">
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
@@ -349,12 +370,11 @@ function get_search()
                         <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
-                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
                         <h4 class="pull-right">&#36;{$row['product_price']}</h4>
                     </div>
                 </div>
             </div>
-
         DELIMETER;
 
             echo $product;
@@ -376,11 +396,12 @@ function get_price_products()
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px">
                     <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+
                     <div class="caption">
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                        <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
                         <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
@@ -392,32 +413,7 @@ function get_price_products()
         echo $product;
     }
 }
-// function to display all products
-function get_all_products() {
-    $query = query(" SELECT * FROM products");
-    confirm($query);
-    while($row = fetch_array($query))
-    {
-        $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
-                        </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
-                    </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
-                    </div>
-                </div>
-            </div>
-        DELIMETER;
-        echo $product;
-    }
-}
+
 // function to filter product by search and also price
 function get_search_price_products() {
     $query = query(" SELECT * FROM products WHERE product_price BETWEEN " . escape_string($_GET['lowPrice']) ." AND " . escape_string($_GET['highPrice']) ." AND product_brand LIKE '%". escape_string($_GET['search']) ."%' OR product_category_id IN(Select cat_id from categories where cat_title like'%". escape_string($_GET['search']) ."%')");
@@ -425,18 +421,17 @@ function get_search_price_products() {
     while($row = fetch_array($query))
     {
         $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+            <div class="col-md-4 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:200px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
                     <div class="caption">
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                        <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
                         <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
                     </div>
                 </div>
             </div>
@@ -444,8 +439,7 @@ function get_search_price_products() {
         echo $product;
     }
 }
-function check_search() {
-}
+
 //____________________________________ back end functions__________________//
 function display_orders()
 {
@@ -469,18 +463,18 @@ function display_orders()
                                      INNER JOIN users ON reports.purchaser_id = users.user_id
                         WHERE categories.cat_id = products.product_category_id
                         ORDER BY  reports.order_id");
-                confirm($query);
+        confirm($query);
     }else if($_SESSION['useraccount'][1] == 'buyer')
     {
-       $query = query("SELECT *
+        $query = query("SELECT *
                         FROM categories, reports INNER JOIN orders ON reports.order_id = orders.order_id
                                      INNER JOIN products ON reports.product_id = products.product_id
                                      INNER JOIN users ON reports.purchaser_id = users.user_id
                         WHERE        (categories.cat_id = products.product_category_id) &&
                                      (reports.purchaser_id =  " .$_SESSION['useraccount'][3].") ");
-       confirm($query);
-       $up = "../resources/uploads";
-       $del = "../resources/templates/back/delete_order.php?";
+        confirm($query);
+        $up = "../resources/uploads";
+        $del = "../resources/templates/back/delete_order.php?";
     }
     while($row = fetch_array($query))
     {
@@ -512,16 +506,16 @@ function get_products_backend()
 {
     if($_SESSION['useraccount'][1] == 'seller' )
     {
-       $query = query(" SELECT * FROM users,products, categories  WHERE (users.user_id = products.seller_id) && (categories.cat_id = products.product_category_id ) && products.seller_id = " .$_SESSION['useraccount'][3]." ");
-       confirm($query);
+        $query = query(" SELECT * FROM users,products, categories  WHERE (users.user_id = products.seller_id) && (categories.cat_id = products.product_category_id ) && products.seller_id = " .$_SESSION['useraccount'][3]." ");
+        confirm($query);
         $up = "../../resources" . DS . "uploads" . DS;
         $del = "../../resources/templates/back/delete_product.php?";
     }else if( $_SESSION['useraccount'][1] == 'admin')
     {
-       $query = query(" SELECT * FROM products, categories  WHERE categories.cat_id = products.product_category_id");
-       confirm($query);
-       $up = "../../resources" . DS . "uploads" . DS;
-       $del = "../../resources/templates/back/delete_product.php?";
+        $query = query(" SELECT * FROM products, categories  WHERE categories.cat_id = products.product_category_id");
+        confirm($query);
+        $up = "../../resources" . DS . "uploads" . DS;
+        $del = "../../resources/templates/back/delete_product.php?";
     }
     while($row = fetch_array($query))
     {
@@ -544,42 +538,42 @@ function get_products_backend()
 //add products
 function add_product()
 {
-if(isset($_POST['publish']))
-{
-$product_title          = escape_string($_POST['product_title']);
-$product_category_id    = escape_string($_POST['product_category_id']);
-$product_price          = escape_string($_POST['product_price']);
-$product_description    = escape_string($_POST['product_description']);
-$short_desc             = escape_string($_POST['short_desc']);
-$product_quantity       = escape_string($_POST['product_quantity']);
-$product_image          = escape_string($_FILES['file']['name']);
-$image_temp_location    = escape_string($_FILES['file']['tmp_name']);
-//if(move_uploaded_file($image_temp_location, UPLOADS_DIRECTORY . DS . $product_image))
-//{
-//    redirect("index.php");
-//}else
-//{
-//        redirect("index.php?fucku");
-//
-//}
-$query = query("INSERT INTO products(product_title,seller_id, product_category_id, product_price,product_quantity, product_description, product_short_description, product_image) VALUES('{$product_title}','{$_SESSION['useraccount'][3]}', '{$product_category_id}', '{$product_price}','{$product_quantity}', '{$product_description}', '{$short_desc}',  '{$product_image}')");
-$last_id = last_id();
-confirm($query);
-set_message("New Product with id {$last_id} was Added");
-//might need move_uploaded_file on live server
-if(copy($image_temp_location, UPLOADS_DIRECTORY . DS . $product_image))
-{
-    redirect("index.php?products");
-}else
-{
-        //redirect("index.php?fucku");
-    echo $_FILES["file"]['name']."<br>";
-    echo $_FILES["file"]['tmp_name']."<br>";
-    echo $_FILES["file"]['size']."<br>";
-    echo $_FILES['file']['error']."<br>";
-    echo UPLOADS_DIRECTORY . DS . $product_image;
-}
-}
+    if(isset($_POST['publish']))
+    {
+        $product_title          = escape_string($_POST['product_title']);
+        $product_category_id    = escape_string($_POST['product_category_id']);
+        $product_price          = escape_string($_POST['product_price']);
+        $product_description    = escape_string($_POST['product_description']);
+        $short_desc             = escape_string($_POST['short_desc']);
+        $product_quantity       = escape_string($_POST['product_quantity']);
+        $product_image          = escape_string($_FILES['file']['name']);
+        $image_temp_location    = escape_string($_FILES['file']['tmp_name']);
+        //if(move_uploaded_file($image_temp_location, UPLOADS_DIRECTORY . DS . $product_image))
+        //{
+        //    redirect("index.php");
+        //}else
+        //{
+        //        redirect("index.php?fucku");
+        //
+        //}
+        $query = query("INSERT INTO products(product_title,seller_id, product_category_id, product_price,product_quantity, product_description, product_short_description, product_image) VALUES('{$product_title}','{$_SESSION['useraccount'][3]}', '{$product_category_id}', '{$product_price}','{$product_quantity}', '{$product_description}', '{$short_desc}',  '{$product_image}')");
+        $last_id = last_id();
+        confirm($query);
+        set_message("New Product with id {$last_id} was Added");
+        //might need move_uploaded_file on live server
+        if(copy($image_temp_location, UPLOADS_DIRECTORY . DS . $product_image))
+        {
+            redirect("index.php?products");
+        }else
+        {
+            //redirect("index.php?fucku");
+            echo $_FILES["file"]['name']."<br>";
+            echo $_FILES["file"]['tmp_name']."<br>";
+            echo $_FILES["file"]['size']."<br>";
+            echo $_FILES['file']['error']."<br>";
+            echo UPLOADS_DIRECTORY . DS . $product_image;
+        }
+    }
 }
 function backend_addproductpage_categories()
 {
@@ -587,7 +581,7 @@ function backend_addproductpage_categories()
     confirm($query);
     while($row = mysqli_fetch_array($query))
     {
-       $categoriesoptions = <<<DELIMETER
+        $categoriesoptions = <<<DELIMETER
             <option value="{$row['cat_id']}">{$row['cat_title']}</option>
         DELIMETER;
         echo $categoriesoptions;
@@ -599,44 +593,44 @@ function backend_categories_title($id)
     confirm($query);
     while($row = mysqli_fetch_array($query))
     {
-       return $row['cat_title'];
+        return $row['cat_title'];
     }
 }
 function update_product()
 {
-if(isset($_POST['update']))
-{
-$product_title          = escape_string($_POST['product_title']);
-$product_category_id    = escape_string($_POST['product_category_id']);
-$product_price          = escape_string($_POST['product_price']);
-$product_description    = escape_string($_POST['product_description']);
-$short_desc             = escape_string($_POST['short_desc']);
-$product_quantity       = escape_string($_POST['product_quantity']);
-$product_image          = escape_string($_FILES['file']['name']);
-$image_temp_location    = escape_string($_FILES['file']['tmp_name']);
-if(empty($product_image)) {
-$get_pic = query("SELECT product_image FROM products WHERE product_id =" .escape_string($_GET['id']). " ");
-confirm($get_pic);
-while($pic = fetch_array($get_pic)) {
-$product_image = $pic['product_image'];
+    if(isset($_POST['update']))
+    {
+        $product_title          = escape_string($_POST['product_title']);
+        $product_category_id    = escape_string($_POST['product_category_id']);
+        $product_price          = escape_string($_POST['product_price']);
+        $product_description    = escape_string($_POST['product_description']);
+        $short_desc             = escape_string($_POST['short_desc']);
+        $product_quantity       = escape_string($_POST['product_quantity']);
+        $product_image          = escape_string($_FILES['file']['name']);
+        $image_temp_location    = escape_string($_FILES['file']['tmp_name']);
+        if(empty($product_image)) {
+            $get_pic = query("SELECT product_image FROM products WHERE product_id =" .escape_string($_GET['id']). " ");
+            confirm($get_pic);
+            while($pic = fetch_array($get_pic)) {
+                $product_image = $pic['product_image'];
+            }
+        }
+        copy($image_temp_location, UPLOADS_DIRECTORY . DS . $product_image);
+        $query = "UPDATE products SET ";
+        $query .= "product_title              = '{$product_title}'        , ";
+        $query .= "product_category_id        = '{$product_category_id}'  , ";
+        $query .= "product_price              = '{$product_price}'        , ";
+        $query .= "product_quantity           = '{$product_quantity}'     , ";
+        $query .= "product_description        = '{$product_description}'  , ";
+        $query .= "product_short_description  = '{$short_desc}'           , ";
+        $query .= "product_image              = '{$product_image}'          ";
+        $query .= "WHERE product_id           = " . escape_string($_GET['id']);
+        $query_update = query($query);
+        confirm($query_update);
+        set_message("Product updated");
+        //might need move_uploaded_file on live server
+        redirect("index.php?products");
     }
-}
-    copy($image_temp_location, UPLOADS_DIRECTORY . DS . $product_image);
-$query = "UPDATE products SET ";
-$query .= "product_title              = '{$product_title}'        , ";
-$query .= "product_category_id        = '{$product_category_id}'  , ";
-$query .= "product_price              = '{$product_price}'        , ";
-$query .= "product_quantity           = '{$product_quantity}'     , ";
-$query .= "product_description        = '{$product_description}'  , ";
-$query .= "product_short_description  = '{$short_desc}'           , ";
-$query .= "product_image              = '{$product_image}'          ";
-$query .= "WHERE product_id           = " . escape_string($_GET['id']);
-$query_update = query($query);
-confirm($query_update);
-set_message("Product updated");
-//might need move_uploaded_file on live server
-    redirect("index.php?products");
-}
 }
 
 

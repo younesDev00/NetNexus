@@ -1,38 +1,24 @@
 <?php require_once("../resources/config.php");
 include(TEMPLATE_FRONT . DS . "header.php");
-include(TEMPLATE_FRONT . DS . "side_nav.php");
 ?>
 
-
-
-
-
-
+<!-- Page Content -->
 <div class="container">
 
+    <div class="row">
+        <?php include(TEMPLATE_FRONT . DS . "side_nav.php"); ?>
 
-    <hr>
+        <hr>
+        <h2>Products</h2>
+        <hr>
 
-    <!-- Title -->
-
-    <h1>Products</h1>
-    <hr>
-
-    <!-- /.row -->
-
-    <!-- Page Features -->
-    <div class="row text-center">
-
-
-        <?php get_shop_products(); ?>
+        <div class="row">
+            <?php get_shop_products(); ?>
+        </div>
 
     </div>
-    <!-- /.row -->
-
-
 
 </div>
-
 
 <?php include(TEMPLATE_FRONT . DS . "footer.php");  ?>
 

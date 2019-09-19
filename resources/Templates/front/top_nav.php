@@ -48,11 +48,15 @@
                 }
                 ?>
 
+
             </ul>
             <div style="padding-top:10px;float:left;">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <form action="shop.php?" method="GET">
+                    <input type="hidden" placeholder="Product Search" name="lowPrice">
+                    <input type="hidden" placeholder="Product Search" name="highPrice">
+                    <input type="text" placeholder="Search" name="search" aria-label="search">
+                    <input type="submit">
+
                 </form>
             </div>
 
@@ -62,3 +66,7 @@
     </div>
     <!-- /.container -->
 </nav>
+
+<!-- /.navbar-collapse -->
+<!-- /.container -->
+

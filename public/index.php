@@ -22,16 +22,12 @@
 
                 </div>
 
+                <div class="row">
+                    <?php get_products(); ?>
+                </div><!-- ROw ends here-->
+
             </div>
-
-            <div class="row">
-                <?php get_products(); ?>
-
-
-            </div><!-- ROw ends here-->
-
         </div>
-
     </div>
 
 </div>

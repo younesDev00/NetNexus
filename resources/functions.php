@@ -162,6 +162,7 @@ function  get_shop_products()
     }
 }
 
+
     /**
     $lowPrice;
     $highPrice;

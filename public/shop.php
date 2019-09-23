@@ -8,9 +8,23 @@ include(TEMPLATE_FRONT . DS . "header.php");
     <div class="row">
         <?php include(TEMPLATE_FRONT . DS . "side_nav.php"); ?>
 
-        <hr>
-        <h2>Products</h2>
-        <hr>
+        <div>
+            <hr>
+            <h2>Products</h2>
+
+            <form class = "sort-products" action="/sort.php" method="GET">
+                <select name="sort">
+                    <option value="all">All Products</option>
+                    <option value="lowHigh">By price: Low to High</option>
+                    <option value="highLow">By price: High to Low</option>
+                </select>
+                <button type="submit" >Sort</button>
+                <input type="reset">
+            </form>
+            <hr>
+
+        </div>
+
 
         <div class="row">
             <?php get_shop_products(); ?>

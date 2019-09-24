@@ -103,6 +103,7 @@ function get_products()
 }
 function get_categories_products()
 {
+    /**
     $query = query(" SELECT * FROM products WHERE product_category_id =" . escape_string($_GET['id']) ."");
     confirm($query);
     while($row = fetch_array($query))
@@ -129,7 +130,61 @@ function get_categories_products()
             echo $product;
         }
     }
+    **/
+    $a = $_GET['categories'];
+    if (in_array(1, $a)) {
+        $query = query(" SELECT * FROM products WHERE product_category_id ='1'");
+        confirm($query);
+        while($row = fetch_array($query))
+        {
+            $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+            echo $product;
+        }
+    }if (in_array(2, $a)) {
+        $query = query(" SELECT * FROM products WHERE product_category_id ='2'");
+        confirm($query);
+        while($row = fetch_array($query))
+        {
+            $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+            echo $product;
+        }
+    }
 }
+
 function get_categories()
 {
     $query = query("SELECT * FROM categories");
@@ -137,7 +192,7 @@ function get_categories()
     while($row = mysqli_fetch_array($query))
     {
         $categories = <<<DELIMETER
-            <a href="category.php?id={$row['cat_id']}" class='list-group-item'>{$row['cat_title']}</a>
+            <input type="checkbox" name="categories[]" value="{$row['cat_id']}">{$row['cat_title']}<br />
         DELIMETER;
         echo $categories;
     }
@@ -147,8 +202,10 @@ function get_categories()
 
 function  get_shop_products()
 {
-
-    if(isset($_GET["searchSubmit"] ))
+    if (isset($_GET['catSubmit'])) {
+        get_categories_products();
+    }
+     if(isset($_GET["searchSubmit"] ))
     {
         $search = $_GET['search'];
         get_search($search);

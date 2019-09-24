@@ -9,19 +9,20 @@
         <?php get_categories(); ?>
     </div>
 
+    <form action="shop.php?" method="get">
+            <input type="checkbox" name="priceRange[]" value="1"/>Less than $500<br />
+            <input type="checkbox" name="priceRange[]" value="2"/>$500-$1000<br />
+            <input type="checkbox" name="priceRange[]" value="3"/>$1000-$2000<br />
+            <input type="checkbox" name="priceRange[]" value="4"/>$2000-$3000<br />
+            <input type="checkbox" name="priceRange[]" value="5"/>$3000-$4000<br />
+            <input type="checkbox" name="priceRange[]" value="6"/>$4000-$5000<br />
+            <input type="checkbox" name="priceRange[]" value="7"/>$5000+<br />
 
-    <div class="list-group"  >
-        <h3 >Shop by Price</h3>
-        <div   >
-                <a href="shop.php?lowPrice=0&highPrice=500&search" class="list-group-item">Less than $500</a>
-                <a href="shop.php?lowPrice=500&highPrice=1000&search" class="list-group-item">$500-$1000</a>
-                <a href="shop.php?lowPrice=1000&highPrice=2000&search" class="list-group-item">$1000-$2000</a>
-                <a href="shop.php?lowPrice=2000&highPrice=3000&search" class="list-group-item">$2000-$3000</a>
-                <a href="shop.php?lowPrice=3000&highPrice=4000&search" class="list-group-item">$3000-$4000</a>
-                <a href="shop.php?lowPrice=4000&highPrice=1000&search" class="list-group-item">$4000+</a>
+        <input type="submit" name="formSubmit" value="Submit" />
+    </form>
 
-        </div>
-    </div>
+
+
 </div>
 
 

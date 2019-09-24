@@ -146,49 +146,46 @@ function get_categories()
 
 function  get_shop_products()
 {
-    if (isset($_GET['search'])) {
-        if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) &&(escape_string($_GET['search']))) {
-                    $search = escape_string($_GET['search']);
-                    get_search();
-        } else if (escape_string($_GET['lowPrice']) && escape_string($_GET['highPrice']) && escape_string($_GET['search'])) {         // if search is entered, and price filter
-        get_search_price_products();
-        // if no filter or search entered
-    } else if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) && empty(escape_string($_GET['search']))) {
+    if(isset($_GET['formSubmit'])) {
+
+        $aPrice = $_GET['priceRange'];
+
+        if (empty($aPrice)) {
+            echo"You didnt select anything";
+        }
+        else {
+            $N=count($aPrice);
+            echo "You selected $N price: ";
+            for ($i=0; $i<$N; $i++) {
+                echo $aPrice[$i]."";
+                get_price_products();
+            }
+        }
+
+        if(IsChecked('priceRange', '0-$500'))
+        {
+            echo "0-500";
+        }
+    } else {
         get_products();
-        // if price filter is entered
-    } else if (empty(escape_string($_GET['search']))) {
-        get_price_products();
-    }
     }
 }
 
-    /**
-    $lowPrice;
-    $highPrice;
-    $search;
-    //if search is entered
-    if (isset($_GET['search'])) {
-        $search = escape_string($_GET['search']);
-            get_search();
-
-    } else if ($_GET['lowPrice'] && $_GET['highPrice']) {
-            get_price_products();
-    }else {
-        get_products();
+function IsChecked($chkname,$value)
+{
+    if(!empty($_POST[$chkname]))
+    {
+        foreach($_POST[$chkname] as $chkval)
+        {
+            if($chkval == $value)
+            {
+                return true;
+            }
+        }
     }
-    **/
-
-            // if price filter is entered
-
-
-        /**   }else {
-        get_all_products();
-        echo "not work";
-empty(escape_string($_GET['search']))) {
-            get_price_products();
-
+    return false;
 }
-**/
+
 
 
 function redirect_user($username, $password)
@@ -388,11 +385,13 @@ function get_search()
 // function to get products based on price range
 function get_price_products()
 {
-    $query = query(" SELECT * FROM products WHERE product_price BETWEEN " . escape_string($_GET['lowPrice']) ." AND " . escape_string($_GET['highPrice']) ." ");
-    confirm($query);
-    while($row = fetch_array($query))
-    {
-        $product = <<<DELIMETER
+    $a = $_GET['priceRange'];
+    if (in_array(1, $a)) {
+        $query = query(" SELECT * FROM products WHERE product_price BETWEEN 0 AND 500 ");
+        confirm($query);
+        while($row = fetch_array($query))
+        {
+            $product = <<<DELIMETER
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px">
                     <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
@@ -410,9 +409,167 @@ function get_price_products()
                 </div>
             </div>
         DELIMETER;
-        echo $product;
+            echo $product;
+        }
+    }if (in_array(2, $a)) {
+        $query = query(" SELECT * FROM products WHERE product_price BETWEEN 500 AND 1000 ");
+        confirm($query);
+        while($row = fetch_array($query))
+        {
+            $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+            echo $product;
+        }
+    }if (in_array(3, $a)) {
+        $query = query(" SELECT * FROM products WHERE product_price BETWEEN 1000 AND 2000 ");
+        confirm($query);
+        while($row = fetch_array($query))
+        {
+            $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+            echo $product;
+        }
+    }
+    if (in_array(4, $a)) {
+        $query = query(" SELECT * FROM products WHERE product_price BETWEEN 2000 AND 3000 ");
+        confirm($query);
+        while($row = fetch_array($query))
+        {
+            $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+            echo $product;
+        }
+    }
+    if (in_array(5, $a)) {
+        $query = query(" SELECT * FROM products WHERE product_price BETWEEN 3000 AND 4000 ");
+        confirm($query);
+        while($row = fetch_array($query))
+        {
+            $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+            echo $product;
+        }
+    }
+    if (in_array(6, $a)) {
+        $query = query(" SELECT * FROM products WHERE product_price BETWEEN 4000 AND 5000 ");
+        confirm($query);
+        while($row = fetch_array($query))
+        {
+            $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+            echo $product;
+        }
+    }
+    if (in_array(7, $a)) {
+        $query = query(" SELECT * FROM products WHERE product_price BETWEEN 5000 AND 20000 ");
+        confirm($query);
+        while($row = fetch_array($query))
+        {
+            $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+            echo $product;
+        }
     }
 }
+
+
+
 
 // function to filter product by search and also price
 function get_search_price_products() {

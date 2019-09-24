@@ -144,32 +144,31 @@ function get_categories()
 }
 
 
+
 function  get_shop_products()
 {
-    if(isset($_GET['formSubmit'])) {
+    $query = query("SELECT * FROM products WHERE product_ID IS NOT NULL ");
+    confirm($query);
+    if(isset($_GET["searchSubmit"] ))
+    {
+        $search = $_GET['search'];
+        get_search($search);
+        if(isset($_GET['formSubmit'])) {
 
-        $aPrice = $_GET['priceRange'];
+            $aPrice = $_GET['priceRange'];
 
-        if (empty($aPrice)) {
-            echo"You didnt select anything";
-        }
-        else {
             $N=count($aPrice);
-            echo "You selected $N price: ";
+
             for ($i=0; $i<$N; $i++) {
-                echo $aPrice[$i]."";
                 get_price_products();
             }
         }
 
-        if(IsChecked('priceRange', '0-$500'))
-        {
-            echo "0-500";
-        }
-    } else {
+    }else {
         get_products();
     }
 }
+
 
 function IsChecked($chkname,$value)
 {

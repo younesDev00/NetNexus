@@ -53,7 +53,7 @@
             <div style="padding-top:10px;float:left;">
                 <form action="shop.php?" method="GET">
                     <input type="text" placeholder="Search" name="search" aria-label="search">
-                    <input type="submit">
+                    <input type="submit" name="searchSubmit">
 
                 </form>
             </div>

@@ -7,7 +7,10 @@ include(TEMPLATE_FRONT . DS . "header.php");
 
     <div class="row">
         <?php include(TEMPLATE_FRONT . DS . "side_nav.php"); ?>
+        <hr>
 
+        <h1>Products</h1>
+        <hr>
         <div class="row">
             <?php get_shop_products(); ?>
         </div>

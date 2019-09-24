@@ -147,27 +147,27 @@ function get_categories()
 
 function  get_shop_products()
 {
-    $query = query("SELECT * FROM products WHERE product_ID IS NOT NULL ");
-    confirm($query);
+
     if(isset($_GET["searchSubmit"] ))
     {
         $search = $_GET['search'];
         get_search($search);
-        if(isset($_GET['formSubmit'])) {
+    }
 
-            $aPrice = $_GET['priceRange'];
+    else if(isset($_GET['formSubmit'])) {
 
-            $N=count($aPrice);
+        $aPrice = $_GET['priceRange'];
 
-            for ($i=0; $i<$N; $i++) {
-                get_price_products();
-            }
+        $N=count($aPrice);
+
+        for ($i=0; $i<$N; $i++) {
+            get_price_products();
         }
-
-    }else {
+    } else {
         get_products();
     }
 }
+
 
 
 function IsChecked($chkname,$value)

@@ -19,7 +19,6 @@ height: 150px;
 }
 
 
-<<<<<<< HEAD
 form.search {
     float: right;
     padding: 10px;
@@ -52,9 +51,4 @@ form.search button:hover {
 }
 
 
-.list-group {
-  list-style-type: none; /* Remove bullets */
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margins */
-}
 

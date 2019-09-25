@@ -50,11 +50,10 @@
 
 
             </ul>
-            <div style="padding-top:10px;float:left;">
+            <div style="padding-top:10px;float:right;">
                 <form action="shop.php?" method="GET">
                     <input type="text" placeholder="Search" name="search" aria-label="search">
                     <input type="submit" name="searchSubmit">
-
                 </form>
             </div>
 

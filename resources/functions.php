@@ -171,6 +171,15 @@ function  get_shop_products()
                 get_price_products($i);
             }
         }
+        if(isset($_GET['brands'])) {
+            $aBrands = $_GET['brands'];
+
+            $N=count($aBrands);
+
+            for ($i=0; $i<$N; $i++) {
+                get_brand_products($i);
+            }
+        }
         if(isset($_GET['categories']) && isset($_GET['prices'])) {
             $catArray=$_GET['categories'];
             $priceArray = $_GET['prices'];
@@ -389,7 +398,7 @@ function get_prices()
         echo $pricerange;
     }
 }
-// function to get products based on price range
+
 function get_price_products($i)
 {
     $a = $_GET['prices'];
@@ -421,6 +430,54 @@ function get_price_products($i)
             echo $product;
         }
 }
+
+function get_brands()
+{
+    $query = query("SELECT * FROM brands order by brand_name ASC");
+    confirm($query);
+    while($row = mysqli_fetch_array($query))
+    {
+        $pricerange = <<<DELIMETER
+            <input type="checkbox" name="brands[]" value="{$row['brand_id']}">{$row['brand_name']}<br />
+        DELIMETER;
+        echo $pricerange;
+    }
+}
+
+function get_brand_products($i)
+{
+    $a = $_GET['brands'];
+
+    $targetcat = $a[$i];
+
+    $query = query(" SELECT * FROM products WHERE product_brand_id ='{$targetcat}' ORDER BY product_price ASC ");
+    confirm($query);
+    while($row = fetch_array($query))
+        if($row['product_quantity'] > 0)
+        {
+            $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+            echo $product;
+        }
+}
+
+// function to get products based on price range
+
 
 function get_price_category_products($catArray, $priceArray) {
     $catArray=$_GET['categories'];

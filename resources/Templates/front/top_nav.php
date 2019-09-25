@@ -1,3 +1,5 @@
+<link href="css/styles.css" rel="stylesheet">
+
 <nav class="navbar navbar-inverse navbar-fixed-top" >
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -51,9 +53,9 @@
 
             </ul>
             <div style="padding-top:10px;float:right;">
-                <form action="shop.php?" method="GET">
+                <form action="shop.php?" method="GET" class="submit-search">
                     <input type="text" placeholder="Search" name="search" aria-label="search">
-                    <input type="submit" name="searchSubmit">
+                    <input type="submit" name="searchSubmit" >
                 </form>
             </div>
 

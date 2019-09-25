@@ -673,7 +673,6 @@ function get_category_brand_products($catArray, $brandArray){
         }
         else{
             $querystring .= "product_category_id='{$catArray[$i]}' OR ";
-
         }
     }
 
@@ -733,18 +732,45 @@ function get_price_category_brand_products($catArray, $priceArray, $brandArray) 
     $querystring="";
 
     for ($i=0; $i<count($catArray); $i++) {
-        $querystring .= "product_category_id='{$catArray[$i]}' AND ";
+        if ($i==0 && ($i+1)==count($catArray)) {
+
+            $querystring .= "(product_category_id='{$catArray[$i]}') AND ";
+        } elseif (($i+1)==count($catArray)) {
+            $querystring .= "product_category_id='{$catArray[$i]}') AND ";
+        }elseif ($i==0) {
+
+            $querystring .= "(product_category_id='{$catArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_category_id='{$catArray[$i]}' OR ";
+        }
     }
 
     for ($i=0; $i<count($brandArray); $i++) {
-        $querystring .= "product_brand_id='{$brandArray[$i]}' AND ";
+                if ($i==0 && ($i+1)==count($brandArray)) {
+            $querystring .= "(product_brand_id='{$brandArray[$i]}') AND ";
+        } elseif (($i+1)==count($brandArray)) {
+            $querystring .= "product_brand_id='{$brandArray[$i]}') AND ";
+        }elseif ($i==0) {
+            $querystring .= "(product_brand_id='{$brandArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_brand_id='{$brandArray[$i]}' OR ";
+
+        }
     }
 
     for ($i=0; $i<count($priceArray); $i++) {
-        if (($i+1)==count($priceArray)) {
-            $querystring .= "product_pricerange_id ='{$priceArray[$i]}' ORDER BY product_price ASC";
-        } else {
-            $querystring .= "product_pricerange_id='{$priceArray[$i]}' AND ";
+        if ($i==0 && ($i+1)==count($priceArray)) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        } elseif (($i+1)==count($priceArray)) {
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        }elseif ($i==0) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}' OR ";
+
         }
     }
 

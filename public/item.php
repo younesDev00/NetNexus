@@ -6,15 +6,14 @@
 <div class="container">
 
 <!-- Side Navigation -->
-<?php require_once(TEMPLATE_FRONT . DS . "side_nav.php");
-
+<?php
 $query = query(" SELECT * FROM products WHERE product_id =" . escape_string($_GET['id']) ."");
 confirm($query);
 
 while($row = fetch_array($query)):
 $id = escape_string($_GET['id']);
 ?>
-<div class="bbcolour col-md-9">
+<div class="bbcolour col-md-9" >
 
     <!--Row For Image and Short Description-->
 

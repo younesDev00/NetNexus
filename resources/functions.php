@@ -154,7 +154,7 @@ function  get_shop_products()
 {
     if (isset($_GET['formSubmit'])) {
 
-        if (isset($_GET['categories'])) {
+        if (isset($_GET['categories']) && !isset($_GET['prices']) && !isset($_GET['brands'])) {
             $aCategories=$_GET['categories'];
             $N=count($aCategories);
 
@@ -162,7 +162,7 @@ function  get_shop_products()
                 get_categories_products($i);
             }
         }
-        if(isset($_GET['prices'])) {
+        if(isset($_GET['prices']) && !isset($_GET['categories']) && !isset($_GET['brands'])) {
             $aPrice = $_GET['prices'];
 
             $N=count($aPrice);
@@ -171,7 +171,7 @@ function  get_shop_products()
                 get_price_products($i);
             }
         }
-        if(isset($_GET['brands'])) {
+        if(isset($_GET['brands']) && !isset($_GET['prices']) && !isset($_GET['categories'])) {
             $aBrands = $_GET['brands'];
 
             $N=count($aBrands);
@@ -180,12 +180,20 @@ function  get_shop_products()
                 get_brand_products($i);
             }
         }
-        if(isset($_GET['categories']) && isset($_GET['prices'])) {
+        if(isset($_GET['categories']) && isset($_GET['prices']) && !isset($_GET['brands'])) {
             $catArray=$_GET['categories'];
             $priceArray = $_GET['prices'];
 
             get_price_category_products($catArray, $priceArray);
         }
+        if(isset($_GET['categories']) && isset($_GET['prices']) && isset($_GET['brands'])) {
+            $catArray=$_GET['categories'];
+            $priceArray = $_GET['prices'];
+            $brandArray = $_GET['brands'];
+
+            get_price_category_brand_products($catArray, $priceArray, $brandArray);
+        }
+
     } else if(isset($_GET['searchSubmit'])) {
         get_search();
 
@@ -448,9 +456,9 @@ function get_brand_products($i)
 {
     $a = $_GET['brands'];
 
-    $targetcat = $a[$i];
+    $targetbrand = $a[$i];
 
-    $query = query(" SELECT * FROM products WHERE product_brand_id ='{$targetcat}' ORDER BY product_price ASC ");
+    $query = query(" SELECT * FROM products WHERE product_brand_id ='{$targetbrand}' ORDER BY product_price ASC ");
     confirm($query);
     while($row = fetch_array($query))
         if($row['product_quantity'] > 0)
@@ -490,14 +498,15 @@ function get_price_category_products($catArray, $priceArray) {
 
     for ($i=0; $i<count($priceArray); $i++) {
         if (($i+1)==count($priceArray)) {
-            $querystring .= "product_pricerange_id ='{$priceArray[$i]} ORDER BY product_price ASC'";
+            $querystring .= "product_pricerange_id ='{$priceArray[$i]}' ORDER BY product_price ASC";
         } else {
             $querystring .= "product_pricerange_id='{$priceArray[$i]}' AND ";
         }
     }
-    echo $querystring;
 
-    $query = query(" SELECT * FROM products WHERE '{$querystring}'");
+    echo "SELECT * FROM products WHERE $querystring";
+
+    $query = query(" SELECT * FROM products WHERE $querystring ");
     confirm($query);
     while($row = fetch_array($query))
         if($row['product_quantity'] > 0)
@@ -523,35 +532,55 @@ function get_price_category_products($catArray, $priceArray) {
         }
 }
 
+function get_price_category_brand_products($catArray, $priceArray, $brandArray) {
+    $catArray=$_GET['categories'];
+    $priceArray=$_GET['prices'];
+    $brandArray=$_GET['brands'];
+    $querystring="";
 
+    for ($i=0; $i<count($catArray); $i++) {
+        $querystring .= "product_category_id='{$catArray[$i]}' AND ";
+    }
 
-/*
-// function to filter product by search and also price
-function get_search_price_products() {
-    $query = query(" SELECT * FROM products WHERE product_price BETWEEN " . escape_string($_GET['lowPrice']) ." AND " . escape_string($_GET['highPrice']) ." AND product_brand LIKE '%". escape_string($_GET['search']) ."%' OR product_category_id IN(Select cat_id from categories where cat_title like'%". escape_string($_GET['search']) ."%')");
+    for ($i=0; $i<count($brandArray); $i++) {
+        $querystring .= "product_brand_id='{$brandArray[$i]}' AND ";
+    }
+
+    for ($i=0; $i<count($priceArray); $i++) {
+        if (($i+1)==count($priceArray)) {
+            $querystring .= "product_pricerange_id ='{$priceArray[$i]}' ORDER BY product_price ASC";
+        } else {
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}' AND ";
+        }
+    }
+
+    echo "SELECT * FROM products WHERE $querystring";
+
+    $query = query(" SELECT * FROM products WHERE $querystring ");
     confirm($query);
     while($row = fetch_array($query))
-    {
-        $product = <<<DELIMETER
-            <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:200px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+        if($row['product_quantity'] > 0)
+        {
+            $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="caption">
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
-                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
                     </div>
                 </div>
             </div>
         DELIMETER;
-        echo $product;
-    }
+            echo $product;
+        }
 }
-*/
 
 //____________________________________ back end functions__________________//
 function display_orders()

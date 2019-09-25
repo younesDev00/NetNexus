@@ -14,7 +14,6 @@
 
         <div class="col-md-10">
 
-            <div class="row carousel-holder">
 
                 <div class="col-md-12">
 
@@ -30,7 +29,6 @@
         </div>
     </div>
 
-</div>
 <!-- /.container -->
 <!--///.lk-->
 <?php include(TEMPLATE_FRONT . DS . "footer.php") ?>

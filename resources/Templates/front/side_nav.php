@@ -3,7 +3,7 @@
 <div class="col-md-2">
 
     <h2 class="sidebarheading">Shop by:</h2>
-    <form action="shop.php?" class="checkbox" method="get">
+    <form action="shop.php?" class="filter" method="get">
         <input type="text" placeholder="Search Products" name="search" >
         <h3>Category</h3>
         <?php get_categories(); ?>

@@ -392,7 +392,6 @@ function send_mail($email, $username, $confirmcode)
 // function to get products based on search
 function get_search($search)
 {
-    echo "get search";
     $query= query("SELECT * FROM products WHERE product_title LIKE '%$search%' OR product_category_id in(SELECT cat_id from categories where cat_title like '%$search%')");
     confirm($query);
 
@@ -446,7 +445,6 @@ function get_search_price($search, $priceArray) {
         }
     }
 
-    echo "SELECT * FROM products WHERE (product_title LIKE '%$search%' OR product_category_id in(SELECT cat_id from categories where cat_title like '%$search%')) AND $querystring ";
 
     $query= query("SELECT * FROM products WHERE (product_title LIKE '%$search%' OR product_category_id in(SELECT cat_id from categories where cat_title like '%$search%')) AND $querystring ");
     confirm($query);
@@ -505,7 +503,6 @@ function get_search_category($search, $catArray) {
         }
     }
 
-    echo "SELECT * FROM products WHERE (product_title LIKE '%$search%' OR product_category_id in(SELECT cat_id from categories where cat_title like '%$search%')) AND $querystring ";
 
     $query= query("SELECT * FROM products WHERE (product_title LIKE '%$search%' OR product_category_id in(SELECT cat_id from categories where cat_title like '%$search%')) AND $querystring ");
     confirm($query);

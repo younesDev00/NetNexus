@@ -13,14 +13,14 @@ confirm($query);
 while($row = fetch_array($query)):
 $id = escape_string($_GET['id']);
 ?>
-<div class="bbcolour col-md-9" >
+<div class="container" >
 
     <!--Row For Image and Short Description-->
 
     <div class="row">
 
         <div class="col-md-7">
-            <img class="img-responsive" style="width:100%;" src="<?php echo "../resources/uploads/" . $row['product_image']?>" alt="">
+            <img class="img-responsive" style="width:75%; float:center" src="<?php echo "../resources/uploads/" . $row['product_image']?>" alt="">
 
         </div>
 
@@ -28,19 +28,12 @@ $id = escape_string($_GET['id']);
 
             <div class="thumbnail">
 
-
                 <div class="caption-full">
                     <h4><a href="#"><?php echo $row['product_title']?></a> </h4>
                     <hr>
                     <h4 class="">$<?php echo $row['product_price']?></h4>
 
-                    <div class="ratings">
-
-
-                    </div>
-
                     <p><?php echo $row['product_short_description']?></p>
-
 
                     <form action="">
                         <div class="form-group">
@@ -59,10 +52,7 @@ $id = escape_string($_GET['id']);
     </div>
     <!--Row For Image and Short Description-->
 
-
     <hr>
-
-
     <!--Row for Tab Panel-->
 
     <div class="row">
@@ -79,7 +69,6 @@ $id = escape_string($_GET['id']);
                 <div role="tabpanel" class="tab-pane active" id="home">
                     <br>
                     <p><?php echo $row['product_description']?></p>
-
                 </div>
             </div>
         </div>
@@ -87,9 +76,6 @@ $id = escape_string($_GET['id']);
 
     </div>
     <!--Row for Tab Panel-->
-
-
-
 
 </div><!-- col-md9 ends here -->
 
@@ -99,4 +85,5 @@ $id = escape_string($_GET['id']);
 <!-- /.container -->
 
     <?php include(TEMPLATE_FRONT . DS . "footer.php");  ?>
+
 

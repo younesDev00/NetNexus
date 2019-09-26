@@ -31,9 +31,9 @@ height: 150px;
 }
 
 .filter input[type=submit] {
-        cursor: pointer;
+    cursor: pointer;
     background-color: silver;
-    border-color: black;
+    border-color: silver;
     color: black;
     height: 100%;
 }
@@ -41,6 +41,14 @@ height: 150px;
 .filter input[type=submit]:hover {
     background-color: #337ab7;
     color: white;
+}
+
+.filter input[type=text] {
+  background-color: white;
+  background-image: url('searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding-left: 40px;
 }
 
 

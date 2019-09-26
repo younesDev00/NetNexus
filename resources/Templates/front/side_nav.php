@@ -2,26 +2,20 @@
 
 <div class="col-md-2">
 
-    <h2 class="sidebarheading">Shop</h2>
-
-    <div class="list-group">
-
+    <h2 class="sidebarheading">Shop by:</h2>
+    <form action="shop.php?" class="filter" method="get">
+        <input type="text" placeholder="Search Products" name="search" >
+        <h3>Category</h3>
         <?php get_categories(); ?>
-    </div>
+        <h3>Price</h3>
+        <?php get_prices(); ?>
+        <h3>Brand</h3>
+        <?php get_brands(); ?>
+        <input type="submit" name="formSubmit" value="Submit" />
+    </form>
 
 
-    <div class="list-group"  >
-        <h3 >Shop by Price</h3>
-        <div   >
-                <a href="shop.php?lowPrice=0&highPrice=500&search" class="list-group-item">Less than $500</a>
-                <a href="shop.php?lowPrice=500&highPrice=1000&search" class="list-group-item">$500-$1000</a>
-                <a href="shop.php?lowPrice=1000&highPrice=2000&search" class="list-group-item">$1000-$2000</a>
-                <a href="shop.php?lowPrice=2000&highPrice=3000&search" class="list-group-item">$2000-$3000</a>
-                <a href="shop.php?lowPrice=3000&highPrice=4000&search" class="list-group-item">$3000-$4000</a>
-                <a href="shop.php?lowPrice=4000&highPrice=1000&search" class="list-group-item">$4000+</a>
 
-        </div>
-    </div>
 </div>
 
 

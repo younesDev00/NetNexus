@@ -101,9 +101,13 @@ function get_products()
         }
     }
 }
-function get_categories_products()
+function get_categories_products($i)
 {
-    $query = query(" SELECT * FROM products WHERE product_category_id =" . escape_string($_GET['id']) ."");
+    $a = $_GET['categories'];
+
+    $targetcat = $a[$i];
+
+    $query = query(" SELECT * FROM products WHERE product_category_id ='{$targetcat}' ORDER BY product_price ASC");
     confirm($query);
     while($row = fetch_array($query))
     {
@@ -130,6 +134,7 @@ function get_categories_products()
         }
     }
 }
+
 function get_categories()
 {
     $query = query("SELECT * FROM categories");
@@ -137,60 +142,129 @@ function get_categories()
     while($row = mysqli_fetch_array($query))
     {
         $categories = <<<DELIMETER
-            <a href="category.php?id={$row['cat_id']}" class='list-group-item'>{$row['cat_title']}</a>
+            <input type="checkbox" name="categories[]" value="{$row['cat_id']}" >{$row['cat_title']}<br />
         DELIMETER;
         echo $categories;
     }
 }
 
 
+
+
 function  get_shop_products()
 {
-    if (isset($_GET['search'])) {
-        if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) &&(escape_string($_GET['search']))) {
-                    $search = escape_string($_GET['search']);
-                    get_search();
-        } else if (escape_string($_GET['lowPrice']) && escape_string($_GET['highPrice']) && escape_string($_GET['search'])) {         // if search is entered, and price filter
-        get_search_price_products();
-        // if no filter or search entered
-    } else if (empty(escape_string($_GET['lowPrice'])) && empty(escape_string($_GET['highPrice'])) && empty(escape_string($_GET['search']))) {
+    if (isset($_GET['formSubmit'])) {
+
+
+        if (isset($_GET['categories']) && !isset($_GET['prices']) && !isset($_GET['brands']) && empty(escape_string($_GET['search']))) {
+            $aCategories=$_GET['categories'];
+            $N=count($aCategories);
+
+            for ($i=0; $i<$N; $i++) {
+                get_categories_products($i);
+            }
+        }
+        if(isset($_GET['prices']) && !isset($_GET['categories']) && !isset($_GET['brands']) && empty(escape_string($_GET['search']))) {
+            $aPrice = $_GET['prices'];
+
+            $N=count($aPrice);
+
+            for ($i=0; $i<$N; $i++) {
+                get_price_products($i);
+            }
+        }
+        if(isset($_GET['brands']) && !isset($_GET['prices']) && !isset($_GET['categories']) && empty(escape_string($_GET['search']))) {
+            $aBrands = $_GET['brands'];
+
+            $N=count($aBrands);
+
+            for ($i=0; $i<$N; $i++) {
+                get_brand_products($i);
+            }
+        }
+        if(isset($_GET['categories']) && isset($_GET['prices']) && !isset($_GET['brands']) && empty(escape_string($_GET['search']))) {
+            $catArray=$_GET['categories'];
+            $priceArray = $_GET['prices'];
+
+            get_price_category_products($catArray, $priceArray);
+        }
+        if(!isset($_GET['categories']) && isset($_GET['prices']) && isset($_GET['brands']) && empty(escape_string($_GET['search']))) {
+            $priceArray=$_GET['prices'];
+            $brandArray = $_GET['brands'];
+
+            get_price_brand_products($priceArray, $brandArray);
+        }
+
+        if(isset($_GET['categories']) && !isset($_GET['prices']) && isset($_GET['brands']) && empty(escape_string($_GET['search']))) {
+            $catArray=$_GET['categories'];
+            $brandArray = $_GET['brands'];
+
+            get_category_brand_products($catArray, $brandArray);
+        }
+
+        if(isset($_GET['categories']) && isset($_GET['prices']) && isset($_GET['brands']) && empty(escape_string($_GET['search']))) {
+            $catArray=$_GET['categories'];
+            $priceArray = $_GET['prices'];
+            $brandArray = $_GET['brands'];
+
+            get_price_category_brand_products($catArray, $priceArray, $brandArray);
+        }
+        if ((escape_string($_GET['search'])) && !isset($_GET['prices']) && !isset($_GET['categories']) && !isset($_GET['brands'])) {
+            $search = escape_string($_GET['search']);
+            get_search($search);
+        }
+        if ((escape_string($_GET['search'])) && isset($_GET['prices']) && !isset($_GET['categories']) && !isset($_GET['brands'])) {
+            $search = escape_string($_GET['search']);
+            $priceArray = $_GET['prices'];
+
+            get_search_price($search, $priceArray);
+        }
+        if ((escape_string($_GET['search'])) && !isset($_GET['prices']) && isset($_GET['categories']) && !isset($_GET['brands'])) {
+            $search = escape_string($_GET['search']);
+            $catArray = $_GET['categories'];
+
+            get_search_category($search, $catArray);
+        }
+        if ((escape_string($_GET['search'])) && !isset($_GET['prices']) && !isset($_GET['categories']) && isset($_GET['brands'])) {
+            $search = escape_string($_GET['search']);
+            $brandArray = $_GET['brands'];
+
+            get_search_brand($search, $brandArray);
+        }
+        if(isset($_GET['categories']) && isset($_GET['prices']) && !isset($_GET['brands']) && (escape_string($_GET['search']))) {
+            $catArray=$_GET['categories'];
+            $priceArray = $_GET['prices'];
+            $search = escape_string($_GET['search']);
+
+            get_price_category_search_products($catArray, $priceArray, $search);
+        }
+        if(!isset($_GET['categories']) && isset($_GET['prices']) && isset($_GET['brands']) && (escape_string($_GET['search']))) {
+            $brandArray=$_GET['brands'];
+            $priceArray = $_GET['prices'];
+            $search = escape_string($_GET['search']);
+
+            get_price_brand_search_products($brandArray, $priceArray, $search);
+        }
+        if(isset($_GET['categories']) && !isset($_GET['prices']) && isset($_GET['brands']) && (escape_string($_GET['search']))) {
+            $brandArray=$_GET['brands'];
+            $catArray = $_GET['categories'];
+            $search = escape_string($_GET['search']);
+
+            get_category_brand_search_products($brandArray, $catArray, $search);
+        }
+        if(isset($_GET['categories']) && isset($_GET['prices']) && isset($_GET['brands']) && (escape_string($_GET['search']))) {
+            $catArray=$_GET['categories'];
+            $priceArray = $_GET['prices'];
+            $brandArray = $_GET['brands'];
+            $search = escape_string($_GET['search']);
+
+            get_price_category_brand_search_products($catArray, $priceArray, $brandArray, $search);
+        }
+
+    } else {
         get_products();
-        // if price filter is entered
-    } else if (empty(escape_string($_GET['search']))) {
-        get_price_products();
-    }
     }
 }
-
-
-    /**
-    $lowPrice;
-    $highPrice;
-    $search;
-    //if search is entered
-    if (isset($_GET['search'])) {
-        $search = escape_string($_GET['search']);
-            get_search();
-
-    } else if ($_GET['lowPrice'] && $_GET['highPrice']) {
-            get_price_products();
-    }else {
-        get_products();
-    }
-    **/
-
-            // if price filter is entered
-
-
-        /**   }else {
-        get_all_products();
-        echo "not work";
-empty(escape_string($_GET['search']))) {
-            get_price_products();
-
-}
-**/
-
 
 function redirect_user($username, $password)
 {
@@ -345,22 +419,18 @@ function send_mail($email, $username, $confirmcode)
     }
 }
 // function to get products based on search
-function get_search()
+function get_search($search)
 {
-
-    $search =escape_string($_GET['search']);
-
-
     $query= query("SELECT * FROM products WHERE product_title LIKE '%$search%' OR product_category_id in(SELECT cat_id from categories where cat_title like '%$search%')");
     confirm($query);
-
 
     $queryResult = mysqli_num_rows($query);
 
     if ($queryResult > 0) {
         while($row = fetch_array($query))
-        {
-            $product = <<<DELIMETER
+            if($row['product_quantity'] > 0)
+            {
+                $product = <<<DELIMETER
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px">
                     <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
@@ -377,32 +447,54 @@ function get_search()
                 </div>
             </div>
         DELIMETER;
-
-            echo $product;
-
-        }
+                echo $product;
+            }
     }else {
-        echo "There are no results matching your search!";
+        echo "There are no products matching your search!";
     }
 
 }
-// function to get products based on price range
-function get_price_products()
-{
-    $query = query(" SELECT * FROM products WHERE product_price BETWEEN " . escape_string($_GET['lowPrice']) ." AND " . escape_string($_GET['highPrice']) ." ");
+
+function get_search_price($search, $priceArray) {
+
+
+    $querystring="";
+
+    for ($i=0; $i<count($priceArray); $i++) {
+        if ($i==0 && ($i+1)==count($priceArray)) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        } elseif (($i+1)==count($priceArray)) {
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        }elseif ($i==0) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}' OR ";
+
+        }
+    }
+
+
+    $query= query("SELECT * FROM products WHERE (product_title LIKE '%$search%' OR product_category_id in(SELECT cat_id from categories where cat_title like '%$search%')) AND $querystring ");
     confirm($query);
-    while($row = fetch_array($query))
-    {
-        $product = <<<DELIMETER
+
+    $queryResult = mysqli_num_rows($query);
+    $count=0;
+
+    if ($queryResult > 0) {
+        while ($row = fetch_array($query)) {
+            if($row['product_quantity'] > 0)
+            {
+                $count++;
+                $product = <<<DELIMETER
             <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail" style="height:340px">
                     <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-
                     <div class="caption">
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
                         <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
@@ -411,35 +503,792 @@ function get_price_products()
                 </div>
             </div>
         DELIMETER;
-        echo $product;
+                echo $product;
+            }
+        }
+
+    }
+    else {
+        echo "There are no products matching your search!";
     }
 }
 
-// function to filter product by search and also price
-function get_search_price_products() {
-    $query = query(" SELECT * FROM products WHERE product_price BETWEEN " . escape_string($_GET['lowPrice']) ." AND " . escape_string($_GET['highPrice']) ." AND product_brand LIKE '%". escape_string($_GET['search']) ."%' OR product_category_id IN(Select cat_id from categories where cat_title like'%". escape_string($_GET['search']) ."%')");
+function get_search_category($search, $catArray) {
+
+
+    $querystring="";
+
+    for ($i=0; $i<count($catArray); $i++) {
+        if ($i==0 && ($i+1)==count($catArray)) {
+            $querystring .= "(product_category_id='{$catArray[$i]}') ORDER BY product_price ASC ";
+        } elseif (($i+1)==count($catArray)) {
+            $querystring .= "product_category_id='{$catArray[$i]}') ORDER BY product_price ASC ";
+        }elseif ($i==0) {
+            $querystring .= "(product_category_id='{$catArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_category_id='{$catArray[$i]}' OR ";
+
+        }
+    }
+
+
+    $query= query("SELECT * FROM products WHERE (product_title LIKE '%$search%' OR product_category_id in(SELECT cat_id from categories where cat_title like '%$search%')) AND $querystring ");
     confirm($query);
-    while($row = fetch_array($query))
-    {
-        $product = <<<DELIMETER
-            <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:200px;" class="imgsize" src="{$row['product_image']}" alt=""></a>
+
+    $queryResult = mysqli_num_rows($query);
+    $count=0;
+
+    if ($queryResult > 0) {
+        while ($row = fetch_array($query)) {
+            if($row['product_quantity'] > 0)
+            {
+                $count++;
+                $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="caption">
                         <h4 style="overflow: hidden;text-overflow: ellipsis;" >
                             <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 84px;">{$row['product_short_description']}</p>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
                     </div>
                     <div class="ratings">
-                        <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
                     </div>
                 </div>
             </div>
         DELIMETER;
-        echo $product;
+                echo $product;
+            }
+        }
+
+    }
+    else {
+        echo "There are no products matching your search!";
     }
 }
+
+function get_search_brand($search, $brandArray){
+
+
+    $querystring="";
+
+    for ($i=0; $i<count($brandArray); $i++) {
+        if ($i==0 && ($i+1)==count($brandArray)) {
+            $querystring .= "(product_brand_id='{$brandArray[$i]}') ORDER BY product_price ASC ";
+        } elseif (($i+1)==count($brandArray)) {
+            $querystring .= "product_brand_id='{$brandArray[$i]}') ORDER BY product_price ASC ";
+        }elseif ($i==0) {
+            $querystring .= "(product_brand_id='{$brandArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_brand_id='{$brandArray[$i]}' OR ";
+
+        }
+    }
+
+
+    $query= query("SELECT * FROM products WHERE (product_title LIKE '%$search%' OR product_category_id in(SELECT cat_id from categories where cat_title like '%$search%')) AND $querystring ");
+    confirm($query);
+
+    $queryResult = mysqli_num_rows($query);
+    $count=0;
+
+    if ($queryResult > 0) {
+        while ($row = fetch_array($query)) {
+            if($row['product_quantity'] > 0)
+            {
+                $count++;
+                $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+                echo $product;
+            }
+        }
+
+    }
+    else {
+        echo "There are no products matching your search!";
+    }
+}
+
+function get_prices()
+{
+    $query = query("SELECT * FROM pricerange");
+    confirm($query);
+    while($row = mysqli_fetch_array($query))
+    {
+        $pricerange = <<<DELIMETER
+            <input type="checkbox" name="prices[]" value="{$row['price_id']}">{$row['price_range']}<br />
+        DELIMETER;
+        echo $pricerange;
+    }
+}
+
+function get_price_products($i)
+{
+    $a = $_GET['prices'];
+
+    $targetcat = $a[$i];
+
+    $query = query(" SELECT * FROM products WHERE product_pricerange_id ='{$targetcat}' ORDER BY product_price ASC ");
+    confirm($query);
+    $queryResult = mysqli_num_rows($query);
+
+    if ($queryResult > 0) {
+        while($row = fetch_array($query))
+            if($row['product_quantity'] > 0)
+            {
+                $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+                echo $product;
+            }
+    } else {
+        echo "There are no products matching your search!";
+    }
+}
+
+
+function get_brands()
+{
+    $query = query("SELECT * FROM brands order by brand_name ASC");
+    confirm($query);
+    while($row = mysqli_fetch_array($query))
+    {
+        $pricerange = <<<DELIMETER
+            <input type="checkbox" name="brands[]" value="{$row['brand_id']}">{$row['brand_name']}<br />
+        DELIMETER;
+        echo $pricerange;
+    }
+}
+
+function get_brand_products($i)
+{
+    $a = $_GET['brands'];
+
+    $targetbrand = $a[$i];
+
+    $query = query(" SELECT * FROM products WHERE product_brand_id ='{$targetbrand}' ORDER BY product_price ASC ");
+    confirm($query);
+    $queryResult = mysqli_num_rows($query);
+
+    if ($queryResult > 0) {
+
+        while($row = fetch_array($query))
+            if($row['product_quantity'] > 0)
+            {
+                $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+                echo $product;
+            }
+    }else {
+        echo "There are no products matching your search!";
+    }
+}
+
+
+
+function get_price_category_products($catArray, $priceArray) {
+    $catArray=$_GET['categories'];
+    $priceArray=$_GET['prices'];
+    $querystring="";
+
+    for ($i=0; $i<count($catArray); $i++) {
+        if ($i==0 && ($i+1)==count($catArray)) {
+            $querystring .= "(product_category_id='{$catArray[$i]}') AND ";
+        } elseif (($i+1)==count($catArray)) {
+            $querystring .= "product_category_id='{$catArray[$i]}') AND ";
+        }elseif ($i==0) {
+            $querystring .= "(product_category_id='{$catArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_category_id='{$catArray[$i]}' OR ";
+
+        }
+    }
+
+    for ($i=0; $i<count($priceArray); $i++) {
+        if ($i==0 && ($i+1)==count($priceArray)) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        } elseif (($i+1)==count($priceArray)) {
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        }elseif ($i==0) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}' OR ";
+
+        }
+    }
+
+    $query = query(" SELECT * FROM products WHERE $querystring ");
+    confirm($query);
+    $queryResult = mysqli_num_rows($query);
+
+    if ($queryResult > 0) {
+
+        while($row = fetch_array($query))
+            if($row['product_quantity'] > 0)
+            {
+                $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+                echo $product;
+            }
+    }else {
+        echo "There are no products matching your search!";
+    }
+}
+
+function get_price_brand_products($priceArray, $brandArray){
+
+    $priceArray=$_GET['prices'];
+    $brandArray=$_GET['brands'];
+    $querystring="";
+
+    for ($i=0; $i<count($brandArray); $i++) {
+        if ($i==0 && ($i+1)==count($brandArray)) {
+
+            $querystring .= "(product_brand_id='{$brandArray[$i]}') AND ";
+        } elseif (($i+1)==count($brandArray)) {
+            $querystring .= "product_brand_id='{$brandArray[$i]}') AND ";
+        }elseif ($i==0) {
+
+            $querystring .= "(product_brand_id='{$brandArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_brand_id='{$brandArray[$i]}' OR ";
+
+        }
+    }
+
+    for ($i=0; $i<count($priceArray); $i++) {
+        if ($i==0 && ($i+1)==count($priceArray)) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        } elseif (($i+1)==count($priceArray)) {
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        }elseif ($i==0) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}' OR ";
+
+        }
+    }
+
+    $query = query(" SELECT * FROM products WHERE $querystring ");
+    confirm($query);
+
+    $queryResult = mysqli_num_rows($query);
+
+    if ($queryResult > 0) {
+        while($row = fetch_array($query))
+            if($row['product_quantity'] > 0)
+            {
+                $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+                echo $product;
+            }
+    } else {
+        echo "There are no products matching your search!";
+    }
+}
+
+function get_category_brand_products($catArray, $brandArray){
+
+    $querystring="";
+
+    for ($i=0; $i<count($catArray); $i++) {
+        if ($i==0 && ($i+1)==count($catArray)) {
+
+            $querystring .= "(product_category_id='{$catArray[$i]}') AND ";
+        } elseif (($i+1)==count($catArray)) {
+            $querystring .= "product_category_id='{$catArray[$i]}') AND ";
+        }elseif ($i==0) {
+
+            $querystring .= "(product_category_id='{$catArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_category_id='{$catArray[$i]}' OR ";
+        }
+    }
+
+    for ($i=0; $i<count($brandArray); $i++) {
+        if ($i==0 && ($i+1)==count($brandArray)) {
+            $querystring .= "(product_brand_id='{$brandArray[$i]}') ORDER BY product_price ASC ";
+        } elseif (($i+1)==count($brandArray)) {
+            $querystring .= "product_brand_id='{$brandArray[$i]}') ORDER BY product_price ASC ";
+        }elseif ($i==0) {
+            $querystring .= "(product_brand_id='{$brandArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_brand_id='{$brandArray[$i]}' OR ";
+
+        }
+    }
+
+    $query = query(" SELECT * FROM products WHERE $querystring ");
+    confirm($query);
+
+    $queryResult = mysqli_num_rows($query);
+
+    if ($queryResult > 0) {
+        while($row = fetch_array($query))
+            if($row['product_quantity'] > 0)
+            {
+                $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+                echo $product;
+            }
+    } else {
+        echo "There are no products matching your search!";
+    }
+}
+
+function get_price_category_brand_products($catArray, $priceArray, $brandArray) {
+
+    $querystring="";
+
+    for ($i=0; $i<count($catArray); $i++) {
+        if ($i==0 && ($i+1)==count($catArray)) {
+
+            $querystring .= "(product_category_id='{$catArray[$i]}') AND ";
+        } elseif (($i+1)==count($catArray)) {
+            $querystring .= "product_category_id='{$catArray[$i]}') AND ";
+        }elseif ($i==0) {
+
+            $querystring .= "(product_category_id='{$catArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_category_id='{$catArray[$i]}' OR ";
+        }
+    }
+
+    for ($i=0; $i<count($brandArray); $i++) {
+        if ($i==0 && ($i+1)==count($brandArray)) {
+            $querystring .= "(product_brand_id='{$brandArray[$i]}') AND ";
+        } elseif (($i+1)==count($brandArray)) {
+            $querystring .= "product_brand_id='{$brandArray[$i]}') AND ";
+        }elseif ($i==0) {
+            $querystring .= "(product_brand_id='{$brandArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_brand_id='{$brandArray[$i]}' OR ";
+
+        }
+    }
+
+    for ($i=0; $i<count($priceArray); $i++) {
+        if ($i==0 && ($i+1)==count($priceArray)) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        } elseif (($i+1)==count($priceArray)) {
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        }elseif ($i==0) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}' OR ";
+
+        }
+    }
+
+
+    $query = query(" SELECT * FROM products WHERE $querystring ");
+    confirm($query);
+    $queryResult = mysqli_num_rows($query);
+
+    if ($queryResult > 0) {
+        while($row = fetch_array($query))
+            if($row['product_quantity'] > 0)
+            {
+                $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+                echo $product;
+            }
+    } else {
+        echo "There are no products matching your search!";
+    }
+}
+
+function get_price_category_search_products($catArray, $priceArray, $search) {
+
+    $querystring="";
+
+    for ($i=0; $i<count($catArray); $i++) {
+        if ($i==0 && ($i+1)==count($catArray)) {
+
+            $querystring .= "(product_category_id='{$catArray[$i]}') AND ";
+        } elseif (($i+1)==count($catArray)) {
+            $querystring .= "product_category_id='{$catArray[$i]}') AND ";
+        }elseif ($i==0) {
+
+            $querystring .= "(product_category_id='{$catArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_category_id='{$catArray[$i]}' OR ";
+        }
+    }
+
+    for ($i=0; $i<count($priceArray); $i++) {
+        if ($i==0 && ($i+1)==count($priceArray)) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        } elseif (($i+1)==count($priceArray)) {
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        }elseif ($i==0) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}' OR ";
+
+        }
+    }
+
+
+    $query= query("SELECT * FROM products WHERE (product_title LIKE '%$search%' OR product_category_id in(SELECT cat_id from categories where cat_title like '%$search%')) AND $querystring ");
+    confirm($query);
+    $queryResult = mysqli_num_rows($query);
+
+    if ($queryResult > 0) {
+        while($row = fetch_array($query))
+            if($row['product_quantity'] > 0)
+            {
+                $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+                echo $product;
+            }
+    } else {
+        echo "There are no products matching your search!";
+    }
+}
+
+function get_price_brand_search_products($brandArray, $priceArray, $search) {
+    $querystring="";
+
+    for ($i=0; $i<count($brandArray); $i++) {
+        if ($i==0 && ($i+1)==count($brandArray)) {
+
+            $querystring .= "(product_brand_id='{$brandArray[$i]}') AND ";
+        } elseif (($i+1)==count($brandArray)) {
+            $querystring .= "product_brand_id='{$brandArray[$i]}') AND ";
+        }elseif ($i==0) {
+
+            $querystring .= "(product_brand_id='{$brandArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_brand_id='{$brandArray[$i]}' OR ";
+        }
+    }
+
+    for ($i=0; $i<count($priceArray); $i++) {
+        if ($i==0 && ($i+1)==count($priceArray)) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        } elseif (($i+1)==count($priceArray)) {
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        }elseif ($i==0) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}' OR ";
+
+        }
+    }
+
+
+    $query= query("SELECT * FROM products WHERE (product_title LIKE '%$search%' OR product_category_id in(SELECT cat_id from categories where cat_title like '%$search%')) AND $querystring ");
+    confirm($query);
+    $queryResult = mysqli_num_rows($query);
+
+    if ($queryResult > 0) {
+        while($row = fetch_array($query))
+            if($row['product_quantity'] > 0)
+            {
+                $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+                echo $product;
+            }
+    } else {
+        echo "There are no products matching your search!";
+    }
+}
+function get_category_brand_search_products($brandArray, $catArray, $search) {
+    $querystring="";
+
+    for ($i=0; $i<count($catArray); $i++) {
+        if ($i==0 && ($i+1)==count($catArray)) {
+
+            $querystring .= "(product_category_id='{$catArray[$i]}') AND ";
+        } elseif (($i+1)==count($catArray)) {
+            $querystring .= "product_category_id='{$catArray[$i]}') AND ";
+        }elseif ($i==0) {
+
+            $querystring .= "(product_category_id='{$catArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_category_id='{$catArray[$i]}' OR ";
+        }
+    }
+
+    for ($i=0; $i<count($brandArray); $i++) {
+        if ($i==0 && ($i+1)==count($brandArray)) {
+
+            $querystring .= "(product_brand_id='{$brandArray[$i]}') ORDER BY product_price ASC ";
+        } elseif (($i+1)==count($brandArray)) {
+            $querystring .= "product_brand_id='{$brandArray[$i]}') ORDER BY product_price ASC ";
+        }elseif ($i==0) {
+
+            $querystring .= "(product_brand_id='{$brandArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_brand_id='{$brandArray[$i]}' OR ";
+        }
+    }
+
+    $query= query("SELECT * FROM products WHERE (product_title LIKE '%$search%' OR product_category_id in(SELECT cat_id from categories where cat_title like '%$search%')) AND $querystring ");
+    confirm($query);
+    $queryResult = mysqli_num_rows($query);
+
+    if ($queryResult > 0) {
+        while($row = fetch_array($query))
+            if($row['product_quantity'] > 0)
+            {
+                $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+                echo $product;
+            }
+    } else {
+        echo "There are no products matching your search!";
+    }
+}
+function get_price_category_brand_search_products($catArray, $priceArray, $brandArray, $search) {
+    $querystring="";
+
+    for ($i=0; $i<count($catArray); $i++) {
+        if ($i==0 && ($i+1)==count($catArray)) {
+
+            $querystring .= "(product_category_id='{$catArray[$i]}') AND ";
+        } elseif (($i+1)==count($catArray)) {
+            $querystring .= "product_category_id='{$catArray[$i]}') AND ";
+        }elseif ($i==0) {
+
+            $querystring .= "(product_category_id='{$catArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_category_id='{$catArray[$i]}' OR ";
+        }
+    }
+
+    for ($i=0; $i<count($brandArray); $i++) {
+        if ($i==0 && ($i+1)==count($brandArray)) {
+
+            $querystring .= "(product_brand_id='{$brandArray[$i]}') AND ";
+        } elseif (($i+1)==count($brandArray)) {
+            $querystring .= "product_brand_id='{$brandArray[$i]}') AND ";
+        }elseif ($i==0) {
+
+            $querystring .= "(product_brand_id='{$brandArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_brand_id='{$brandArray[$i]}' OR ";
+        }
+    }
+
+    for ($i=0; $i<count($priceArray); $i++) {
+        if ($i==0 && ($i+1)==count($priceArray)) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        } elseif (($i+1)==count($priceArray)) {
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}') ORDER BY product_price ASC ";
+        }elseif ($i==0) {
+            $querystring .= "(product_pricerange_id='{$priceArray[$i]}' OR ";
+        }
+        else{
+            $querystring .= "product_pricerange_id='{$priceArray[$i]}' OR ";
+
+        }
+    }
+
+    $query= query("SELECT * FROM products WHERE (product_title LIKE '%$search%' OR product_category_id in(SELECT cat_id from categories where cat_title like '%$search%')) AND $querystring ");
+    confirm($query);
+    $queryResult = mysqli_num_rows($query);
+
+    if ($queryResult > 0) {
+        while($row = fetch_array($query))
+            if($row['product_quantity'] > 0)
+            {
+                $product = <<<DELIMETER
+            <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="thumbnail" style="height:340px">
+                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="caption">
+                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
+                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+                    </div>
+                    <div class="ratings">
+                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+                echo $product;
+            }
+    } else {
+        echo "There are no products matching your search!";
+    }
+}
+
 
 //____________________________________ back end functions__________________//
 function display_orders()

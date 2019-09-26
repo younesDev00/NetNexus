@@ -1,3 +1,5 @@
+<link href="css/styles.css" rel="stylesheet">
+
 <nav class="navbar navbar-inverse navbar-fixed-top" >
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -17,7 +19,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="shop.php?lowPrice&highPrice&search">Shop</a>
+                    <a href="shop.php?">Shop</a>
                 </li>
 
                 <?php if(isset($_SESSION['useraccount'])) { echo '<li><a href="checkout.php">Checkout</a></li>'; } ?>
@@ -50,15 +52,8 @@
 
 
             </ul>
-            <div style="padding-top:10px;float:left;">
-                <form action="shop.php?" method="GET">
-                    <input type="hidden" placeholder="Product Search" name="lowPrice">
-                    <input type="hidden" placeholder="Product Search" name="highPrice">
-                    <input type="text" placeholder="Search" name="search" aria-label="search">
-                    <input type="submit">
 
-                </form>
-            </div>
+
 
         </div>
 

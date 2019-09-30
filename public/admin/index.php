@@ -35,13 +35,13 @@
 //            include(TEMPLATE_BACK . "/admin_content.php");
 //        }
 
-        if(isset($_GET['main']))
-        {
-            include(TEMPLATE_BACK . "/admin_content.php");
+//        if(isset($_GET['main']))
+//        {
+//            include(TEMPLATE_BACK . "/admin_content.php");
+//
+//        } //yeah nah maybe later
 
-        }
-
-        if(isset($_GET['orders']))
+        if(isset($_GET['orders']) || isset($_GET['main']))
         {
             include(TEMPLATE_BACK . "/orders.php");
         }
@@ -73,10 +73,22 @@
             redirect("../item.php?id={$_GET['id']}");
         }
 
-//        if(isset($_GET['users']))
-//        {
-//            include("/users.php");
-//        }
+        if(isset($_GET['users']))
+        {
+            include(TEMPLATE_BACK . "/users.php");
+        }
+
+
+        if(isset($_GET['add_user']))
+        {
+            include(TEMPLATE_BACK . "/add_user.php");
+        }
+
+
+         if(isset($_GET['edit_user']))
+         {
+            include(TEMPLATE_BACK . "/edit_user.php");
+         }
 
 
 ?>

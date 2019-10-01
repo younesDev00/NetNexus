@@ -8,6 +8,7 @@
     <!-- /.row -->
 
     <div class="row">
+       <div class="col-lg-12">
         <h4 class="text-center bg-danger"><?php display_message(); ?></h4>
         <h1>Checkout</h1>
 
@@ -88,6 +89,7 @@
         </div><!-- CART TOTALS-->
 
 
+    </div>
     </div>
     <!--Main Content-->
 

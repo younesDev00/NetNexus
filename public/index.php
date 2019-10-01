@@ -8,18 +8,18 @@
 <div class="container">
 
     <div class="row">
+        <div class="col-sm-4 col-md-3 col-lg-2">
+            <?php include(TEMPLATE_FRONT . DS . "side_nav.php") ?>
+        </div>
 
-        <?php include(TEMPLATE_FRONT . DS . "side_nav.php") ?>
+            <div class="col-sm-8 col-md-9 col-lg-10">
 
 
-        <div class="col-md-10">
 
-
-                <div class="col-md-12">
 
                     <?php //include(TEMPLATE_FRONT . DS . "slider.php") ?>
 
-                </div>
+
 
                 <div class="row">
                     <?php get_products(); ?>
@@ -29,6 +29,6 @@
         </div>
     </div>
 
-<!-- /.container -->
-<!--///.lk-->
-<?php include(TEMPLATE_FRONT . DS . "footer.php") ?>
+    <!-- /.container -->
+    <!--///.lk-->
+    <?php include(TEMPLATE_FRONT . DS . "footer.php") ?>

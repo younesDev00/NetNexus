@@ -93,13 +93,13 @@ function cart()
                             <!-- buttons -->
                             <td>
                                 <a class='btn btn-warning' href="../resources/cart.php?remove={$row['product_id']}">
-                                    <span class='glyphicon glyphicon-minus'></span>
+                                    <span class='glyphicon glyphicon-minus'>-</span>
                                 </a>
                                 <a class='btn btn-success' href="../resources/cart.php?add={$row['product_id']}">
-                                    <span class='glyphicon glyphicon-plus'></span>
+                                    <span class='glyphicon glyphicon-plus'>+</span>
                                 </a>
                                 <a class='btn btn-danger' href="../resources/cart.php?delete={$row['product_id']}">
-                                    <span class='glyphicon glyphicon-remove'></span>
+                                    <span class='glyphicon glyphicon-remove'>x</span>
                                 </a>
                             </td>
                         </tr>

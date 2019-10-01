@@ -5,85 +5,65 @@
 <!-- Page Content -->
 <div class="container">
 
-<!-- Side Navigation -->
-<?php
+    <!-- Side Navigation -->
+    <?php
 $query = query(" SELECT * FROM products WHERE product_id =" . escape_string($_GET['id']) ."");
 confirm($query);
 
 while($row = fetch_array($query)):
 $id = escape_string($_GET['id']);
 ?>
-<div class="container" >
+    <div class="container">
 
-    <!--Row For Image and Short Description-->
 
-    <div class="row">
 
-        <div class="col-md-7">
-            <img class="img-responsive" style="width:75%; float:center" src="<?php echo "../resources/uploads/" . $row['product_image']?>" alt="">
 
-        </div>
-
-        <div class="col-md-5">
-
-            <div class="thumbnail">
-
-                <div class="caption-full">
-                    <h4><a href="#"><?php echo $row['product_title']?></a> </h4>
-                    <hr>
-                    <h4 class="">$<?php echo $row['product_price']?></h4>
-
-                    <p><?php echo $row['product_short_description']?></p>
-
-                    <form action="">
-                        <div class="form-group">
-                            <a href="../resources/cart.php?add=<?php echo $row['product_id']; ?>" class="btn btn-primary">Add To Cart</a>
-                        </div>
-
-                    </form>
-
-                </div>
-
+        <div class="card mt-4">
+            <img class="card-img-top img-fluid" src="<?php echo "../resources/uploads/" . $row['product_image']?>" alt="">
+            <div class="card-body">
+                <h3 class="card-title"><?php echo $row['product_title']?></h3>
+                <h4>$<?php echo $row['product_price']?></h4>
+                <p class="card-text"><?php echo $row['product_short_description']?></p>
             </div>
-
-        </div>
-
-
-    </div>
-    <!--Row For Image and Short Description-->
-
-    <hr>
-    <!--Row for Tab Panel-->
-
-    <div class="row">
-
-        <div role="tabpanel">
-
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
-            </ul>
-
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="home">
-                    <br>
-                    <p><?php echo $row['product_description']?></p>
-                </div>
+            <div class="card-footer">
+                <small class="text-muted">
+                    <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                </small>
             </div>
         </div>
 
+        <!--Row For Image and Short Description-->
 
-    </div>
-    <!--Row for Tab Panel-->
+        <hr>
+        <!--Row for Tab Panel-->
 
-</div><!-- col-md9 ends here -->
+        <div class="row">
 
-<?php endwhile; ?>
+            <div role="tabpanel">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        <br>
+                        <p><?php echo $row['product_description']?></p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!--Row for Tab Panel-->
+
+    </div><!-- col-md9 ends here -->
+
+    <?php endwhile; ?>
 
 </div>
 <!-- /.container -->
 
-    <?php include(TEMPLATE_FRONT . DS . "footer.php");  ?>
-
-
+<?php include(TEMPLATE_FRONT . DS . "footer.php");  ?>

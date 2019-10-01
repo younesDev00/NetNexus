@@ -4,19 +4,18 @@
 <head>
 
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Shop Homepage - Start Bootstrap Template</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="cssn/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="css/shop-homepage.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="css/styles.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/shop-homepage.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,4 +29,7 @@
 <body>
 
     <!-- Navigation -->
-      <?php include(TEMPLATE_FRONT . DS . "top_nav.php") ?>
+<!--    <div class="container">-->
+    <?php include(TEMPLATE_FRONT . DS . "top_nav.php") ?>
+
+<!--    </div>-->

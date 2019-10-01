@@ -74,25 +74,28 @@ function fetch_array($result)
 }
 function get_products()
 {
-    $query = query(" SELECT * FROM products limit 6");
+    $query = query(" SELECT * FROM products");
     confirm($query);
     while($row = fetch_array($query))
     {
         if($row['product_quantity'] > 0)
         {
             $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+            <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -114,18 +117,21 @@ function get_categories_products($i)
         if($row['product_quantity'] > 0)
         {
             $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+            <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -142,7 +148,7 @@ function get_categories()
     while($row = mysqli_fetch_array($query))
     {
         $categories = <<<DELIMETER
-            <input type="checkbox" name="categories[]" value="{$row['cat_id']}" >{$row['cat_title']}<br />
+            <input  type="checkbox" name="categories[]" value="{$row['cat_id']}" >{$row['cat_title']}<br />
         DELIMETER;
         echo $categories;
     }
@@ -431,18 +437,21 @@ function get_search($search)
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+            <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -487,18 +496,21 @@ function get_search_price($search, $priceArray) {
             {
                 $count++;
                 $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+            <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -545,18 +557,21 @@ function get_search_category($search, $catArray) {
             {
                 $count++;
                 $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+            <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -603,18 +618,21 @@ function get_search_brand($search, $brandArray){
             {
                 $count++;
                 $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+            <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -657,18 +675,21 @@ function get_price_products($i)
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+            <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -710,18 +731,21 @@ function get_brand_products($i)
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+            <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -778,18 +802,21 @@ function get_price_category_products($catArray, $priceArray) {
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+           <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -847,18 +874,21 @@ function get_price_brand_products($priceArray, $brandArray){
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+            <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -913,18 +943,21 @@ function get_category_brand_products($catArray, $brandArray){
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+            <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -993,18 +1026,21 @@ function get_price_category_brand_products($catArray, $priceArray, $brandArray) 
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+            <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -1059,18 +1095,21 @@ function get_price_category_search_products($catArray, $priceArray, $search) {
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+           <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -1124,18 +1163,21 @@ function get_price_brand_search_products($brandArray, $priceArray, $search) {
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+            <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -1188,18 +1230,21 @@ function get_category_brand_search_products($brandArray, $catArray, $search) {
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+            <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -1266,18 +1311,21 @@ function get_price_category_brand_search_products($catArray, $priceArray, $brand
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail" style="height:340px">
-                    <a href="item.php?id={$row['product_id']}"><img style="width: auto;height:165px;" class="imgsize" src="../resources/uploads/{$row['product_image']}" alt=""></a>
-                    <div class="caption">
-                        <h4 style="overflow: hidden;text-overflow: ellipsis;" >
-                            <a style="text-overflow: ellipsis;" href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+            <div class="col-sm-12 col-md-6 col-lg-4  ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-                        <p style="overflow: hidden;height: 64px;">{$row['product_short_description']}</p>
+
+                        <p class="card-text">{$row['product_short_description']}</p>
                     </div>
-                    <div class="ratings">
-                        <a class="btn btn-primary" target="" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
-                        <h4 class="pull-right">&#36;{$row['product_price']}</h4>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -1622,5 +1670,3 @@ echo $category;
 
 
 }
-
-

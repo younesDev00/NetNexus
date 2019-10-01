@@ -22,7 +22,7 @@
 
             <div class="form-group">
                 <label for="product-title">Product Description</label>
-                <textarea name="product_description" id="" cols="30" rows="10" class="form-control"></textarea>
+                <textarea name="product_description " id="" cols="30" rows="10" class="editor form-control"></textarea>
             </div>
 
 
@@ -39,7 +39,7 @@
 
             <div class="form-group">
                 <label for="product-title">Product Short Description</label>
-                <textarea name="short_desc" id="" cols="30" rows="3" class="form-control"></textarea>
+                <textarea name="short_desc" id="short_desc" cols="30" rows="3" class="form-control"></textarea>
             </div>
 
         </div>
@@ -100,3 +100,49 @@
 
 
     </form>
+
+
+
+
+
+
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('.editor'), {
+                //'imageUpload', 'mediaEmbed'
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertTable', 'undo', 'redo'],
+                image: {
+                    toolbar: ['imageStyle:full', 'imageStyle:side', '|', 'imageTextAlternative']
+                },
+                table: {
+                    contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+                }
+            })
+            .catch(error => {
+                console.log(error);
+
+            });
+
+        ClassicEditor
+            .create(document.querySelector('#short_desc'),
+        {
+
+                //'imageUpload', 'mediaEmbed'
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertTable', 'undo', 'redo'],
+                image: {
+                    toolbar: ['imageStyle:full', 'imageStyle:side', '|', 'imageTextAlternative']
+                },
+                table: {
+                    contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+                }
+            })
+            .then(editor => {
+                console.log(Array.from(editor.ui.componentFactory.names()))
+            })
+            .catch(error => {
+                console.log(error);
+
+            });
+
+    </script>

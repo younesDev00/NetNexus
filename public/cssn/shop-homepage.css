@@ -5,4 +5,36 @@
  */
 body {
   padding-top: 0px;
+    background-image: url("backgroundgreen.png");
+    color: #28a745;
+    font-family: "Copperplate";
+}
+
+
+h3 {
+  color: green;
+}
+
+h4 {
+  color: green;
+}
+
+input[type=checkbox] {
+    box-sizing: border-box;
+    padding: 0;
+    color: aqua;
+}
+
+.bg-dark {
+    background-color: #16181999!important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #1ddb1a;
+}
+
+
+.card {
+        background-color: rgba(0, 0, 0, 0.52);
+
 }

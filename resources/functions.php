@@ -88,7 +88,6 @@ function get_products()
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">
@@ -124,7 +123,6 @@ function get_categories_products($i)
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">
@@ -444,7 +442,6 @@ function get_search($search)
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">
@@ -503,7 +500,6 @@ function get_search_price($search, $priceArray) {
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">
@@ -564,7 +560,6 @@ function get_search_category($search, $catArray) {
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">
@@ -625,7 +620,6 @@ function get_search_brand($search, $brandArray){
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">
@@ -682,7 +676,6 @@ function get_price_products($i)
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">
@@ -738,7 +731,6 @@ function get_brand_products($i)
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">
@@ -809,7 +801,6 @@ function get_price_category_products($catArray, $priceArray) {
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">
@@ -881,7 +872,6 @@ function get_price_brand_products($priceArray, $brandArray){
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">
@@ -950,7 +940,6 @@ function get_category_brand_products($catArray, $brandArray){
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">
@@ -1033,7 +1022,6 @@ function get_price_category_brand_products($catArray, $priceArray, $brandArray) 
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">
@@ -1102,7 +1090,6 @@ function get_price_category_search_products($catArray, $priceArray, $search) {
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">
@@ -1170,7 +1157,6 @@ function get_price_brand_search_products($brandArray, $priceArray, $search) {
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">
@@ -1237,7 +1223,6 @@ function get_category_brand_search_products($brandArray, $catArray, $search) {
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">
@@ -1318,7 +1303,6 @@ function get_price_category_brand_search_products($catArray, $priceArray, $brand
                         <h4 class="card-title">
                             <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                         </h4>
-
                         <p class="card-text">{$row['product_short_description']}</p>
                     </div>
                     <div class="card-footer">

@@ -112,3 +112,9 @@ margin: 2px;
     border-color: green;
     color: white;
 }
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: white;
+}

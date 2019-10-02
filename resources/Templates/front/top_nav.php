@@ -15,7 +15,7 @@
 
 
                   <li>
-                      <a class="nav-link active" href="shop.php?">Shop</a>
+                      <a class="nav-link" href="shop.php?">Shop</a>
                   </li>
 
                 <?php if(isset($_SESSION['useraccount']))

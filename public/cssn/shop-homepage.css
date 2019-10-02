@@ -39,6 +39,10 @@ input[type=checkbox] {
     font-size: 1.25em;
 }
 
+.nav-link.active {
+    color: #1ddb1a!important;
+}
+
 
 .card {
         background-color: rgba(0, 0, 0, 0.52);

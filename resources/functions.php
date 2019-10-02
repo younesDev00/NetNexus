@@ -335,7 +335,7 @@ function signup_user()
 
                 $hashedpwd = password_hash($password,PASSWORD_DEFAULT);
                 $confirmcode = rand();
-                $query = query("INSERT INTO users(firstname, lastname, username, useremail, password, accounttype, confirmed, confirmcode) VALUES('{$firstname}', '{$lastname}', '{$username}','{$email}','{$password}','{$accounttype}', '0', '{$confirmcode}')");
+                $query = query("INSERT INTO users(firstname, lastname, username, useremail, password, accounttype, confirmed, confirmcode) VALUES('{$firstname}', '{$lastname}', '{$username}','{$email}','{$hashedpwd}','{$accounttype}', '0', '{$confirmcode}')");
                 confirm($query);
                 //$message =
                 //"

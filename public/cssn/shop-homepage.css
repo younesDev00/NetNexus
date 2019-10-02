@@ -118,3 +118,10 @@ margin: 2px;
     margin-bottom: 1rem;
     color: white;
 }
+
+b {
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    vertical-align:baseline;
+}

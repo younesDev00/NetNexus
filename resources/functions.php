@@ -456,7 +456,7 @@ function get_search($search)
                 echo $product;
             }
     }else {
-        echo "There are no products matching your search!";
+        echo "<b>There are no products matching your search!</b>";
     }
 
 }

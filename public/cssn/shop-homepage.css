@@ -62,3 +62,13 @@ a {
 a:hover {
   color: green;
 }
+
+.filter input[type=text] {
+ width: 99%;
+margin: 2px;
+}
+
+.filter input[type=submit] {
+
+margin: 2px;
+}

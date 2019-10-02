@@ -1,6 +1,6 @@
 
 <!--<div class="col-sm-4 col-md-6 col-lg-2" style="width:200px;overflow: hidden;">-->
-    <h3 class="sidebarheading">Shop by:</h3>
+    <h4 class="sidebarheading">Shop by:</h4>
     <form action="shop.php?" class="filter" method="get">
         <input type="text" placeholder="Search Products" name="search" >
         <h4>Category</h4>

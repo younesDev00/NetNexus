@@ -82,3 +82,8 @@ margin: 2px;
 
 margin: 2px;
 }
+
+.btn-primary:hover {
+    background-color: green;
+    border-color: green;
+}

@@ -6,17 +6,17 @@
 body {
   padding-top: 0px;
     background-image: url("backgroundgreen.png");
-    color: #fff;
+    color: #ffffff;
     font-family: "Copperplate";
 }
 
 
 h3 {
-  color: green;
+  color: #1ddb1a;
 }
 
 h4 {
-  color: green;
+  color: #1ddb1a;
 }
 
 input[type=checkbox] {
@@ -37,4 +37,28 @@ input[type=checkbox] {
 .card {
         background-color: rgba(0, 0, 0, 0.52);
 
+}
+
+a {
+    color: #1ddb1a;
+}
+
+.btn-primary {
+    background-color: #1ddb1a;
+    border-color: #1ddb1a;
+}
+
+.text-muted {
+    color: #ffffff!important;
+}
+
+.pb-5, .py-5 {
+    padding-bottom: 1rem!important;
+}
+.pt-5, .py-5 {
+    padding-top: 1rem!important;
+}
+
+a:hover {
+  color: green;
 }

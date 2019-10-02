@@ -121,7 +121,8 @@ margin: 2px;
 
 b {
     color: white;
-    font-size: 25px;
-    text-align: center;
-    vertical-align:baseline;
+    font-size: 30px;
+    margin: auto;
+    padding:90px;
+
 }

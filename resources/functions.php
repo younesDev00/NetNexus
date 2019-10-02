@@ -517,7 +517,7 @@ function get_search_price($search, $priceArray) {
 
     }
     else {
-        echo "There are no products matching your search!";
+        echo "<b>There are no products matching your search!</b>";
     }
 }
 
@@ -577,7 +577,7 @@ function get_search_category($search, $catArray) {
 
     }
     else {
-        echo "There are no products matching your search!";
+        echo "<b>There are no products matching your search!</b>";
     }
 }
 
@@ -637,7 +637,7 @@ function get_search_brand($search, $brandArray){
 
     }
     else {
-        echo "There are no products matching your search!";
+        echo "<b>There are no products matching your search!</b>";
     }
 }
 
@@ -690,7 +690,7 @@ function get_price_products($i)
                 echo $product;
             }
     } else {
-        echo "There are no products matching your search!";
+        echo "<b>There are no products matching your search!</b>";
     }
 }
 
@@ -745,7 +745,9 @@ function get_brand_products($i)
                 echo $product;
             }
     }else {
-        echo "There are no products matching your search!";
+
+            echo "<b>There are no products matching your search!</b>";
+
     }
 }
 
@@ -815,7 +817,7 @@ function get_price_category_products($catArray, $priceArray) {
                 echo $product;
             }
     }else {
-        echo "There are no products matching your search!";
+        echo "<b>There are no products matching your search!</b>";
     }
 }
 
@@ -886,7 +888,7 @@ function get_price_brand_products($priceArray, $brandArray){
                 echo $product;
             }
     } else {
-        echo "There are no products matching your search!";
+        echo "<b>There are no products matching your search!</b>";
     }
 }
 
@@ -954,7 +956,7 @@ function get_category_brand_products($catArray, $brandArray){
                 echo $product;
             }
     } else {
-        echo "There are no products matching your search!";
+        echo "<b>There are no products matching your search!</b>";
     }
 }
 
@@ -1036,7 +1038,7 @@ function get_price_category_brand_products($catArray, $priceArray, $brandArray) 
                 echo $product;
             }
     } else {
-        echo "There are no products matching your search!";
+        echo "<b>There are no products matching your search!</b>";
     }
 }
 
@@ -1104,7 +1106,7 @@ function get_price_category_search_products($catArray, $priceArray, $search) {
                 echo $product;
             }
     } else {
-        echo "There are no products matching your search!";
+        echo "<b>There are no products matching your search!</b>";
     }
 }
 
@@ -1171,7 +1173,7 @@ function get_price_brand_search_products($brandArray, $priceArray, $search) {
                 echo $product;
             }
     } else {
-        echo "There are no products matching your search!";
+        echo "<b>There are no products matching your search!</b>";
     }
 }
 function get_category_brand_search_products($brandArray, $catArray, $search) {
@@ -1237,7 +1239,7 @@ function get_category_brand_search_products($brandArray, $catArray, $search) {
                 echo $product;
             }
     } else {
-        echo "There are no products matching your search!";
+        echo "<b>There are no products matching your search!</b>";
     }
 }
 function get_price_category_brand_search_products($catArray, $priceArray, $brandArray, $search) {
@@ -1317,7 +1319,7 @@ function get_price_category_brand_search_products($catArray, $priceArray, $brand
                 echo $product;
             }
     } else {
-        echo "There are no products matching your search!";
+        echo "<b>There are no products matching your search!</b>";
     }
 }
 

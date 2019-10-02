@@ -34,6 +34,11 @@ input[type=checkbox] {
     font-size: 1.25em;
 }
 
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: green;
+    font-size: 1.25em;
+}
+
 
 .card {
         background-color: rgba(0, 0, 0, 0.52);

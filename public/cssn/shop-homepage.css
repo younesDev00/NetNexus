@@ -87,3 +87,28 @@ margin: 2px;
     background-color: green;
     border-color: green;
 }
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #f8f9fa;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #1ddb1a;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.btn:hover {
+    background-color: green;
+    border-color: green;
+    color: white;
+}

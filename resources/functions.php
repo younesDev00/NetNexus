@@ -412,7 +412,7 @@ function send_mail($email, $username, $confirmcode)
     $mail->Body    = "
                 Confirm Your Email!
                 Click the link below to verify your NetNexus account
-                http://192.168.64.2/shoppingtest/public/emailconfirmation.php?username=$username&code=$confirmcode
+                http://localhost:8080/shoppingtest/public/emailconfirmation.php?username=$username&code=$confirmcode
                 ";
     //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
     if(!$mail->send()) {

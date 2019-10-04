@@ -1376,7 +1376,7 @@ function display_orders()
             <td>{$row['order_curency']}</td>
             <td>{$row['order_status']}</td>
             <td>{$row['order_transaction']}</td>
-            <td><a class="btn btn-danger" href="{$del}id={$row['order_id']}&pr_id={$row['product_id']}"><span class="glyphicon glyphicon-remove">X</span></a></td>
+            <td><a class="btn btn-danger" href="{$del}id={$row['order_id']}&pr_id={$row['product_id']}"><span class="glyphicon ">X</span></a></td>
         </tr>
         DELIMETER;
         echo $orders;

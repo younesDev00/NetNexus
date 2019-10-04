@@ -52,7 +52,7 @@
 
                         <select name="accounttype">
                             <option value="buyer">Buyer</option>
-                            <option value="seller">Seller</option>
+<!--                            <option value="seller">Seller</option>-->
                         </select>
                 </div>
 

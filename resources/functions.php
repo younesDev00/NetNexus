@@ -1517,21 +1517,22 @@ function update_product()
     }
 }
 
-function display_users() {
+function display_users()
+{
 
 
-$category_query = query("SELECT * FROM users");
-confirm($category_query);
+    $category_query = query("SELECT * FROM users");
+    confirm($category_query);
 
 
-while($row = fetch_array($category_query)) {
+    while ($row = fetch_array($category_query)) {
 
-$user_id = $row['user_id'];
-$username = $row['username'];
-$email = $row['useremail'];
-$userType = $row['accounttype'];
+        $user_id = $row['user_id'];
+        $username = $row['username'];
+        $email = $row['useremail'];
+        $userType = $row['accounttype'];
 
-$user = <<<DELIMETER
+        $user = <<<DELIMETER
 
 
 <tr>
@@ -1540,21 +1541,21 @@ $user = <<<DELIMETER
      <td>{$email}</td>
      <td>{$userType}</td>
     <td><a class="btn btn-danger" href="../../resources/templates/back/delete_user.php?id={$row['user_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
+    <td><a class="btn btn-primary" href="../../resources/templates/back/upgrade_user.php?id={$row['user_id']}"><span class="glyphicon glyphicon-plus"></span></a></td>
 </tr>
 
 
 
 DELIMETER;
 
-echo $user;
-
+        echo $user;
 
 
     }
 
 
-
 }
+
 
 
 function add_user() {

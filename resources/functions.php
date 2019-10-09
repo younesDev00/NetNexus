@@ -152,17 +152,16 @@ function get_categories()
     }
 }
 
-function get_userid() {
-$sql = 'SELECT user_id FROM users WHERE username = "' . mysql_real_escape_string($username) . '"';
-$result = mysql_query($sql) or die('Error connecting to database');
-$user_id = mysql_result($result, 0, "user_id");
-}
 
 function show_recommended()
 {
-    $user_id = get_userid();
-    $query = query("SELECT * FROM reports WHERE purchaser_id = '{$user_id}'");
-    confirm($query);
+
+      if(isset($_SESSION['useraccount']))
+                {
+                    $query = query("SELECT * FROM reports WHERE purchaser_id = '{$_SESSION['useraccount'][3]}'");
+                    confirm($query);
+      }
+
 }
 
 

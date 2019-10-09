@@ -13,8 +13,8 @@
 <!--//purchaser name, product name, purchased price, purchased quantity, order amount, order currency, order status, order transaction-->
 
                 <tr>
-               <th>Purchased By</th>
-                    <th>Sold By</th>
+                <!--    <th>Purchased By</th>
+                    <th>Sold By</th> -->
                     <th>Product Type</th>
                     <th>Product Name</th>
                     <th>Product Image</th>
@@ -33,7 +33,7 @@
             </thead>
             <tbody>
 
-            <?php display_orders();  ?>
+            <?php buyer_display_orders();  ?>
 
             </tbody>
         </table>

@@ -81,7 +81,7 @@ function get_products()
         if($row['product_quantity'] > 0)
         {
             $product = <<<DELIMETER
-            <div class="col-sm-12 col-md-6 col-lg-4  ">
+            <div class="col-sm-12 col-md-6 col-lg-4 p-1">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">

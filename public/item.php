@@ -18,7 +18,7 @@ $id = escape_string($_GET['id']);
 
 
 
-        <div class="card mt-4">
+        <div class="card mt-4 p-5">
             <img class="card-img-top img-fluid" src="<?php echo "../resources/uploads/" . $row['product_image']?>" alt="">
             <div class="card-body">
                 <h3 class="card-title"><?php echo $row['product_title']?></h3>

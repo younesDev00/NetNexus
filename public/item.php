@@ -27,7 +27,7 @@ $id = escape_string($_GET['id']);
             </div>
             <div class="card-footer">
                 <small class="text-muted">
-                    <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                    <a class="btn btn-primary pull-left" href="../resources/cart.php?add=<?php echo $row['product_id']; ?>">Add To Cart</a>
                 </small>
             </div>
         </div>

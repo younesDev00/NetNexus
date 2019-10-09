@@ -14,7 +14,7 @@
 
                 <tr>
                     <th>Sold By</th>
-                    <th>Product Type</th>
+<!--                    <th>Product Type</th>-->
                     <th>Product Name</th>
                     <th>Product Image</th>
                     <th>Purchased Price</th>

@@ -35,7 +35,7 @@
                     if($_SESSION['useraccount'][1] == 'buyer')
                     {
                         echo '<li><a class="nav-link" href="user.php">Welcome <strong class="text-primary">' .$_SESSION['useraccount'][0] .'</strong> </a></li>';
-                        echo '<form style="padding:10px;float:left;" method="post"><li><a><input type="submit"  class="btn btn-danger" name="logout" value="logout"></a></li></form>' .signout() .' ';
+                        echo '<li><a class="nav-link" href="signout.php">Sign out <strong class="text-primary">';
         //                echo $_SESSION['useraccount'][1];
 
                     }else

@@ -81,7 +81,7 @@ function get_products()
         if($row['product_quantity'] > 0)
         {
             $product = <<<DELIMETER
-            <div class="col-sm-12 col-md-6 col-lg-4 p-1">
+            <div class="col-sm-12 col-md-6 col-lg-4  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -116,7 +116,7 @@ function get_categories_products($i)
         if($row['product_quantity'] > 0)
         {
             $product = <<<DELIMETER
-            <div class="col-sm-12 col-md-6 col-lg-4  p-1 ">
+            <div class="col-sm-12 col-md-6 col-lg-4 card  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -146,7 +146,7 @@ function get_categories()
     while($row = mysqli_fetch_array($query))
     {
         $categories = <<<DELIMETER
-            <input  type="checkbox" name="categories[]" value="{$row['cat_id']}" >{$row['cat_title']}<br />
+            <input  type="checkbox" class="ml-1"name="categories[]" value="{$row['cat_id']}" > {$row['cat_title']}<br />
         DELIMETER;
         echo $categories;
     }
@@ -437,7 +437,7 @@ function get_search($search)
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-12 col-md-6 col-lg-4  p-1 ">
+            <div class="col-sm-12 col-md-6 col-lg-4 card  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -495,7 +495,7 @@ function get_search_price($search, $priceArray) {
             {
                 $count++;
                 $product = <<<DELIMETER
-            <div class="col-sm-12 col-md-6 col-lg-4  p-1 ">
+            <div class="col-sm-12 col-md-6 col-lg-4 card  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -555,7 +555,7 @@ function get_search_category($search, $catArray) {
             {
                 $count++;
                 $product = <<<DELIMETER
-            <div class="col-sm-12 col-md-6 col-lg-4  p-1 ">
+            <div class="col-sm-12 col-md-6 col-lg-4 card  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -615,7 +615,7 @@ function get_search_brand($search, $brandArray){
             {
                 $count++;
                 $product = <<<DELIMETER
-            <div class="col-sm-12 col-md-6 col-lg-4  p-1 ">
+            <div class="col-sm-12 col-md-6 col-lg-4 card  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -650,7 +650,7 @@ function get_prices()
     while($row = mysqli_fetch_array($query))
     {
         $pricerange = <<<DELIMETER
-            <input type="checkbox" name="prices[]" value="{$row['price_id']}">{$row['price_range']}<br />
+            <input type="checkbox" class="ml-1" name="prices[]" value="{$row['price_id']}" > {$row['price_range']}<br />
         DELIMETER;
         echo $pricerange;
     }
@@ -671,7 +671,7 @@ function get_price_products($i)
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-12 col-md-6 col-lg-4  p-1 ">
+            <div class="col-sm-12 col-md-6 col-lg-4 card  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -704,7 +704,7 @@ function get_brands()
     while($row = mysqli_fetch_array($query))
     {
         $pricerange = <<<DELIMETER
-            <input type="checkbox" name="brands[]" value="{$row['brand_id']}">{$row['brand_name']}<br />
+            <input type="checkbox" class="ml-1"name="brands[]" value="{$row['brand_id']}" > {$row['brand_name']}<br />
         DELIMETER;
         echo $pricerange;
     }
@@ -726,7 +726,7 @@ function get_brand_products($i)
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-12 col-md-6 col-lg-4  p-1 ">
+            <div class="col-sm-12 col-md-6 col-lg-4 card  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -798,7 +798,7 @@ function get_price_category_products($catArray, $priceArray) {
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-           <div class="col-sm-12 col-md-6 col-lg-4  p-1 ">
+           <div class="col-sm-12 col-md-6 col-lg-4 card  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -869,7 +869,7 @@ function get_price_brand_products($priceArray, $brandArray){
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-12 col-md-6 col-lg-4  p-1 ">
+            <div class="col-sm-12 col-md-6 col-lg-4 card  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -937,7 +937,7 @@ function get_category_brand_products($catArray, $brandArray){
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-12 col-md-6 col-lg-4  p-1 ">
+            <div class="col-sm-12 col-md-6 col-lg-4 card  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -1019,7 +1019,7 @@ function get_price_category_brand_products($catArray, $priceArray, $brandArray) 
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-12 col-md-6 col-lg-4  p-1 ">
+            <div class="col-sm-12 col-md-6 col-lg-4 card  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -1087,7 +1087,7 @@ function get_price_category_search_products($catArray, $priceArray, $search) {
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-           <div class="col-sm-12 col-md-6 col-lg-4  p-1 ">
+           <div class="col-sm-12 col-md-6 col-lg-4 card  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -1154,7 +1154,7 @@ function get_price_brand_search_products($brandArray, $priceArray, $search) {
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-12 col-md-6 col-lg-4  p-1 ">
+            <div class="col-sm-12 col-md-6 col-lg-4 card  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -1220,7 +1220,7 @@ function get_category_brand_search_products($brandArray, $catArray, $search) {
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-12 col-md-6 col-lg-4  p-1 ">
+            <div class="col-sm-12 col-md-6 col-lg-4 card  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -1300,7 +1300,7 @@ function get_price_category_brand_search_products($catArray, $priceArray, $brand
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-12 col-md-6 col-lg-4  p-1 ">
+            <div class="col-sm-12 col-md-6 col-lg-4 card  p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">
@@ -1340,7 +1340,7 @@ function display_orders()
                         WHERE        (categories.cat_id = products.product_category_id) &&
                                      (products.seller_id = " . $_SESSION['useraccount'][3] ." )ORDER BY reports.order_id");
         confirm($query);
-        echo "ff";
+
     }else if( $_SESSION['useraccount'][1] == 'admin')
     {
         $query = query("SELECT *
@@ -1367,7 +1367,6 @@ function display_orders()
         $orders = <<<DELIMETER
         <tr>
             <td>{$row['seller_id']}</td>
-            <td>{$row['cat_title']}</td>
             <td>{$row['product_title']}</td>
             <td><img style="width:64px; height:64px;" src="{$up}/{$row['product_image']}" alt=""></td>
             <td>{$row['purchased_product_price']}</td>
@@ -1396,7 +1395,7 @@ function show_recommended()
             if($row['product_quantity'] > 0)
             {
                 $product = <<<DELIMETER
-            <div class="col-sm-6 col-lg-3 p-1 ">
+            <div class="col-sm-6 col-lg-3 p-3 ">
                 <div class="card h-100">
                     <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
                     <div class="card-body">

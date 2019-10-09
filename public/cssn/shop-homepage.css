@@ -9,7 +9,8 @@
 }
 body {
   padding-top: 0px;
-    background-image: linear-gradient(#0f0f0f 60%, #02330e);
+/*    background-image: linear-gradient(#0f0f0f 60%, #02330e);*/
+    background-color: #0f0f0f;
     color: #ffffff;
     font-family: "Copperplated";
 }
@@ -150,4 +151,16 @@ b {
 img.logo {
     -webkit-filter: drop-shadow(0px 0px black) drop-shadow(0px 0px black);
 	filter: drop-shadow(0px 0px black) drop-shadow(0px 0px black);
+}
+
+
+.card{
+    transition: 0.2s;
+    box-shadow: 0 1rem 2rem rgba(29,219,26,0.05)!important;
+}
+.card:hover{
+transform: scale(1.05,1.05);
+        box-shadow: 0 1rem 2rem rgba(29,219,26,0.2)!important;
+
+
 }

@@ -1390,7 +1390,7 @@ function show_recommended()
 
       if(isset($_SESSION['useraccount']))
                 {
-                    $query = query("SELECT * FROM reports WHERE purchaser_id = '.$_SESSION['useraccount'][3].'");
+                    $query = query("SELECT * FROM reports WHERE purchaser_id = ".$_SESSION['useraccount'][3]."");
                     confirm($query);
       }
 

@@ -1,7 +1,7 @@
   <nav class="navbar navbar-expand-md navbar-dark bg-dark ">
       <div class="container">
           <a class="navbar-brand mr-auto" href="index.php">
-             <img class= "logo" src="https://i.imgur.com/ZSOkliB.png" alt="">
+             <img class= "logo" src="https://i.imgur.com/1ES3zpz.png" alt="">
           </a>
 
 

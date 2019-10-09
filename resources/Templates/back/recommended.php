@@ -7,35 +7,20 @@
         <h4 class="bg-success"><?php display_message(); ?></h4>
     </div>
 
-    <div class="row">
-        <table class="table table-hover">
-            <thead>
-<!--//purchaser name, product name, purchased price, purchased quantity, order amount, order currency, order status, order transaction-->
+    <div class="container">
 
-                <tr>
-               <th>Purchased By</th>
-                    <th>Sold By</th>
-                    <th>Product Type</th>
-                    <th>Product Name</th>
-                    <th>Product Image</th>
-                    <th>Purchased Price</th>
-                    <th>Purchased Quantity</th>
-                    <th>Order ID</th>
-                    <th>Order Amount</th>
-                    <th>Order Currency</th>
-                    <th>Order Status</th>
-                    <th>Order Transaction Number</th>
-                    <th>Delete Order</th>
 
-<!--                    comming soon-->
-<!--                    <th>Order Date</th> -->
-                </tr>
-            </thead>
-            <tbody>
 
-            <?php display_orders();  ?>
 
-            </tbody>
-        </table>
-    </div>
+        <!--Row For Image and Short Description-->
+<div class="row"><?php show_recommended();?>
 </div>
+        <hr>
+        <!--Row for Tab Panel-->
+        <!--Row for Tab Panel-->
+
+    </div><!-- col-md9 ends here -->
+
+
+
+     </div>

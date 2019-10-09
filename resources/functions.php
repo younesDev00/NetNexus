@@ -1366,7 +1366,6 @@ function display_orders()
     {
         $orders = <<<DELIMETER
         <tr>
-            <td>{$row['username']}</td>
             <td>{$row['seller_id']}</td>
             <td>{$row['cat_title']}</td>
             <td>{$row['product_title']}</td>
@@ -1387,14 +1386,47 @@ function display_orders()
 
 function show_recommended()
 {
+                $query = query("SELECT * FROM products WHERE product_brand_id IN(SELECT brand_id FROM brands WHERE brand_id IN(SELECT product_brand_id FROM products WHERE product_id IN(SELECT product_id FROM reports WHERE purchaser_id IN(SELECT purchaser_id FROM reports WHERE purchaser_id IN(SELECT user_id FROM users WHERE user_id = " . $_SESSION['useraccount'][3] ."))))) limit 4");
+                confirm($query);
 
-      if(isset($_SESSION['useraccount']))
-                {
-                    $query = query("SELECT * FROM reports WHERE purchaser_id = ".$_SESSION['useraccount'][3]."");
-                    confirm($query);
-      }
+    $queryResult = mysqli_num_rows($query);
 
+       if ($queryResult > 0) {
+        while($row = fetch_array($query))
+            if($row['product_quantity'] > 0)
+            {
+                $product = <<<DELIMETER
+            <div class="col-sm-6 col-lg-3 p-1 ">
+                <div class="card h-100">
+                    <a href="item.php?id={$row['product_id']}"><img class="card-img-top" src="../resources/uploads/{$row['product_image']}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a   href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
+                        </h4>
+                    </div>
+                    <div class="card-footer">
+                    <small class="text-muted">
+                        <a class="btn btn-primary pull-left" href="../resources/cart.php?add={$row['product_id']}">Add To Cart</a>
+                        <h5 style="float:right">&#36;{$row['product_price']}</h5>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        DELIMETER;
+                echo $product;
+            }
+    } else {
+        echo "<b>You Have Not Made Any Purchases!</b>";
+    }
 }
+
+
+
+
+
+
+
+
 
 function buyer_display_orders()
 {

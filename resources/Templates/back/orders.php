@@ -13,7 +13,6 @@
 <!--//purchaser name, product name, purchased price, purchased quantity, order amount, order currency, order status, order transaction-->
 
                 <tr>
-               <th>Purchased By</th>
                     <th>Sold By</th>
                     <th>Product Type</th>
                     <th>Product Name</th>

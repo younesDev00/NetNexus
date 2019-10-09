@@ -8,7 +8,7 @@
         if(isset($_SESSION['useraccount']) && $_SESSION['useraccount'][1] == 'buyer'){
             //echo $_SESSION['useraccount'][0];
 
-            include(TEMPLATE_BACK . "/buyerorders.php");
+            include(TEMPLATE_BACK . "/orders.php");
             include(TEMPLATE_BACK . "/recommended.php");
 
 

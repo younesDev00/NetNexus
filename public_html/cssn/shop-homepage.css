@@ -1,0 +1,170 @@
+/*!
+ * Start Bootstrap - Shop Homepage (https://startbootstrap.com/template-overviews/shop-homepage)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-shop-homepage/blob/master/LICENSE)
+ */
+@font-face {
+  font-family: "Copperplated";
+  src: url("Copperplate.ttc");
+}
+body {
+  padding-top: 0px;
+/*    background-image: linear-gradient(#0f0f0f 60%, #02330e);*/
+    background-color: #0f0f0f;
+    color: #ffffff;
+    font-family: "Copperplated";
+}
+
+
+h3 {
+  color: #1ddb1a;
+}
+
+h4 {
+  color: #1ddb1a;
+}
+
+input[type=checkbox] {
+    box-sizing: border-box;
+
+    color: green;
+}
+
+.bg-dark {
+    background-color: #16181999!important;
+}
+
+img {
+  -webkit-filter: drop-shadow(2px 1px 0 white)
+                  drop-shadow(-1px -1px 0 white);
+  filter: drop-shadow(2px 1px 0 white)
+          drop-shadow(-1px -1px 0 white);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #1ddb1a;
+    font-size: 1.25em;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: green;
+    font-size: 1.25em;
+}
+
+.nav-link.active {
+    color: #1ddb1a!important;
+}
+
+
+.card {
+        background-color: rgba(0, 0, 0, 0.52);
+
+}
+
+a {
+    color: #1ddb1a;
+}
+
+.btn-primary {
+    background-color: #1ddb1a;
+    border-color: #1ddb1a;
+}
+
+.text-muted {
+    color: #ffffff!important;
+}
+
+.pb-5, .py-5 {
+    padding-bottom: 1rem!important;
+}
+.pt-5, .py-5 {
+    padding-top: 1rem!important;
+}
+
+a:hover {
+  color: green;
+}
+
+.filter input[type=text] {
+ width: 99%;
+margin: 2px;
+}
+
+.filter input[type=submit] {
+
+margin: 2px;
+}
+
+.btn-primary:hover {
+    background-color: green;
+    border-color: green;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #f8f9fa;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #1ddb1a;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.btn:hover {
+    background-color: green;
+    border-color: green;
+    color: white;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+b {
+    color: white;
+    font-size: 30px;
+    margin: auto;
+    padding:90px;
+
+}
+
+.table-hover tbody tr:hover {
+    color: white;
+    background-color: rgba(255,255,255,.2);
+}
+
+.text-primary {
+    color: white!important;
+}
+
+img.logo {
+    -webkit-filter: drop-shadow(0px 0px black) drop-shadow(0px 0px black);
+	filter: drop-shadow(0px 0px black) drop-shadow(0px 0px black);
+}
+
+
+.card-body{
+    background-color: #262626;
+}
+
+.card{
+    transition: 0.2s;
+    box-shadow: 0 1rem 2rem rgba(29,219,26,0.05)!important;
+}
+.card:hover{
+transform: scale(1.05,1.05);
+        box-shadow: 0 1rem 2rem rgba(29,219,26,0.2)!important;
+
+
+}

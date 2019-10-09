@@ -33,7 +33,7 @@
             </thead>
             <tbody>
 
-            <?php display_orders();  ?>
+            <?php show_recommended();  ?>
 
             </tbody>
         </table>

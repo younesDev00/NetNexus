@@ -9,6 +9,9 @@
             //echo $_SESSION['useraccount'][0];
 
             include(TEMPLATE_BACK . "/buyerorders.php");
+            include(TEMPLATE_BACK . "/recommended.php");
+
+
 
 
         }else

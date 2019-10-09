@@ -153,16 +153,7 @@ function get_categories()
 }
 
 
-function show_recommended()
-{
 
-      if(isset($_SESSION['useraccount']))
-                {
-                    $query = query("SELECT * FROM reports WHERE purchaser_id = '{$_SESSION['useraccount'][3]}'");
-                    confirm($query);
-      }
-
-}
 
 
 
@@ -1392,6 +1383,17 @@ function display_orders()
         DELIMETER;
         echo $orders;
     }
+}
+
+function show_recommended()
+{
+
+      if(isset($_SESSION['useraccount']))
+                {
+                    $query = query("SELECT * FROM reports WHERE purchaser_id = '.$_SESSION['useraccount'][3].'");
+                    confirm($query);
+      }
+
 }
 
 function buyer_display_orders()

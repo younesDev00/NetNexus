@@ -155,6 +155,8 @@ function get_categories()
 
 
 
+
+
 function  get_shop_products()
 {
     if (isset($_GET['formSubmit'])) {
@@ -1364,7 +1366,7 @@ function display_orders()
     {
         $orders = <<<DELIMETER
         <tr>
-            <td>{$row['user_id']}</td>
+            <td>{$row['username']}</td>
             <td>{$row['seller_id']}</td>
             <td>{$row['cat_title']}</td>
             <td>{$row['product_title']}</td>
@@ -1376,7 +1378,74 @@ function display_orders()
             <td>{$row['order_curency']}</td>
             <td>{$row['order_status']}</td>
             <td>{$row['order_transaction']}</td>
-            <td><a class="btn btn-danger" href="{$del}id={$row['order_id']}&pr_id={$row['product_id']}"><span class="glyphicon glyphicon-remove">X</span></a></td>
+            <td><a class="btn btn-danger" href="{$del}id={$row['order_id']}&pr_id={$row['product_id']}"><span class="glyphicon ">X</span></a></td>
+        </tr>
+        DELIMETER;
+        echo $orders;
+    }
+}
+
+function show_recommended()
+{
+
+      if(isset($_SESSION['useraccount']))
+                {
+                    $query = query("SELECT * FROM reports WHERE purchaser_id = ".$_SESSION['useraccount'][3]."");
+                    confirm($query);
+      }
+
+}
+
+function buyer_display_orders()
+{
+    $up = "../../resources/uploads";
+    $del = "../../resources/templates/back/delete_order.php?";
+    if($_SESSION['useraccount'][1] == 'seller'  )
+    {
+        $query = query("SELECT *
+                        FROM categories, reports INNER JOIN orders ON reports.order_id = orders.order_id
+                                     INNER JOIN products ON reports.product_id = products.product_id
+                                     INNER JOIN users ON reports.purchaser_id = users.user_id
+                        WHERE        (categories.cat_id = products.product_category_id) &&
+                                     (products.seller_id = " . $_SESSION['useraccount'][3] ." )ORDER BY reports.order_id");
+        confirm($query);
+        echo "ff";
+    }else if( $_SESSION['useraccount'][1] == 'admin')
+    {
+        $query = query("SELECT *
+                        FROM categories, reports INNER JOIN orders ON reports.order_id = orders.order_id
+                                     INNER JOIN products ON reports.product_id = products.product_id
+                                     INNER JOIN users ON reports.purchaser_id = users.user_id
+                        WHERE categories.cat_id = products.product_category_id
+                        ORDER BY  reports.order_id");
+        confirm($query);
+    }else if($_SESSION['useraccount'][1] == 'buyer')
+    {
+        $query = query("SELECT *
+                        FROM categories, reports INNER JOIN orders ON reports.order_id = orders.order_id
+                                     INNER JOIN products ON reports.product_id = products.product_id
+                                     INNER JOIN users ON reports.purchaser_id = users.user_id
+                        WHERE        (categories.cat_id = products.product_category_id) &&
+                                     (reports.purchaser_id =  " .$_SESSION['useraccount'][3].") ");
+        confirm($query);
+        $up = "../resources/uploads";
+        $del = "../resources/templates/back/delete_order.php?";
+    }
+    while($row = fetch_array($query))
+    {
+        $orders = <<<DELIMETER
+        <tr>
+            <td>{$row['cat_title']}</td>
+            <td>{$row['product_title']}</td>
+            <td><img style="width:64px; height:64px;" src="{$up}/{$row['product_image']}" alt=""></td>
+            <td>{$row['purchased_product_price']}</td>
+            <td>{$row['purchased_quantity']}</td>
+            <td>{$row['order_id']}</td>
+            <td>{$row['order_amt']}</td>
+            <td>{$row['order_curency']}</td>
+            <td>{$row['order_status']}</td>
+            <td>{$row['order_transaction']}</td>
+            <td><a class="btn btn-danger" href="{$del}id={$row['order_id']}&pr_id={$row['product_id']}"><span class="glyphicon ">X</span></a></td>
         </tr>
         DELIMETER;
         echo $orders;
@@ -1517,21 +1586,22 @@ function update_product()
     }
 }
 
-function display_users() {
+function display_users()
+{
 
 
-$category_query = query("SELECT * FROM users");
-confirm($category_query);
+    $category_query = query("SELECT * FROM users");
+    confirm($category_query);
 
 
-while($row = fetch_array($category_query)) {
+    while ($row = fetch_array($category_query)) {
 
-$user_id = $row['user_id'];
-$username = $row['username'];
-$email = $row['useremail'];
-$userType = $row['accounttype'];
+        $user_id = $row['user_id'];
+        $username = $row['username'];
+        $email = $row['useremail'];
+        $userType = $row['accounttype'];
 
-$user = <<<DELIMETER
+        $user = <<<DELIMETER
 
 
 <tr>
@@ -1540,21 +1610,21 @@ $user = <<<DELIMETER
      <td>{$email}</td>
      <td>{$userType}</td>
     <td><a class="btn btn-danger" href="../../resources/templates/back/delete_user.php?id={$row['user_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
+    <td><a class="btn btn-primary" href="../../resources/templates/back/upgrade_user.php?id={$row['user_id']}"><span class="glyphicon glyphicon-plus"></span></a></td>
 </tr>
 
 
 
 DELIMETER;
 
-echo $user;
-
+        echo $user;
 
 
     }
 
 
-
 }
+
 
 
 function add_user() {

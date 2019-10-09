@@ -10,7 +10,7 @@
 
                         </p>
 
-                        <a href="index.php?add_user" class="btn btn-primary">Add User (DEVELOPMENT ONLY)</a>
+<!--                        <a href="index.php?add_user" class="btn btn-primary">Add User (DEVELOPMENT ONLY)</a>-->
 
 
                         <div class="col-md-12">
@@ -22,6 +22,8 @@
                                         <th>Username</th>
                                         <th>Email</th>
                                         <th>Type</th>
+                                        <th>Delete</th>
+                                        <th>Upgrade to seller</th>
 
                                     </tr>
                                 </thead>

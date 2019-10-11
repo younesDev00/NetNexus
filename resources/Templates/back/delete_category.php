@@ -9,12 +9,12 @@ confirm($query);
 
 
 set_message("Category Deleted");
-redirect("../../../public/admin/index.php?categories");
+redirect("/admin/index.php?categories");
 
 
 } else {
 
-redirect("../../../public/admin/index.php?categories");
+redirect("/public/admin/index.php?categories");
 
 
 }

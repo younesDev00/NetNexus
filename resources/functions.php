@@ -114,6 +114,7 @@ confirm($query);
 delimiter($query);
 
 }
+
 function get_categories_products($i)
 {
 $a = $_GET['categories'];
@@ -267,7 +268,7 @@ $arr = array($accarr['firstname'], $accarr['accounttype'],$accarr['username'],$a
 $_SESSION['useraccount'] = $arr;
 if($accarr['accounttype'] == 'buyer')
 {
-redirect("user.php?user_id={$accarr['user_id']}&accounttype={$accarr['accounttype']}");
+redirect("index.php");
 }
 else if($accarr['accounttype'] == 'seller')
 {

@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                             <div class="clearfix"></div>
-                            <div class="col-lg-12 text-center">
+                            <div class="col-lg-12 text-center p-3">
                                 <div id="success"></div>
                                 <button name="submit" type="submit" class="btn btn-xl">Send Message</button>
                             </div>
